@@ -1,7 +1,8 @@
 {
+    "name": "microquest-demo",
+    "description": "A short description of what your package does",
     "require": {
-        "monolog/monolog": "2.0.*"
+        "php": ">=7.4",
+        "another-vendor/package": "1.*"
     }
-
-
-}  
+}
