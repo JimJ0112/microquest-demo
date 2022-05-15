@@ -11,6 +11,6 @@
     <title> microQuest - Home </title>
 </head>
 <body>
-    <?php include "Includes/LogOut_Navbar.inc.php"?>
+    <?php require "Includes/LogOut_Navbar.inc.php"?>
 </body>
 </html>
