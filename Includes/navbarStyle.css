@@ -1,0 +1,105 @@
+body{
+    margin:0;
+    padding:0;
+  
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+a{
+    text-decoration: none;
+    
+}
+
+ul{
+    padding: 0;
+    margin: 0;
+}
+.navbar{
+    width: 99.5%;
+    height: 40px;
+    outline: auto;
+    display: inline-block;
+    text-align: right;
+    padding-right: 5px;
+  
+}
+
+.navitem{
+    list-style-type: none;
+    display: inline-block;
+    margin-left: 1%;
+    margin-right: 0;
+    height: 40px;
+    width: fit-content;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding: auto;
+    background-color: aquamarine;
+    text-align: center;
+  
+}
+
+.navitem-content{
+    display: inline-block;
+    height: 95%;
+    padding-left: 5px;
+    padding-right: 5px;
+    
+    color:red;
+}
+
+/*hiding mobile design components*/
+.mobile-navbar{
+    display: none;
+}
+
+/*Mobile devices layout*/
+@media only screen and (max-width: 500px) {
+
+    body {
+      background-color: lightblue;
+    }
+
+    .navbar{
+        display: none;
+    }
+
+    /* nav bar hamburger menu*/
+    .mobile-navbar{
+        display: grid;
+        border: 1px solid black;
+        width: 100%;
+    }
+
+    #hamburger-button{
+        border: 1px solid black;
+        width: fit-content;
+        padding: 5px;
+      
+    }
+    .hamburger-buttonline{
+        width: 35px;
+        height: 5px;
+        background-color: black;
+        margin: 6px;
+    }
+
+
+    #hamburger-menu{
+        display: none;
+        border: 100%;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: brown;
+        z-index: 5;
+        text-align: center;
+        
+    }
+
+ 
+
+
+
+
+  }

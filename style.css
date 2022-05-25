@@ -1,0 +1,112 @@
+body{
+    margin:0;
+    padding:0;
+    z-index: 0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+
+}
+
+
+/* Create service form */
+#otherCategoriesForm{
+    display: none;
+}
+#pasabuyForm{
+    display: none;
+}
+#regularServicesForm{
+    display: inline;
+}
+
+/*Login form*/
+#loginForm{
+    text-align: center;
+    outline:auto;
+    width: 300px;
+    height: 600px;
+    padding: 10px;
+    margin: auto;
+
+}
+.textbox{
+    
+}
+.Button{
+
+}
+
+/*Responder Home*/
+
+#HomeContent{
+    display: grid;
+    outline: auto;
+    margin: 0;
+    padding: 10px;
+    align-content: center;
+    grid-template-columns: auto auto auto;
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+    width: 98.5%;
+    grid-template-areas: "requestboard  services servicerequests";
+    position:absolute;
+    height: 100%;
+}
+
+.HomeContent_Button{
+    outline: auto;
+    height: 200px;
+    width: auto;
+    text-align: center;
+    padding: auto;
+    margin: 0;
+   
+    border-radius: 10px;
+    cursor: pointer;
+   
+}
+
+.HomeContent_Button:nth-child(1){
+    grid-area: "requestboard";
+    
+}
+
+.HomeContent_Button:nth-child(2){
+    grid-area: "services";
+}
+
+.HomeContent_Button:nth-child(3){
+    grid-area: "servicerequests";
+}
+
+/* Avail Services */
+
+#AvailServiceContent{
+    display: grid;
+    outline: auto;
+    margin: 0;
+    padding: 10px;
+    align-content: center;
+    grid-template-columns: auto auto auto auto;
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+    width: 98.5%;
+    position:absolute;
+    height: 25%;
+}
+
+.AvailServiceContent_Button{
+    outline: auto;
+    height: 150px;
+    width: auto;
+    text-align: center;
+    padding: auto;
+    margin: 0;
+    margin-top: 0;
+   
+    border-radius: 10px;
+    cursor: pointer;
+   
+}
+
+
