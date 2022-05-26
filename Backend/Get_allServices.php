@@ -5,7 +5,10 @@ $DBHandler = new DBHandler();
 
 // $_POST['condition'];
 
-$categories = $DBHandler->getOtherServices();
+$tablename = "servicesinfo";
+$column = "serviceStatus";
+$condition ="";
+$categories = $DBHandler->getServices($tablename,$column,$condition,'serviceCategory');
 
 
     echo json_encode($categories);

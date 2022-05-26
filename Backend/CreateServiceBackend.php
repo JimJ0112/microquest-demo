@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../Classes/DBHandler.php";
 
 $DBHandler = new DBHandler();
@@ -45,7 +46,7 @@ $formType = $_POST["formType"];
 
     }
 
-    header("location:../User_Profile");
+    header("location:../User_Profile.php");
 
 
 }

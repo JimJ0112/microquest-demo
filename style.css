@@ -81,7 +81,7 @@ body{
 
 /* Avail Services */
 
-#AvailServiceContent{
+#AvailServiceNav{
     display: grid;
     outline: auto;
     margin: 0;
@@ -91,11 +91,11 @@ body{
     grid-column-gap: 30px;
     grid-row-gap: 30px;
     width: 98.5%;
-    position:absolute;
+  
     height: 25%;
 }
 
-.AvailServiceContent_Button{
+.AvailServiceNav_Button{
     outline: auto;
     height: 150px;
     width: auto;
@@ -107,6 +107,25 @@ body{
     border-radius: 10px;
     cursor: pointer;
    
+}
+
+#AvailServiceContent{
+    display: grid;
+   
+    padding: 10px;
+    grid-template-columns: auto auto auto auto;
+    grid-row-gap: 20px;
+
+    width: 98.5%;
+    height: 100%;
+}
+
+.serviceCard{
+    outline: auto;
+    height: 150px;
+    width: 70%;
+    cursor: pointer;
+    text-overflow: ellipsis;
 }
 
 

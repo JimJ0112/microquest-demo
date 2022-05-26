@@ -337,7 +337,7 @@ public function getServices($tablename,$column,$condition,$orderby = null){
     
    
     if(isset($orderby)){
-        $query = "SELECT * FROM $tablename WHERE $column = '$condition' ORDER BY $orderby";
+        $query = "SELECT * FROM $tablename WHERE $column = '$condition' GROUP BY $orderby";
     }else{
         $query = "SELECT * FROM $tablename WHERE $column = '$condition'";
     }
@@ -374,7 +374,7 @@ public function getServices($tablename,$column,$condition,$orderby = null){
   
 }
 
-// get Services row 
+// get other Services row 
 public function getOtherServices(){
     $tablename = "servicesinfo";
     $column = "serviceCategory";

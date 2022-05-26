@@ -20,7 +20,7 @@ session_start();
     <script src="Scripts/getServicesScript.js"> </script>
     <title> Avail Service </title>
 </head>
-<body>
+<body onload="getServices()">
     <?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
@@ -31,27 +31,48 @@ session_start();
             }
         }
 
-            echo $_SESSION["userEmail"]."<br/>";
-            echo $_SESSION["userType"]."<br/>"; 
-            echo $_SESSION["userStatus"]."<br/>";
+
       
 
 
 
     ?>
 
-    <center>
-    <div id="AvailServiceContent"> 
 
-         <div class="AvailServiceContent_Button" onclick="getPositions('Home Service')"> Home Services </div> 
-         <div class="AvailServiceContent_Button" onclick=""> Pasabuy </div>
-         <div class="AvailServiceContent_Button" onclick="getPositions('Computer related work')"> Computer Related</div>
-         <div class="AvailServiceContent_Button" onclick="getOtherPositions()"> Other </div>
+
+<center>
+<h2> Avail Services </h2>
+    <br/>
+        <div>
+            <form method="GET" action="Backend/Get_products.php"> 
+                Search <input type="Search" name="q">
+            </form>
+        <div>
+    <br/>
+</center>
+    
+<!--
+    <div id="AvailServiceNav"> 
+
+         <div class="AvailServiceNav_Button" onclick="getPositions('Home Service')"> Home Services </div> 
+         <div class="AvailServiceNav_Button" onclick="getProducts()"> Pasabuy </div>
+         <div class="AvailServiceNav_Button" onclick="getPositions('Computer related work')"> Computer Related</div>
+         <div class="AvailServiceNav_Button" onclick="getOtherPositions()"> Other </div>
         
 
-
     </div>
-    </center>
+-->
+    <br/>
+    <h3 id="selectedCategory"> What service do you need? </h3>
+
+    <div id="AvailServiceContent">
+        
+    </div>
+
+    
+
+
+
 
 
 
