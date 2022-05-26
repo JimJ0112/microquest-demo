@@ -463,6 +463,52 @@ public function getOtherServices(){
   
 }
 
+
+// get responders based on their services and location
+
+
+public function getResponders($position,$municipality){
+
+    $position= mysqli_real_escape_string($this->dbconnection, $position);
+    $municipality = mysqli_real_escape_string($this->dbconnection, $municipality);
+
+    
+   
+
+    $query = "SELECT servicesinfo.responderID, userprofile.userName FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality = '$municipality' ";
+   
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+  
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+
+
+                
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
+
 /*---------------------------------UPDATE FUNCTIONS----------------------------------------------------- */
 
 // update columns 

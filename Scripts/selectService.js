@@ -134,8 +134,44 @@ function setData(array){
     var serviceCard = document.getElementsByClassName("serviceCard");
     for(var i = 0; i<number;i++){
         serviceCard[i].innerText = dataArray[i];
-        serviceCard[i].setAttribute("onclick","selectCategory('" + dataArray[i] + "')");
+        serviceCard[i].setAttribute("onclick","getsuggestedResponders('" + dataArray[i] + "')");
 
     }
 
 }
+
+// get suggested resopnders
+
+// gets data from php 
+function getsuggestedResponders(position){
+    var position = position;
+    var municipality = sessionStorage.getItem('municipality');
+    
+    var xmlhttp = new XMLHttpRequest();
+    
+    query = "position=" + position + "&municipality=" + municipality;
+    console.log(query)
+
+    xmlhttp.open("POST", "Backend/SuggestResponders.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onload = function() {
+        if (this.readyState === 4 || this.status === 200){ 
+           
+
+
+
+            var dataArray = this.response;
+            dataArray = JSON.parse(dataArray);
+            console.log(dataArray);
+            document.write(this.response);
+           
+
+     
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send(query);
+    
+}// end of function

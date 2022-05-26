@@ -3,6 +3,12 @@ session_start();
     if(!isset($_SESSION["userEmail"])){
         header("location:LoginForm.php?msg=Please Login First");
     }
+
+    if(isset($_SESSION["municipality"])){
+        $municipality = $_SESSION["municipality"];
+
+        echo"<script> sessionStorage.setItem('municipality','$municipality')</script>";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +69,7 @@ session_start();
 
             
                 Search for Responder <input type="Search" name="q">
-                <input type="text" name="myLocation">
+                <input type="text" name="myLocation" id="myLocation">
 
 
         <div id="RespondersContent">
