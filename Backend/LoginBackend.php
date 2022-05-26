@@ -14,6 +14,8 @@ if($verify){
     $usertype = $DBHandler ->getData("userprofile","userEmail",$email,"userType");
     $approvalstatus = $DBHandler ->getData("userprofile","userEmail",$email,"userStatus");
     $username = $DBHandler-> getData("userprofile","userEmail",$email,"userName");
+    $municipality = $DBHandler-> getData("userprofile","userEmail",$email,"municipality");
+    $baranggay = $DBHandler-> getData("userprofile","userEmail",$email,"baranggay");
     
 
     //$DBHandler-> updateColumn("userprofile","userStatus","online","userEmail",$email);
@@ -27,8 +29,8 @@ if($verify){
     $_SESSION['userName'] = $username;
     $_SESSION["userType"] = $usertype;
     $_SESSION["userStatus"] = $userstatus;
-    $_SESSION["municipality"]
-    $_SESSION["baranggay"]
+    $_SESSION["municipality"] = $municipality;
+    $_SESSION["baranggay"] = $baranggay;
 
     //$_SESSION["approvalstatus"] = $approvalstatus;
     header("location: ../User_Profile.php");
