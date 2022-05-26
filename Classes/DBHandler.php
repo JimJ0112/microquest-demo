@@ -233,6 +233,52 @@ public function getRow($tablename,$column,$condition,$orderby = null){
 }
 
 
+// get Rows 
+public function getCategories($tablename,$column,$condition,$groupby = null){
+    $tablename = mysqli_real_escape_string($this->dbconnection, $tablename);
+    $column = mysqli_real_escape_string($this->dbconnection, $column);
+    $condition = mysqli_real_escape_string($this->dbconnection, $condition);
+    
+   
+    if(isset($groupby)){
+        $query = "SELECT * FROM $tablename WHERE $column = '$condition' GROUP BY $groupby";
+    }else{
+        $query = "SELECT * FROM $tablename WHERE $column = '$condition'";
+    }
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+  
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+
+                
+                $file = 'data:image/image/png;base64,'.base64_encode($row['certificateFile']);
+                $row['certificateFile'] = $file;
+                
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
+
 // getting user row from users table
 public function getUserRow($tablename,$column,$condition){
     $tablename = mysqli_real_escape_string($this->dbconnection, $tablename);

@@ -4,10 +4,10 @@ require("../Classes/DBHandler.php");
 $DBHandler = new DBHandler();
 
 
-$tablename = "categories";
-$column = "categoryStatus";
+$tablename = "servicesinfo";
+$column = "serviceStatus";
 $condition = "";
-$categories = $DBHandler->getRow($tablename,$column,$condition,'categoryName');
+$categories = $DBHandler-> getCategories($tablename,$column,$condition,'serviceCategory');
 
 
      echo json_encode($categories);

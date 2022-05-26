@@ -8,7 +8,7 @@ $DBHandler = new DBHandler();
 $tablename = "servicesinfo";
 $column = "serviceCategory";
 $condition = $_POST['condition'];
-$categories = $DBHandler->getServices($tablename,$column,$condition);
+$categories = $DBHandler->getServices($tablename,$column,$condition,'servicePosition');
 
 
     echo json_encode($categories);

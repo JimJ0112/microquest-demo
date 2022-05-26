@@ -59,6 +59,7 @@ function addOptions(array){
 
     var number = dataArray.length;
     var select = document.getElementById("categoryPicker");
+    var positions = document.getElementById("servicePositionDropDown");
     var j;
 
     for(var i = 0; i<= number; i++){
@@ -66,15 +67,22 @@ function addOptions(array){
 
   
 
-      if(dataArray[i]['categoryName'] != dataArray[j]['categoryName']){
+      
 
         var option = document.createElement("option");
-        option.text = dataArray[i]['categoryName'];
-        option.value = dataArray[i]['categoryName'];
+        var positionOption = document.createElement("option");
+
+        option.text = dataArray[i]['serviceCategory'];
+        option.value = dataArray[i]['serviceCategory'];
+
+        positionOption.text = dataArray[i]['servicePosition'];
+        positionOption.value = dataArray[i]['servicePosition'];
+
+
 
         select.add(option);
-      }
-    
+        positions.add(positionOption);
+      
     }
 
 

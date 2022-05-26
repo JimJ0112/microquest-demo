@@ -64,7 +64,7 @@ if(!isset($_SESSION["userID"])){
             <tr>
                 <td> Service Position </td>
                 <td> 
-                    <select name="servicePosition">
+                    <select name="servicePosition" id="servicePositionDropDown">
                     <option value="Delivery"> Delivery </option>
                     </select>
                 </td>
@@ -108,7 +108,7 @@ if(!isset($_SESSION["userID"])){
             <tr>
                 <td> Service Position </td>
                 <td> 
-                    <select name="servicePosition">
+                    <select name="servicePosition" id="servicePositionDropDown">
                         <option value="Grocery"> Grocery </option>
                         <option value="FastFood"> FastFood </option>
                     </select>

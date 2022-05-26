@@ -27,6 +27,9 @@ if($verify){
     $_SESSION['userName'] = $username;
     $_SESSION["userType"] = $usertype;
     $_SESSION["userStatus"] = $userstatus;
+    $_SESSION["municipality"]
+    $_SESSION["baranggay"]
+
     //$_SESSION["approvalstatus"] = $approvalstatus;
     header("location: ../User_Profile.php");
 

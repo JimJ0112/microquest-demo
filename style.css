@@ -129,3 +129,10 @@ body{
 }
 
 
+/*Select service*/
+#AvailServiceForm{
+    outline: auto;
+    display: none;
+    width: fit-content;
+}
+
