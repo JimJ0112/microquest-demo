@@ -218,6 +218,11 @@ function selectCategory(string){
 
     var category = string;
     sessionStorage.setItem("selectedCategory",category);
-    location.href= "SelectService.php?category=" + category;
+
+    if(category != "Pasabuy"){
+        location.href= "SelectService.php?category=" + category;
+    } else {
+        location.href= "PasabuyService.php?category=" + category;
+    }
 
 }

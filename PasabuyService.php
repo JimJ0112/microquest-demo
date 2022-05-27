@@ -23,10 +23,11 @@ session_start();
     
     <link rel="stylesheet" href="style.css">
 
-    <script src="Scripts/selectService.js"> </script>
-    <title> Avail Service </title>
+    <script src="Scripts/pasabuy.js"> </script>
+    <title> Pasabuy </title>
 </head>
-<body onload="setSelectedCategory()">
+
+<body onload="getProducts()">
     <?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
@@ -47,10 +48,10 @@ session_start();
 
 
 <center>
-<h2 id="selectedCategory">  </h2>
+    <h2 id="selectedCategory" onload="">  </h2>
     <br/>
 
-            <form method="GET"> 
+            <form method="GET" action="Backend/Get_products.php"> 
                 Search <input type="Search" name="q">
             </form>
 
@@ -59,9 +60,14 @@ session_start();
     
 
     <br/>
-    <h3> What service do you need? </h3>
+    <h3> Products From </h3>
 
-    <div id="AvailServiceContent">
+    <div id="productCategories">
+        
+    </div>
+    <h5> Products </h5>
+    <div id="products">
+ 
         
     </div>
 

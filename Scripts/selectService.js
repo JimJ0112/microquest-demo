@@ -1,8 +1,10 @@
 var selectedCategory = sessionStorage.getItem("selectedCategory");
+var loc = sessionStorage.getItem("municipality");
 function setSelectedCategory(){
 
     var selected = document.getElementById("selectedCategory");
     selected.innerText = selectedCategory;
+    document.getElementById('myLocation').value=loc;
 
     getPositions(selectedCategory);
 }
@@ -23,6 +25,7 @@ function getPositions(name){
         if (this.readyState === 4 || this.status === 200){ 
            
             document.getElementById("AvailServiceContent").innerHTML = "";
+            
             
             selectedCategory = document.getElementById("selectedCategory");
             AvailServiceFormCategory = document.getElementById("Category");
@@ -158,13 +161,24 @@ function getsuggestedResponders(position){
         if (this.readyState === 4 || this.status === 200){ 
            
 
-
+           
+            // refresh the div to avoid duplication in appending
+             document.getElementById("SuggestedResponders").innerHTML ="";
+             document.getElementById("Responders").style.display="block";
 
             var dataArray = this.response;
-            dataArray = JSON.parse(dataArray);
-            console.log(dataArray);
-            document.write(this.response);
-           
+
+            if(dataArray === "No responders near you for this service"){
+
+                document.write(dataArray);
+            } else{
+                dataArray = JSON.parse(dataArray);
+                console.log(dataArray);
+                // document.write(this.response);
+                var number = dataArray.length
+                createSuggestedRespondersElements(number);
+                setResponderData(dataArray);
+            }
 
      
         }else{
@@ -175,3 +189,85 @@ function getsuggestedResponders(position){
     xmlhttp.send(query);
     
 }// end of function
+
+
+// create elements for responders to be appended 
+function createSuggestedRespondersElements(Number){
+ 
+    DataNumber = Number;
+    div = document.getElementById("SuggestedResponders");
+    
+   
+    
+    for(var i = 0;i<DataNumber;i++){
+    
+    // create elements for rows
+    var card = document.createElement('div');
+
+
+    var ID = document.createElement('td');
+    var name = document.createElement('td');
+    var municipality = document.createElement('td');
+    var rate = document.createElement('td');
+    var selectButton = document.createElement('button');
+    var viewProfile = document.createElement('button');
+    
+
+
+
+    // set attributes
+    selectButton.innerText = "Select";
+    viewProfile.innerText = "View Profile";
+    card.setAttribute('class','responderCard');
+    ID.setAttribute('class','responderID');
+    name.setAttribute('class','responderName');
+    municipality.setAttribute('class','responderMunicipality');
+    rate.setAttribute('class','responderRate');
+
+
+    // append elements to the row
+    card.appendChild(ID);
+    card.appendChild(name);
+    card.appendChild(municipality);
+    card.appendChild(rate);
+    card.appendChild(selectButton);
+    card.appendChild(viewProfile);
+
+
+    div.append(card);
+
+    } 
+    
+    
+} // end of function
+
+
+// set suggested responders data 
+function setResponderData(array){
+
+    var dataArray = array;
+    var number = dataArray.length;
+
+    var responderCard = document.getElementsByClassName("responderCard");
+
+    var ID= document.getElementsByClassName('responderID');
+    var name= document.getElementsByClassName('responderName');
+    var municipality= document.getElementsByClassName('responderMunicipality');
+    var rate= document.getElementsByClassName('responderRate');
+   // var selectButton.innerText = "Select";
+   //var viewProfile.innerText = "View Profile";
+
+    for(var i = 0; i<number;i++){
+        //serviceCard[i].innerText = dataArray[i];
+        //serviceCard[i].setAttribute("onclick","getsuggestedResponders('" + dataArray[i] + "')");
+
+        ID[i].innerText = dataArray[i]['responderID'];
+        name[i].innerText = dataArray[i]['userName'];
+        municipality[i].innerText = dataArray[i]['municipality'];
+        rate[i].innerText = dataArray[i]['rate'];
+        
+        
+
+    }
+
+}

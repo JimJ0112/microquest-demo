@@ -65,6 +65,8 @@ if($exists){
                 
                 $_SESSION["userEmail"] = $userEmail;
                 $_SESSION["userType"] = $userType; 
+                $_SESSION["userName"] = $userName;
+                $_SESSION["municipality"] = $municipality;
                 $userStatus = $DBHandler-> getData("userprofile","userEmail",$userEmail,"userStatus");
                 $userID = $DBHandler-> getData("userprofile","userEmail",$userEmail,"userID");
                 $_SESSION["userStatus"]=$userStatus;
@@ -76,6 +78,8 @@ if($exists){
                 
                 $_SESSION["userEmail"] = $userEmail;
                 $_SESSION["userType"] = $userType; 
+                $_SESSION["userName"] = $userName;
+                $_SESSION["municipality"] = $municipality;
                 $userStatus = $DBHandler-> getData("userprofile","userEmail",$userEmail,"userStatus");
                 $_SESSION["userStatus"] =$userStatus;
 

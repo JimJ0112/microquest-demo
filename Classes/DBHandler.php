@@ -475,7 +475,7 @@ public function getResponders($position,$municipality){
     
    
 
-    $query = "SELECT servicesinfo.responderID, userprofile.userName FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality = '$municipality' ";
+    $query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.municipality, servicesinfo.rate FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality = '$municipality' ";
    
 
     $result = mysqli_query($this->dbconnection, $query);
