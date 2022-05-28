@@ -44,7 +44,7 @@ session_start();
     <center>
     <div id="HomeContent"> 
 
-        <a> <div id="RequestBoard" class="HomeContent_Button"> Request Board</div> </a>
+        <a href="RequestBoard.php"> <div id="RequestBoard" class="HomeContent_Button"> Request Board</div> </a>
         <a href="AvailServices.php"> <div id="MyServices" class="HomeContent_Button"> Avail Services </div></a>
         <a> <div id="ServiceRequests" class="HomeContent_Button"> My Requests </div></a>
         <a> <div id="RequestBoard" class="HomeContent_Button"> Services Availed</div></a>

@@ -1,6 +1,6 @@
 <?php 
 session_start();
-    if(!isset($_SESSION["Useremail"])){
+    if(!isset($_SESSION["userEmail"])){
         header("location:LoginForm.php?msg=Please Login First");
     }
 ?>
@@ -21,8 +21,8 @@ session_start();
 </head>
 <body>
     <?php
-        if(isset($_SESSION["usertype"])){
-            $usertype = $_SESSION["usertype"];
+        if(isset($_SESSION["userType"])){
+            $usertype = $_SESSION["userType"];
             if($usertype === "Responder"){
                 require("Includes/Responder_Navbar.inc.php");
             }else if($usertype === "Requestor"){
@@ -30,14 +30,45 @@ session_start();
             }
         }
 
-            echo $_SESSION["Useremail"]."<br/>";
-            echo $_SESSION["usertype"]."<br/>"; 
-            echo $_SESSION["userstatus"]."<br/>";
-            echo $_SESSION["approvalstatus"]."<br/>";
+    ?>
 
 
+<center>
+<h2> Request Board </h2>
+    <?php
+            if(isset($_SESSION["userType"])){
+                $usertype = $_SESSION["userType"];
+                 if($usertype === "Requestor"){
+                    echo" <a href='RequestBoardCategories.php'> <div class='createRequestButton'> Create a Request </div> <a/>";
+                }
+            }
 
     ?>
+
+
+    <br/><br/><br/>
+        <div>
+            <form method="GET" action="Backend/Get_products.php"> 
+                Search <input type="Search" name="q">
+            </form>
+        <div>
+    <br/>
+
+
+<div id="requestBoardNav"> 
+    <div class="serviceCard-main" onclick="createRequest('Home Service')"> Home Services </div> 
+    <div class="serviceCard-main" onclick="createRequest('Pasabuy')"> Pasabuy </div>
+    <div class="serviceCard-main" onclick="createRequest('Computer related work')"> Computer Related</div>
+    <div class="serviceCard-main" onclick="createRequest('Other')"> Other</div>
+</div>
+
+</center>
+
+
+
+<div id="RequestsContainer">
+        
+</div>
 
 </body>
 </html>

@@ -267,3 +267,49 @@ body{
     
   
 }
+
+/* Request Board */
+#requestBoardNav{
+    display: grid;
+  
+    margin: 0;
+    padding: 10px;
+    align-content: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr ;
+    width: 98.5%;
+    height: 25%;
+}
+
+#RequestsContainer{
+    display: grid;
+    outline: auto;
+    padding: 10px;
+    grid-template-columns: auto auto auto auto;
+    grid-row-gap: 20px;
+
+    width: 98.5%;
+    height: 500px;
+}
+
+.createRequestButton{
+    outline: auto;
+    height: 50px;
+    width: 20%;
+    text-align: center;
+    padding: auto;
+    margin: 0;
+    margin-top: 0;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#requestCategories{
+    display: grid;
+   
+    padding: 10px;
+    grid-template-columns: auto auto auto auto;
+    grid-row-gap: 20px;
+
+    width: 98.5%;
+    height: auto;
+}

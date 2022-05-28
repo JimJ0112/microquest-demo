@@ -74,7 +74,7 @@ if($exists){
                 $_SESSION["userStatus"]=$userStatus;
                 $_SESSION["userID"]=$userID;
 
-                header("location:../CreateService_Form.php");
+                header("location:../CreateService.php");
 
             } else {
                 

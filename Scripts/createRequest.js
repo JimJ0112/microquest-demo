@@ -27,7 +27,7 @@ function categories(array){
 function createServiceElements(Number){
  
     DataNumber = Number;
-    div = document.getElementById("AvailServiceContent");
+    div = document.getElementById("requestCategories");
    
     
     for(var i = 0;i<DataNumber;i++){
@@ -66,7 +66,7 @@ function setData(array){
     for(var i = 0; i<number;i++){
         
         serviceCard[i].innerText = dataArray[i];
-        serviceCard[i].setAttribute("onclick","setCategory('" + dataArray[i] + "')");
+        serviceCard[i].setAttribute("onclick","createRequest('" + dataArray[i] + "')");
 
     }
 
@@ -133,27 +133,33 @@ function productCategory(array){
 
 // gets all services 
 function getServices(){
-
+    
+    
     var xmlhttp = new XMLHttpRequest();
+    
+  
+    
 
     xmlhttp.open("POST", "Backend/Get_otherServices.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = function() {
         if (this.readyState === 4 || this.status === 200){ 
            
-            document.getElementById("AvailServiceContent").innerHTML = "";
-            selectedCategory = document.getElementById("selectedCategory");
+            document.getElementById("requestCategories").innerHTML = "";
+           
   
 
             var dataArray = this.response;
             dataArray = JSON.parse(dataArray);
             console.log(dataArray);
-
-
+           // positions(dataArray);
             var number = dataArray.length;
             createServiceElements(number);
             dataArray = categories(dataArray);
             setData(dataArray);
+
+            console.log(positions(dataArray));
+
      
         }else{
             console.log(err);
@@ -179,31 +185,11 @@ function selectCategory(string){
 
 }
 
+// for creating request 
+// shows forms based on parameter data
+// to be continued
+function createRequest(string){
 
-// when a category button has been clicked
-function setCategory(string){
     var data = string;
-
-    var regularServices = document.getElementById("regularServicesForm");
-    var pasabuy = document.getElementById("pasabuyForm");
-    var otherServices = document.getElementById("otherCategoriesForm");
-    var serviceCategoryRegular = document.getElementById("serviceCategoryRegular");
-
-    if(data === "Pasabuy"){
-        pasabuy.style.display="inline";
-        regularServices.style.display = "none";
-        otherServices.style.display = "none";
-    } else if(data === "Other"){
-        pasabuy.style.display="none";
-        regularServices.style.display = "none";
-        otherServices.style.display = "inline";
-    } else{
-        pasabuy.style.display="none";
-        regularServices.style.display = "inline";
-        otherServices.style.display = "none";
-        serviceCategoryRegular.value = data;
-    } 
-
-
 
 }

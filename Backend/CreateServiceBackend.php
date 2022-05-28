@@ -46,7 +46,7 @@ if(isset($_POST["formType"])){
 
     }
 
-    //header("location:../User_Profile.php");
+    header("location:../Responder_Home.php");
 
 
 }
