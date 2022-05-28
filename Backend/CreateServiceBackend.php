@@ -9,7 +9,7 @@ $DBHandler = new DBHandler();
 
 
 if(isset($_POST["formType"])){
-$formType = $_POST["formType"];
+    $formType = $_POST["formType"];
 
     $responderID = $_POST["responderID"];
     $serviceCategory= $_POST["serviceCategory"]; 
@@ -46,7 +46,7 @@ $formType = $_POST["formType"];
 
     }
 
-    header("location:../User_Profile.php");
+    //header("location:../User_Profile.php");
 
 
 }

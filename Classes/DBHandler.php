@@ -618,7 +618,7 @@ public function registerCategory($serviceCategory,$servicePosition){
   
      
  
-     $query = "INSERT INTO $tablename() VALUES ( 0,$servicesInfoID,'$itemCategory', '$productName', '$productBrand', '$productDescription', '$productPrice',' $productImage', $responderID ,'$itemStatus','$productStore','$storeLocation')";
+     $query = "INSERT INTO $tablename() VALUES ( 0,$servicesInfoID,'$itemCategory', '$productName', '$productBrand', '$productDescription', '$productPrice','$productImage', $responderID ,'$itemStatus','$productStore','$storeLocation')";
      return mysqli_query($this->dbconnection, $query);
 
  

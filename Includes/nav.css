@@ -1,0 +1,48 @@
+.a{
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;            
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.b , .ab{
+    color: saddlebrown;
+    text-shadow: 2px 2px 4px #000000;            
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 14px;
+    margin-left: -10px;
+}
+.ab:hover{
+    color: chocolate;
+}
+body{
+    background-image: url("img/p.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 40px, 30px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+li{
+    float: right;
+    margin-top: 10px;
+    margin-bottom: -15px;            
+}        
+li a{
+    font-size: 22px;
+    display: block;
+    color:  rgb(255, 255, 255);
+    padding: 16px 15px;
+    text-decoration: none; 
+}
+li a:hover:not(.active) {
+    color: rgb(230, 200, 178);
+    font-style: italic;
+}  
+   
+ul{
+    list-style: none;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}

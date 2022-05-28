@@ -44,20 +44,22 @@ if($exists){
         $idFile  = file_get_contents($_FILES['idFile']["tmp_name"]);
         $idNumber = $_POST['idNumber'];
         $idExpiration= $_POST['idExpiration'];
-        $otherIDType= $_POST['otherIDType'];
-                    
-        
-        $otherIDFile= file_get_contents($_FILES['otherIDFile']["tmp_name"]);
-        $otherIDNumber  = $_POST['otherIDNumber'];
-        $otheridExpiration= $_POST['otheridExpiration'];
+
+        //$otherIDType= $_POST['otherIDType'];
+        //$otherIDFile= file_get_contents($_FILES['otherIDFile']["tmp_name"]);
+        //$otherIDNumber  = $_POST['otherIDNumber'];
+        //$otheridExpiration= $_POST['otheridExpiration'];
+
+        $otherIDType= " ";
+        $otherIDFile= " ";
+        $otherIDNumber  = " ";
+        $otheridExpiration= " ";
 
 
         if($_FILES['userPhoto']["size"] > 1500000){
             header("location: ../LoginForm.php?msg=profile image file size too big!");
         } else if($_FILES['idFile']["size"] > 1500000 ){
             header("location: ../LoginForm.php?msg=id image file size too big!");
-        } else if($_FILES['otherIDFile']["tmp_name"] > 1500000){
-            header("location: ../LoginForm.php?msg=other id image file size too big!");
         } else{
             echo $result = $DBHandler->registerUser($userType,$userName, $userEmail,$userPassword,$userPhoto,$firstName,$lastName,$userGender,$education,$birthDate,$houseNumber,$street,$baranggay,$municipality,$idType,$idFile,$idNumber,$idExpiration,$otherIDType,$otherIDFile,$otherIDNumber,$otheridExpiration);
 

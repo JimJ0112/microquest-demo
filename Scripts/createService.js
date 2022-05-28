@@ -66,7 +66,7 @@ function setData(array){
     for(var i = 0; i<number;i++){
         
         serviceCard[i].innerText = dataArray[i];
-        serviceCard[i].setAttribute("onclick","selectCategory('" + dataArray[i] + "')");
+        serviceCard[i].setAttribute("onclick","setCategory('" + dataArray[i] + "')");
 
     }
 
@@ -152,13 +152,14 @@ function getServices(){
             var dataArray = this.response;
             dataArray = JSON.parse(dataArray);
             console.log(dataArray);
-           // positions(dataArray);
+
+
             var number = dataArray.length;
             createServiceElements(number);
             dataArray = categories(dataArray);
             setData(dataArray);
 
-            console.log(positions(dataArray));
+            
 
      
         }else{
@@ -182,5 +183,34 @@ function selectCategory(string){
     } else {
         location.href= "PasabuyService.php?category=" + category;
     }
+
+}
+
+
+// when a category button has been clicked
+function setCategory(string){
+    var data = string;
+
+    var regularServices = document.getElementById("regularServicesForm");
+    var pasabuy = document.getElementById("pasabuyForm");
+    var otherServices = document.getElementById("otherCategoriesForm");
+    var serviceCategoryRegular = document.getElementById("serviceCategoryRegular");
+
+    if(data === "Pasabuy"){
+        pasabuy.style.display="inline";
+        regularServices.style.display = "none";
+        otherServices.style.display = "none";
+    } else if(data === "Other"){
+        pasabuy.style.display="none";
+        regularServices.style.display = "none";
+        otherServices.style.display = "inline";
+    } else{
+        pasabuy.style.display="none";
+        regularServices.style.display = "inline";
+        otherServices.style.display = "none";
+        serviceCategoryRegular.value = data;
+    } 
+
+
 
 }

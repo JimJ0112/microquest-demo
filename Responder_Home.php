@@ -17,7 +17,7 @@ session_start();
     
     <link rel="stylesheet" href="style.css">
 
-    <title> Home - <?php echo $_SESSION["Useremail"]; ?> </title>
+    <title> Home - <?php echo $_SESSION["userEmail"]; ?> </title>
 </head>
 <body>
     <?php

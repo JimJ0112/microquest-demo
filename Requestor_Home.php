@@ -48,8 +48,8 @@ session_start();
         <a href="AvailServices.php"> <div id="MyServices" class="HomeContent_Button"> Avail Services </div></a>
         <a> <div id="ServiceRequests" class="HomeContent_Button"> My Requests </div></a>
         <a> <div id="RequestBoard" class="HomeContent_Button"> Services Availed</div></a>
-        <a> <div id="MyServices" class="HomeContent_Button"> My Services </div></a>
-        <a> <div id="ServiceRequests" class="HomeContent_Button"> Service Requests </div></a>
+        <a> <div id="MyServices" class="HomeContent_Button">  History </div></a>
+        <a> <div id="ServiceRequests" class="HomeContent_Button">  Feedbacks </div></a>
 
 
     </div>

@@ -30,12 +30,7 @@ session_start();
                 require("Includes/Requestor_Navbar.inc.php");
             }
         }
-
-
-      
-
-
-
+        
     ?>
 
 
@@ -64,6 +59,18 @@ session_start();
 -->
     <br/>
     <h3 id="selectedCategory"> What service do you need? </h3>
+
+
+<div id="AvailServiceNav"> 
+
+<div class="serviceCard-main" onclick="selectCategory('Home Service')"> Home Services </div> 
+<div class="serviceCard-main" onclick="selectCategory('Pasabuy')"> Pasabuy </div>
+<div class="serviceCard-main" onclick="selectCategory('Computer related work')"> Computer Related</div>
+
+</div>
+
+
+<h4> Other Services </h4>
 
     <div id="AvailServiceContent">
         

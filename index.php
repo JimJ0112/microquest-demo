@@ -28,6 +28,8 @@ session_start();
     <title> microQuest - Home </title>
 </head>
 <body>
-    <?php require("Includes/Guest_Navbar.inc.php")?>
+    <?php
+    header("location:LoginForm.php");
+    ?>
 </body>
 </html>
