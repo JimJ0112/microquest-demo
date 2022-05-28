@@ -63,10 +63,10 @@ session_start();
 
 <div id="requestBoardNav"> 
 
-<div class="serviceCard-main" onclick="selectCategory('Home Service')"> Home Services </div> 
-<div class="serviceCard-main" onclick="selectCategory('Pasabuy')"> Pasabuy </div>
-<div class="serviceCard-main" onclick="selectCategory('Computer related work')"> Computer Related</div>
-<div class="serviceCard-main" onclick="selectCategory('Computer related work')"> Other </div>
+<div class="serviceCard-main" onclick="createRequest('Home Service')"> Home Services </div> 
+<div class="serviceCard-main" onclick="createRequest('Pasabuy')"> Pasabuy </div>
+<div class="serviceCard-main" onclick="createRequest('Computer related work')"> Computer Related</div>
+<div class="serviceCard-main" onclick="createRequest('Computer related work')"> Other </div>
 
 </div>
 
