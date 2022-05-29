@@ -163,14 +163,15 @@ function getsuggestedResponders(position){
 
            
             // refresh the div to avoid duplication in appending
-             document.getElementById("SuggestedResponders").innerHTML ="";
+             var suggestedResponders = document.getElementById("SuggestedResponders");
+             suggestedResponders.innerHTML ="";
              document.getElementById("Responders").style.display="block";
 
             var dataArray = this.response;
 
             if(dataArray === "No responders near you for this service"){
 
-                document.write(dataArray);
+                suggestedResponders.innerText = dataArray;
             } else{
                 dataArray = JSON.parse(dataArray);
                 console.log(dataArray);
@@ -178,6 +179,8 @@ function getsuggestedResponders(position){
                 var number = dataArray.length
                 createSuggestedRespondersElements(number);
                 setResponderData(dataArray);
+
+                getAvailableResponders(position);
             }
 
      
@@ -189,6 +192,11 @@ function getsuggestedResponders(position){
     xmlhttp.send(query);
     
 }// end of function
+
+
+
+
+
 
 
 // create elements for responders to be appended 
@@ -271,3 +279,139 @@ function setResponderData(array){
     }
 
 }
+
+
+//----------------------------------------------------Available responders -------------------------------------------------------
+// set suggested responders data 
+function setAvailableResponderData(array){
+
+    var dataArray = array;
+    var number = dataArray.length;
+
+
+    var responderCard = document.getElementsByClassName("availableResponderCard");
+
+    var ID= document.getElementsByClassName('availableResponderID');
+    var name= document.getElementsByClassName('availableResponderName');
+    var municipality= document.getElementsByClassName('availableResponderMunicipality');
+    var rate= document.getElementsByClassName('availableResponderRate');
+   // var selectButton.innerText = "Select";
+   //var viewProfile.innerText = "View Profile";
+
+    for(var i = 0; i<number;i++){
+        //serviceCard[i].innerText = dataArray[i];
+        //serviceCard[i].setAttribute("onclick","getsuggestedResponders('" + dataArray[i] + "')");
+
+        ID[i].innerText = dataArray[i]['responderID'];
+        name[i].innerText = dataArray[i]['userName'];
+        municipality[i].innerText = dataArray[i]['municipality'];
+        rate[i].innerText = dataArray[i]['rate'];
+        
+        
+
+    }
+
+}
+
+
+
+
+// For available responders not on the location
+function getAvailableResponders(position){
+    var position = position;
+
+    var municipality = sessionStorage.getItem('municipality');
+    
+    var xmlhttp = new XMLHttpRequest();
+    
+    query = "position=" + position + "&municipality=" + municipality;
+    console.log(query)
+
+    xmlhttp.open("POST", "Backend/AvailableResponders.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onload = function() {
+        if (this.readyState === 4 || this.status === 200){ 
+           
+
+           
+            // refresh the div to avoid duplication in appending
+             AllResponders = document.getElementById("AllResponders");
+             AllResponders.innerHTML = "";
+             document.getElementById("Responders").style.display="block";
+
+            var dataArray = this.response;
+
+            if(dataArray === "Unable to load other available responders"){
+
+                AllResponders.innerText = dataArray;
+                
+            } else{
+
+                dataArray = JSON.parse(dataArray);
+                console.log(dataArray);
+                // document.write(this.response);
+                var number = dataArray.length
+                createAvailableRespondersElements(number);
+                setAvailableResponderData(dataArray);
+            }
+
+     
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send(query);
+    
+}// end of function
+
+
+// create elements for responders to be appended 
+function createAvailableRespondersElements(Number){
+ 
+    DataNumber = Number;
+    div = document.getElementById("AllResponders");
+    
+   
+    
+    for(var i = 0;i<DataNumber;i++){
+    
+    // create elements for rows
+    var card = document.createElement('div');
+
+
+    var ID = document.createElement('td');
+    var name = document.createElement('td');
+    var municipality = document.createElement('td');
+    var rate = document.createElement('td');
+    var selectButton = document.createElement('button');
+    var viewProfile = document.createElement('button');
+    
+
+
+
+    // set attributes
+    selectButton.innerText = "Select";
+    viewProfile.innerText = "View Profile";
+    card.setAttribute('class','availableResponderCard');
+    ID.setAttribute('class','availableResponderID');
+    name.setAttribute('class','availableResponderName');
+    municipality.setAttribute('class','availableResponderMunicipality');
+    rate.setAttribute('class','availableResponderRate');
+
+
+    // append elements to the row
+    card.appendChild(ID);
+    card.appendChild(name);
+    card.appendChild(municipality);
+    card.appendChild(rate);
+    card.appendChild(selectButton);
+    card.appendChild(viewProfile);
+
+
+    div.append(card);
+
+    } 
+    
+    
+} // end of function

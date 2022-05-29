@@ -42,12 +42,12 @@ session_start();
 
     <center>
     <div id="HomeContent"> 
-        <div id="RequestBoard" class="HomeContent_Button"> Request Board</div>
+    <a href="RequestBoard.php"> <div id="RequestBoard" class="HomeContent_Button"> Request Board</div> </a>
         <div id="MyServices" class="HomeContent_Button"> My Services </div>
         <div id="ServiceRequests" class="HomeContent_Button"> Service Requests </div>
-        <div id="RequestBoard" class="HomeContent_Button"> Other</div>
-        <div id="MyServices" class="HomeContent_Button"> My Services </div>
-        <div id="ServiceRequests" class="HomeContent_Button"> Service Requests </div>
+        <div id="RequestBoard" class="HomeContent_Button">  </div>
+        <div id="MyServices" class="HomeContent_Button">  </div>
+        <div id="ServiceRequests" class="HomeContent_Button">  </div>
 
 
     </div>

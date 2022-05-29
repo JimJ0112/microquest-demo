@@ -27,6 +27,15 @@ body{
     position: absolute;
 }
 
+textarea{
+
+    height: 100px;
+}
+
+label{
+    font-weight: bold;
+}
+
 /* Create service */
 #createServiceMain{
     display: grid;
@@ -37,6 +46,7 @@ body{
     grid-template-columns: 1fr 1fr 1fr 1fr ;
     width: 98.5%;
     height: 25%;
+    z-index: 0;
 }
 
 #otherCategoriesForm{
@@ -46,13 +56,30 @@ body{
     display: none;
 }
 #regularServicesForm{
-    display: inline;
+    display: none;
 }
 
 .ServicePopUp{
+    display: grid;
+    padding: auto;
+    outline: auto;
+    height: 900px;
+    align-content: center;
+    width: 100%;
+
     position: absolute;
-    align-self: center;
     z-index: 5;
+
+    background-color: white;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.ServicePopUp input,select,label,textarea{
+    width: 30%;
+    margin: auto;
+    margin-top: 0px;
+    
 }
 
 /*Login form*/
@@ -176,7 +203,28 @@ body{
 
 
 }
+
+#AllResponders{
+    display: grid;
+   
+    padding: 10px;
+    grid-template-columns: auto auto auto auto;
+    grid-row-gap: 20px;
+
+    width: 98.5%;
+    height: auto;
+
+
+}
 .responderCard{
+    outline: auto;
+    height: 150px;
+    width: 200px;
+    cursor: pointer;
+    text-overflow: ellipsis;
+}
+
+.availableResponderCard{
     outline: auto;
     height: 150px;
     width: 200px;
@@ -278,6 +326,8 @@ body{
     grid-template-columns: 1fr 1fr 1fr 1fr ;
     width: 98.5%;
     height: 25%;
+
+ 
 }
 
 #RequestsContainer{
@@ -312,4 +362,52 @@ body{
 
     width: 98.5%;
     height: auto;
+}
+
+/*Create Request */
+.requestForm{
+    display: grid;
+    padding: auto;
+    padding-top: 0;
+    outline: auto;
+    height: 900px;
+    align-content: center;
+    width: 100%;
+
+    position: absolute;
+    z-index: 2;
+
+    background-color: white;
+    border: 1px solid black;
+    text-align: center;
+    
+}
+
+
+.requestForm input,select,label,textarea{
+    width: 30%;
+    margin: auto;
+    margin-top: 0px;
+    
+}
+#regularRequestForm{
+    display: none;
+}
+#otherCategoriesRequestForm{
+    display: none;
+}
+#pasabuyRequestForm{
+    display: none;
+}
+
+#closeButton{
+    position: absolute;
+   left: 96%;
+    z-index: 2;
+    cursor: pointer;
+    width: 50px;
+    outline: auto;
+    font-size:xx-large;
+    text-align: center;
+    font-weight: bolder;
 }

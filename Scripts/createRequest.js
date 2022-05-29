@@ -191,5 +191,44 @@ function selectCategory(string){
 function createRequest(string){
 
     var data = string;
+    var regularRequestForm = document.getElementById("regularRequestForm");
+    var pasabuyRequestForm = document.getElementById("pasabuyRequestForm");
+    var otherCategoriesRequestForm = document.getElementById("otherCategoriesRequestForm");
+    var requestCategory = document.getElementById('requestCategory');
+    var selectCategory = document.getElementById('selectedCategory');
+
+    if(data ==="Pasabuy"){
+        regularRequestForm.style.display = "none";
+        pasabuyRequestForm.style.display = "grid";
+        otherCategoriesRequestForm.style.display = "none";
+        selectCategory.innerText = "Request for "+ data;
+
+    }else if(data === "Other"){
+        regularRequestForm.style.display = "none";
+        pasabuyRequestForm.style.display = "none";
+        otherCategoriesRequestForm.style.display = "grid";
+        selectCategory.innerText = data;
+    }else{
+        regularRequestForm.style.display = "grid";
+        pasabuyRequestForm.style.display = "none";
+        otherCategoriesRequestForm.style.display = "none";
+        requestCategory.value = data;
+        selectCategory.innerText = "Request for "+ data;
+    }
+
+
+}
+
+// for closing the forms
+
+function closeForms(){
+    var regularRequestForm = document.getElementById("regularRequestForm");
+    var pasabuyRequestForm = document.getElementById("pasabuyRequestForm");
+    var otherCategoriesRequestForm = document.getElementById("otherCategoriesRequestForm");
+
+
+    regularRequestForm.style.display = "none";
+    pasabuyRequestForm.style.display = "none";
+    otherCategoriesRequestForm.style.display = "none";
 
 }

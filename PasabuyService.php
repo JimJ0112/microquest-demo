@@ -27,7 +27,7 @@ session_start();
     <title> Pasabuy </title>
 </head>
 
-<body onload="getProducts()">
+<body onload="getProductCategories()">
     <?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];

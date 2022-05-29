@@ -190,20 +190,35 @@ function setCategory(string){
     var serviceCategoryRegular = document.getElementById("serviceCategoryRegular");
 
     if(data === "Pasabuy"){
-        pasabuy.style.display="inline";
+        pasabuy.style.display="grid";
         regularServices.style.display = "none";
         otherServices.style.display = "none";
     } else if(data === "Other"){
         pasabuy.style.display="none";
         regularServices.style.display = "none";
-        otherServices.style.display = "inline";
+        otherServices.style.display = "grid";
     } else{
         pasabuy.style.display="none";
-        regularServices.style.display = "inline";
+        regularServices.style.display = "grid";
         otherServices.style.display = "none";
         serviceCategoryRegular.value = data;
     } 
 
 
+
+}
+
+
+// for closing the forms
+
+function closeForms(){
+    var regularServices = document.getElementById("regularServicesForm");
+    var pasabuy = document.getElementById("pasabuyForm");
+    var otherServices = document.getElementById("otherCategoriesForm");
+
+
+    regularServices.style.display = "none";
+    pasabuy.style.display = "none";
+    otherServices.style.display = "none";
 
 }

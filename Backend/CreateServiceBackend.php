@@ -23,8 +23,11 @@ if(isset($_POST["formType"])){
         echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
 
     } else if($formType === "pasabuy"){
-
         
+        $servicePosition=" ";
+        $certification=" ";
+        $certificateFile=" ";
+
         $itemCategory=$_POST["itemCategory"];
  
         $productName=$_POST["productName"];
@@ -32,8 +35,11 @@ if(isset($_POST["formType"])){
         $productDescription=$_POST["productDescription"]; 
         $productPrice=$_POST["productPrice"];
         $productImage=file_get_contents($_FILES["productImage"]["tmp_name"]);
-        $productStore=$_POST["productStore"];
-        $storeLocation=$_POST["storeLocation"];
+       // $productStore=$_POST["productStore"];
+       // $storeLocation=$_POST["storeLocation"];
+
+         $productStore=" ";
+         $storeLocation=" ";
 
         echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
         echo $serviceInfoID = $DBHandler ->getData('servicesinfo','responderID',$responderID,'serviceID');

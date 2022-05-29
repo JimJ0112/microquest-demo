@@ -80,10 +80,13 @@ session_start();
                 </tr>
                 </table>
 
+        <h5> Nearest Responders </h5>
         <div id="SuggestedResponders">
         </div> 
 
+        <h5> Other available responders </h5>
         <div id="AllResponders">
+            
         </div> 
 
     </div>

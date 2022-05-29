@@ -39,7 +39,7 @@ session_start();
             if(isset($_SESSION["userType"])){
                 $usertype = $_SESSION["userType"];
                  if($usertype === "Requestor"){
-                    echo" <a href='RequestBoardCategories.php'> <div class='createRequestButton'> Create a Request </div> <a/>";
+                    echo" <a href='CreateRequest.php'> <div class='createRequestButton'> Create a Request </div> <a/>";
                 }
             }
 
@@ -69,6 +69,8 @@ session_start();
 <div id="RequestsContainer">
         
 </div>
+
+
 
 </body>
 </html>

@@ -428,7 +428,7 @@ public function getOtherServices(){
     
    
 
-    $query = "SELECT * FROM $tablename WHERE $column != 'Home Service' AND $column !='Computer related work' AND $column !='Pasabuy'";
+    $query = "SELECT * FROM $tablename WHERE $column != 'Home Service' AND $column !='Computer related work' AND $column !='Pasabuy' GROUP BY serviceCategory";
 
 
     $result = mysqli_query($this->dbconnection, $query);
@@ -474,8 +474,8 @@ public function getResponders($position,$municipality){
 
     
    
-
-    $query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.municipality, servicesinfo.rate FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality = '$municipality' ";
+// 29/05/2022 9:51pm nilagyan ko muna ng group by tong query na to para hindi dumoble, need to check out later - jim 
+    $query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.municipality, servicesinfo.rate FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality = '$municipality' GROUP BY userprofile.userID";
    
 
     $result = mysqli_query($this->dbconnection, $query);
@@ -491,6 +491,95 @@ public function getResponders($position,$municipality){
                 
 
 
+                
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
+
+// get responders based on their services 
+
+
+public function getAvailableResponders($position,$municipality){
+
+    $position= mysqli_real_escape_string($this->dbconnection, $position);
+    $municipality = mysqli_real_escape_string($this->dbconnection, $municipality);
+
+    
+   
+// 29/05/2022 9:51pm nilagyan ko muna ng group by tong query na to para hindi dumoble, need to check out later - jim 
+$query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.municipality, servicesinfo.rate FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality != '$municipality' GROUP BY userprofile.userID";
+   
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+  
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+
+
+                
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
+
+// get product Categories row 
+public function getProductCategories(){
+    $tablename = "products";
+    $column = "serviceCategory";
+ 
+    
+   
+// 29/05/2022 9:51pm nilagyan ko muna ng group by tong query na to para hindi dumoble, need to check out later - jim 
+    $query = "SELECT * FROM $tablename  GROUP BY productCategory";
+
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+  
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+
+                
+                $file = 'data:image/image/png;base64,'.base64_encode($row['productImage']);
+                $row['productImage'] = $file;
                 
 
                 $data[] = $row;
@@ -530,30 +619,6 @@ public function updateColumn($tablename,$column,$name,$condition,$conditionvalue
 
 /*--------------------------------INSERT FUNCTIONS------------------------------------------------------ */
 
-// insert requests
-public function registerRequest($requestCategory,$requestTitle,$requestDescription,$requestPrice,$deadline,$requestRequirement,$requestDifficulty,$datePosted,$requestorID){
-   
-    $tablename = "requests_info";
-
-
-    $requestCategory = mysqli_real_escape_string($this->dbconnection, $requestCategory);
-    $requestTitle = mysqli_real_escape_string($this->dbconnection, $requestTitle );
-    $requestDescription = mysqli_real_escape_string($this->dbconnection, $requestDescription);
-    $requestPrice = mysqli_real_escape_string($this->dbconnection, $requestPrice );
-    $deadline = mysqli_real_escape_string($this->dbconnection, $deadline );
-    $requestRequirement = mysqli_real_escape_string($this->dbconnection, $requestRequirement);
-    $requestDifficulty = mysqli_real_escape_string($this->dbconnection, $requestDifficulty );
-    $datePosted = mysqli_real_escape_string($this->dbconnection, $datePosted );
-    $requestorID = mysqli_real_escape_string($this->dbconnection, $requestorID);
-    $requestStatus = 'available';
-    $isapproved ='';
-
-
-
-    $query = "INSERT INTO $tablename() VALUES (0,'$requestCategory','$requestTitle','$requestDescription','$requestPrice','$datePosted','$deadline','$requestRequirement','$requestDifficulty','$requestorID','$requestStatus','$isapproved')";
-    return mysqli_query($this->dbconnection, $query);
-
-}
 
 
 // insert services
@@ -624,4 +689,36 @@ public function registerCategory($serviceCategory,$servicePosition){
  
  }
 
+
+ public function registerRequest($requestCategory,$requestTitle,$requestDescription,$requestExpectedPrice,$isNegotiable,$datePosted,$dueDate,$requestorID,$requestorMunicipality){
+
+
+    
+    $tablename = "requestsinfo";
+
+    
+  
+
+    //0,'$requestCategory','$requestTitle','$requestDescription','$requestExpectedPrice','$isNegotiable','$datePosted','$dueDate','$requestorID','$requestorMunicipality','$requestStatus'
+    $requestorID=mysqli_real_escape_string($this->dbconnection,$requestorID);
+    $requestorMunicipality=mysqli_real_escape_string($this->dbconnection,$requestorMunicipality);
+    $datePosted=mysqli_real_escape_string($this->dbconnection,$datePosted);
+    $requestCategory=mysqli_real_escape_string($this->dbconnection,$requestCategory);
+    $requestTitle=mysqli_real_escape_string($this->dbconnection,$requestTitle);
+    $requestExpectedPrice=mysqli_real_escape_string($this->dbconnection,$requestExpectedPrice);
+    $isNegotiable=mysqli_real_escape_string($this->dbconnection,$isNegotiable);
+    $dueDate = mysqli_real_escape_string($this->dbconnection,$dueDate);
+    $requestDescription=mysqli_real_escape_string($this->dbconnection, $requestDescription);
+    $requestStatus ="";
+ 
+    
+
+    $query = "INSERT INTO $tablename() VALUES ( 0,'$requestCategory','$requestTitle','$requestDescription','$requestExpectedPrice','$isNegotiable','$datePosted','$dueDate','$requestorID','$requestorMunicipality','$requestStatus')";
+    return mysqli_query($this->dbconnection, $query);
+
+
+}
+
+
 }// end of class
+
