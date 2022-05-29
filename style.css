@@ -411,3 +411,15 @@ label{
     text-align: center;
     font-weight: bolder;
 }
+
+/*Request Board*/
+
+.requestCard{
+    outline: auto;
+    height: fit-content;
+    width: 200px;
+    cursor: pointer;
+    display: grid;
+    align-items: center;
+    text-overflow:ellipsis;
+}

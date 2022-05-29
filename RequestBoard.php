@@ -16,10 +16,11 @@ session_start();
     <meta content='yes' name='mobile-web-app-capable'/>
     
     <link rel="stylesheet" href="style.css">
+    <script src="Scripts/requestBoard.js"> </script>
 
     <title> Request Board </title>
 </head>
-<body>
+<body onload="getRequests()">
     <?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
