@@ -46,11 +46,12 @@ session_start();
      
                 <td> Service Position </td>
               
-                    <select name="servicePosition" id="servicePositionDropDown">
+                    <select name="servicePosition" id="servicePositionDropDown" onchange="otherPosition()">
                             <option value="Delivery"> Delivery </option>
                     </select><br/>
                
           
+                    <input name="otherServicePosition" id="otherServicePosition" type="text" pleaceholder="Please enter">
 
            
                 <td> Rate </td>
@@ -227,7 +228,7 @@ session_start();
 <br/>
 <br/>
 <br/>
-<h2> Avail Services </h2>
+<h2> Offer a Service </h2>
     <br/>
         <div>
             <form method="GET" action="Backend/Get_products.php"> 

@@ -20,6 +20,27 @@ function categories(array){
 }
 
 
+function positions(array){
+    var dataArray = array;
+    var number = dataArray.length;
+    var newData = [];
+ 
+
+
+    for(var i = 0; i<number; i++){
+  
+        newData[i] = dataArray[i]['servicePosition']
+    }
+    newData.sort();
+
+    
+
+    
+    return newData;
+
+}
+
+
 
 
 
@@ -188,6 +209,7 @@ function setCategory(string){
     var pasabuy = document.getElementById("pasabuyForm");
     var otherServices = document.getElementById("otherCategoriesForm");
     var serviceCategoryRegular = document.getElementById("serviceCategoryRegular");
+    getPositions(data);
 
     if(data === "Pasabuy"){
         pasabuy.style.display="grid";
@@ -222,3 +244,122 @@ function closeForms(){
     otherServices.style.display = "none";
 
 }
+
+//Get positions
+// id = servicePositionDropDown
+
+// for getting products for pasabuy
+function getProducts(){
+   
+    
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open("POST", "Backend/Get_products.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState === 4 || this.status === 200){ 
+           
+            document.getElementById("AvailServiceContent").innerHTML = "";
+            selectedCategory = document.getElementById("selectedCategory");
+            selectedCategory.innerText = "Product Categories";
+
+            var dataArray = this.response;
+            dataArray = JSON.parse(dataArray);
+            console.log(dataArray);
+
+            var number = dataArray.length;
+            createServiceElements(number);
+            dataArray = productCategory(dataArray);
+            setData(dataArray);
+
+            console.log(positions(dataArray));
+
+     
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send();
+    
+}// end of function
+
+// gets data from php 
+function getPositions(name){
+    var data = name;
+    
+    var xmlhttp = new XMLHttpRequest();
+    
+    query = "condition=" + data;
+    console.log(query)
+
+    xmlhttp.open("POST", "Backend/Get_services.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onload = function() {
+        if (this.readyState === 4 || this.status === 200){ 
+           
+            var serviceCard = document.getElementById("servicePositionDropDown").innerHTML = "";
+            //document.getElementById("AvailServiceContent").innerHTML = "";
+            
+            var dataArray = this.response;
+           
+            dataArray = JSON.parse(dataArray);
+            console.log(dataArray);
+            
+          
+            var number = dataArray.length;
+            
+            dataArray = positions(dataArray);
+            setOptions(dataArray);
+
+            console.log(positions(dataArray));
+
+     
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send(query);
+    
+}// end of function
+
+
+// set options to dropdown  
+function setOptions(array){
+
+    var dataArray = array;
+    var number = dataArray.length;
+
+    var serviceCard = document.getElementById("servicePositionDropDown");
+    for(var i = 0; i<number;i++){
+        
+        //serviceCard[i].innerText = dataArray[i];
+        //serviceCard[i].setAttribute("onclick","setCategory('" + dataArray[i] + "')");
+        var option = new Option;
+        option.innerText = dataArray[i];
+        option.value = dataArray[i];
+        serviceCard.add(option);
+
+    }
+
+    var option = new Option;
+    option.innerText = "Other";
+    option.value = "Other";
+    serviceCard.add(option);
+
+}
+
+
+function otherPosition(){
+    var serviceCard = document.getElementById("servicePositionDropDown");
+    var tb = document.getElementById("otherServicePosition");
+    
+    if(serviceCard.value==="Other"){
+
+        tb.style.display="block";
+    } else {
+        tb.style.display="none";
+    }
+}
+

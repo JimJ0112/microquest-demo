@@ -13,6 +13,7 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
     $verify = $DBHandler->verifyuser($email,$password);
 
     if($verify){
+        
         $userID = $DBHandler ->getData("userprofile","userEmail",$email,"UserID");
         $useremail = $DBHandler ->getData("userprofile","userEmail",$email,"userEmail");
         $usertype = $DBHandler ->getData("userprofile","userEmail",$email,"userType");
@@ -37,7 +38,13 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
         $_SESSION["baranggay"] = $baranggay;
 
         //$_SESSION["approvalstatus"] = $approvalstatus;
-        header("location: ../User_Profile.php");
+        //header("location: ../User_Profile.php");
+
+        if($usertype ==="Responder"){
+            header("location: ../Responder_Home.php");
+        } else if($usertype ==="Requestor"){
+            header("location: ../Requestor_Home.php");
+        }
 
     } else {
         header("location: ../LoginForm.php?msg= Login Failed!");

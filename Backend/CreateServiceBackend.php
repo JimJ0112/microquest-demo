@@ -19,8 +19,19 @@ if(isset($_POST["formType"])){
     $certificateFile=file_get_contents($_FILES["certificateFile"]["tmp_name"]);
 
     
+    
     if($formType === "regularServices"){
-        echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
+
+        if(!isset($_POST['otherServicePosition'])){
+            
+            $servicePosition = $_POST['otherServicePosition'];
+            echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
+            echo $servicePosition;
+        }else{
+            $servicePosition=$_POST["servicePosition"];
+            echo $servicePosition;
+            echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
+        }
 
     } else if($formType === "pasabuy"){
         
@@ -52,7 +63,7 @@ if(isset($_POST["formType"])){
 
     }
 
-    header("location:../Responder_Home.php");
+        header("location:../Responder_Home.php");
 
 
 }
