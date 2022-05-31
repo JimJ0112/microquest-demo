@@ -3,11 +3,19 @@ require("../Classes/DBHandler.php");
 
 $DBHandler = new DBHandler();
 
-$_POST["position"];
+//$_POST["position"];
+
 
 $position = $_POST["position"];
 $municipality = $_POST["municipality"];
-$responders = $DBHandler-> getResponders($position,$municipality);
+$category = $_POST['category'];
+
+/*
+$position = "Tatoo";
+$municipality = "Hermosa";
+$category = "Art";
+*/
+$responders = $DBHandler-> getResponders($position,$municipality,$category);
 
 
 if($responders === "failed to fetch"){

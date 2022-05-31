@@ -467,15 +467,16 @@ public function getOtherServices(){
 // get responders based on their services and location
 
 
-public function getResponders($position,$municipality){
+public function getResponders($position,$municipality,$serviceCategory){
 
     $position= mysqli_real_escape_string($this->dbconnection, $position);
     $municipality = mysqli_real_escape_string($this->dbconnection, $municipality);
+    $serviceCategory = mysqli_real_escape_string($this->dbconnection, $serviceCategory);
 
     
    
 // 29/05/2022 9:51pm nilagyan ko muna ng group by tong query na to para hindi dumoble, need to check out later - jim 
-    $query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.municipality, servicesinfo.rate FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality = '$municipality' GROUP BY userprofile.userID";
+    $query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.municipality, servicesinfo.rate, servicesinfo.serviceCategory FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality = '$municipality' AND userprofile.userType = 'Responder' AND servicesinfo.serviceCategory = '$serviceCategory' GROUP BY userprofile.userID";
    
 
     $result = mysqli_query($this->dbconnection, $query);
@@ -512,15 +513,16 @@ public function getResponders($position,$municipality){
 // get responders based on their services 
 
 
-public function getAvailableResponders($position,$municipality){
+public function getAvailableResponders($position,$municipality,$category){
 
     $position= mysqli_real_escape_string($this->dbconnection, $position);
     $municipality = mysqli_real_escape_string($this->dbconnection, $municipality);
+    $category= mysqli_real_escape_string($this->dbconnection, $category);
 
     
    
 // 29/05/2022 9:51pm nilagyan ko muna ng group by tong query na to para hindi dumoble, need to check out later - jim 
-$query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.municipality, servicesinfo.rate FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality != '$municipality' GROUP BY userprofile.userID";
+$query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.municipality, servicesinfo.rate FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality != '$municipality' AND userprofile.userType = 'Responder' AND servicesinfo.serviceCategory = '$category' GROUP BY userprofile.userID";
    
 
     $result = mysqli_query($this->dbconnection, $query);

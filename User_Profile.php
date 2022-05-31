@@ -39,7 +39,8 @@ session_start();
             echo $_SESSION["userEmail"]."<br/>";
             echo $_SESSION["userName"]."<br/>";
             echo $_SESSION["userType"]."<br/>"; 
-            echo $_SESSION["userStatus"]."<br/>";
+            //echo $_SESSION["userStatus"]."<br/>";
+            echo $_SESSION["municipality"]."<br/>";
 
 
 

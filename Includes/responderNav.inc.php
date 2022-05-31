@@ -14,7 +14,19 @@
 
           <ul> 
             <li><a href="Backend/Logout.php">LOG OUT</a> </li>
-            <li><a href="User_Profile.php" style="margin-right: 450px;">Profile</a></li>
+            <li>
+              <a href="User_Profile.php" style="margin-right: 450px;">
+                  <?php
+                        if(isset($_SESSION["userName"])){
+                            echo $_SESSION["userName"];
+                        } else {
+                            echo"User Profile";
+                        }
+                  ?>
+            
+                </a>
+            </li>
+            
             <li><a href="Responder_Home.php">Home</a></li>
             <li><a href="#">Message</a></li>    
             

@@ -42,7 +42,7 @@ function getPositions(name){
             dataArray = positions(dataArray);
             setData(dataArray);
 
-            console.log(positions(dataArray));
+            //console.log(positions(dataArray));
 
      
         }else{
@@ -134,10 +134,12 @@ function setData(array){
     var dataArray = array;
     var number = dataArray.length;
 
+    var selectedCategory = sessionStorage.getItem("selectedCategory");
     var serviceCard = document.getElementsByClassName("serviceCard");
+
     for(var i = 0; i<number;i++){
         serviceCard[i].innerText = dataArray[i];
-        serviceCard[i].setAttribute("onclick","getsuggestedResponders('" + dataArray[i] + "')");
+        serviceCard[i].setAttribute("onclick","getsuggestedResponders('" + dataArray[i] +"')");
 
     }
 
@@ -148,11 +150,12 @@ function setData(array){
 // gets data from php 
 function getsuggestedResponders(position){
     var position = position;
+    var category =  sessionStorage.getItem("selectedCategory");
     var municipality = sessionStorage.getItem('municipality');
     
     var xmlhttp = new XMLHttpRequest();
     
-    query = "position=" + position + "&municipality=" + municipality;
+    query = "position=" + position + "&municipality=" + municipality +"&category=" + category;
     console.log(query)
 
     xmlhttp.open("POST", "Backend/SuggestResponders.php", true);
@@ -175,15 +178,14 @@ function getsuggestedResponders(position){
             } else{
                 dataArray = JSON.parse(dataArray);
                 console.log(dataArray);
-                // document.write(this.response);
+                
                 var number = dataArray.length
                 createSuggestedRespondersElements(number);
                 setResponderData(dataArray);
-
-                getAvailableResponders(position);
             }
 
      
+            getAvailableResponders(position);
         }else{
             console.log(err);
         }      
@@ -266,8 +268,7 @@ function setResponderData(array){
    //var viewProfile.innerText = "View Profile";
 
     for(var i = 0; i<number;i++){
-        //serviceCard[i].innerText = dataArray[i];
-        //serviceCard[i].setAttribute("onclick","getsuggestedResponders('" + dataArray[i] + "')");
+
 
         ID[i].innerText = dataArray[i]['responderID'];
         name[i].innerText = dataArray[i]['userName'];
@@ -299,8 +300,7 @@ function setAvailableResponderData(array){
    //var viewProfile.innerText = "View Profile";
 
     for(var i = 0; i<number;i++){
-        //serviceCard[i].innerText = dataArray[i];
-        //serviceCard[i].setAttribute("onclick","getsuggestedResponders('" + dataArray[i] + "')");
+
 
         ID[i].innerText = dataArray[i]['responderID'];
         name[i].innerText = dataArray[i]['userName'];
@@ -315,16 +315,16 @@ function setAvailableResponderData(array){
 
 
 
-
+// 31-05-2022: has issues in displaying - fixed
 // For available responders not on the location
-function getAvailableResponders(position){
+function getAvailableResponders(position,category){
     var position = position;
-
+    var category =  sessionStorage.getItem("selectedCategory");
     var municipality = sessionStorage.getItem('municipality');
     
     var xmlhttp = new XMLHttpRequest();
     
-    query = "position=" + position + "&municipality=" + municipality;
+    query = "position=" + position + "&municipality=" + municipality + "&category=" + category;
     console.log(query)
 
     xmlhttp.open("POST", "Backend/AvailableResponders.php", true);
@@ -340,7 +340,7 @@ function getAvailableResponders(position){
              document.getElementById("Responders").style.display="block";
 
             var dataArray = this.response;
-
+            console.log(dataArray);
             if(dataArray === "Unable to load other available responders"){
 
                 AllResponders.innerText = dataArray;
@@ -349,7 +349,7 @@ function getAvailableResponders(position){
 
                 dataArray = JSON.parse(dataArray);
                 console.log(dataArray);
-                // document.write(this.response);
+ 
                 var number = dataArray.length
                 createAvailableRespondersElements(number);
                 setAvailableResponderData(dataArray);
@@ -378,7 +378,6 @@ function createAvailableRespondersElements(Number){
     
     // create elements for rows
     var card = document.createElement('div');
-
 
     var ID = document.createElement('td');
     var name = document.createElement('td');

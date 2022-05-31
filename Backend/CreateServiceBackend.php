@@ -22,7 +22,7 @@ if(isset($_POST["formType"])){
     
     if($formType === "regularServices"){
 
-        if(!isset($_POST['otherServicePosition'])){
+        if(isset($_POST['otherServicePosition'])){
             
             $servicePosition = $_POST['otherServicePosition'];
             echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);

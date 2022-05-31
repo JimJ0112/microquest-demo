@@ -7,8 +7,10 @@ $DBHandler = new DBHandler();
 
 $position = $_POST["position"];
 $municipality = $_POST["municipality"];
+$category = $_POST['category'];
 
-$responders = $DBHandler-> getAvailableResponders($position,$municipality);
+
+$responders = $DBHandler-> getAvailableResponders($position,$municipality,$category);
 
 
 if($responders === "failed to fetch"){
