@@ -65,16 +65,16 @@ function getPositions(name){
 // get suggested resopnders
 
 // gets data from php 
-function getsuggestedResponders(position){
-    var position = position;
+function getsuggestedResponders(productName){
+    var productName = productName;
     var municipality = sessionStorage.getItem('municipality');
     
     var xmlhttp = new XMLHttpRequest();
     
-    query = "position=" + position + "&municipality=" + municipality;
+    query = "productName=" + productName + "&municipality=" + municipality;
     console.log(query)
 
-    xmlhttp.open("POST", "Backend/SuggestResponders.php", true);
+    xmlhttp.open("POST", "Backend/Get_productsResponders.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.onload = function() {
         if (this.readyState === 4 || this.status === 200){ 
@@ -82,13 +82,22 @@ function getsuggestedResponders(position){
 
            
             // refresh the div to avoid duplication in appending
-             document.getElementById("SuggestedResponders").innerHTML ="";
+             var suggestedResponders = document.getElementById("productSuggestedResponders");
+             suggestedResponders.innerHTML ="";
+             suggestedResponders.style.display="grid";
+
+             var pasabuyResponders = document.getElementById('pasabuyResponders');
+             pasabuyResponders.style.display="grid";
+
+             var myLocation = document.getElementById('myLocation');
+             myLocation.value = municipality;
+             
 
             var dataArray = this.response;
 
             if(dataArray === "No responders near you for this service"){
 
-                document.write(dataArray);
+                suggestedResponders.innerText = dataArray;
             } else{
                 dataArray = JSON.parse(dataArray);
                 console.log(dataArray);
@@ -99,6 +108,7 @@ function getsuggestedResponders(position){
             }
 
      
+            getallResponders(productName);
         }else{
             console.log(err);
         }      
@@ -109,11 +119,14 @@ function getsuggestedResponders(position){
 }// end of function
 
 
+
+
+
 // create elements for responders to be appended 
 function createSuggestedRespondersElements(Number){
  
     DataNumber = Number;
-    div = document.getElementById("SuggestedResponders");
+    div = document.getElementById("productSuggestedResponders");
     
    
     
@@ -126,10 +139,12 @@ function createSuggestedRespondersElements(Number){
     var ID = document.createElement('td');
     var name = document.createElement('td');
     var municipality = document.createElement('td');
-    var rate = document.createElement('td');
+    var deliveryRate = document.createElement('td');
+
     var selectButton = document.createElement('button');
     var viewProfile = document.createElement('button');
     
+
 
 
 
@@ -140,14 +155,14 @@ function createSuggestedRespondersElements(Number){
     ID.setAttribute('class','responderID');
     name.setAttribute('class','responderName');
     municipality.setAttribute('class','responderMunicipality');
-    rate.setAttribute('class','responderRate');
+    deliveryRate.setAttribute('class','deliveryRate');
 
 
     // append elements to the row
     card.appendChild(ID);
     card.appendChild(name);
     card.appendChild(municipality);
-    card.appendChild(rate);
+    card.appendChild(deliveryRate);
     card.appendChild(selectButton);
     card.appendChild(viewProfile);
 
@@ -171,7 +186,7 @@ function setResponderData(array){
     var ID= document.getElementsByClassName('responderID');
     var name= document.getElementsByClassName('responderName');
     var municipality= document.getElementsByClassName('responderMunicipality');
-    var rate= document.getElementsByClassName('responderRate');
+    var deliveryRate= document.getElementsByClassName('deliveryRate');
    // var selectButton.innerText = "Select";
    //var viewProfile.innerText = "View Profile";
 
@@ -179,10 +194,10 @@ function setResponderData(array){
         //serviceCard[i].innerText = dataArray[i];
         //serviceCard[i].setAttribute("onclick","getsuggestedResponders('" + dataArray[i] + "')");
 
-        ID[i].innerText = dataArray[i]['responderID'];
+        ID[i].innerText = dataArray[i]['userID'];
         name[i].innerText = dataArray[i]['userName'];
         municipality[i].innerText = dataArray[i]['municipality'];
-        rate[i].innerText = dataArray[i]['rate'];
+        deliveryRate[i].innerText = dataArray[i]['deliveryRate'];
         
         
 
@@ -215,6 +230,7 @@ function getProducts(){
 
            createProductElements(number);
            setProductData(dataArray);
+           
      
         }else{
             console.log(err);
@@ -319,6 +335,7 @@ function setProductData(array){
 
         
 
+        productCard[i].setAttribute("onclick","getsuggestedResponders('" +dataArray[i]['productName'] + "')");
         productID[i].innerText = dataArray[i]['productID'];
         
         productName[i].innerText = dataArray[i]['productName'];
@@ -429,3 +446,152 @@ function getProductCategories(){
     xmlhttp.send();
     
 }// end of function
+
+
+/*-------------------------GET OTHER RESPONDERS-------------------------------------------------- */
+
+// gets data from php 
+function getallResponders(productName){
+    var productName = productName;
+
+    var municipality = sessionStorage.getItem('municipality');
+    
+    var xmlhttp = new XMLHttpRequest();
+    
+    query = "productName=" + productName + "&municipality=" + municipality;
+    console.log(query)
+
+    xmlhttp.open("POST", "Backend/Get_allProductsResponders.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onload = function() {
+        if (this.readyState === 4 || this.status === 200){ 
+           
+            // refresh the div to avoid duplication in appending
+            var allResponders =document.getElementById("productAllResponders");
+
+            allResponders.innerHTML ="";
+            allResponders.style.display ="grid";
+
+
+
+            var dataArray = this.response;
+
+            if(dataArray === "No responders near you for this service"){
+
+                allResponders.innerText = dataArray;
+            } else{
+                dataArray = JSON.parse(dataArray);
+                console.log(dataArray);
+               
+                var number = dataArray.length
+                createAllRespondersElements(number);
+                setAllResponderData(dataArray);
+            }
+
+
+     
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send(query);
+    
+}// end of function
+
+
+// create elements for all other responders to be appended 
+function createAllRespondersElements(Number){
+ 
+    DataNumber = Number;
+    div = document.getElementById("productAllResponders");
+    
+   
+    
+    for(var i = 0;i<DataNumber;i++){
+    
+    // create elements for rows
+    var card = document.createElement('div');
+
+
+    var ID = document.createElement('td');
+    var name = document.createElement('td');
+    var municipality = document.createElement('td');
+    var deliveryRate = document.createElement('td');
+
+    var selectButton = document.createElement('button');
+    var viewProfile = document.createElement('button');
+    
+
+
+
+
+    // set attributes
+    selectButton.innerText = "Select";
+    viewProfile.innerText = "View Profile";
+    card.setAttribute('class','allResponderCard');
+    ID.setAttribute('class','allResponderID');
+    name.setAttribute('class','allResponderName');
+    municipality.setAttribute('class','allResponderMunicipality');
+    deliveryRate.setAttribute('class','allDeliveryRate');
+
+
+    // append elements to the row
+    card.appendChild(ID);
+    card.appendChild(name);
+    card.appendChild(municipality);
+    card.appendChild(deliveryRate);
+    card.appendChild(selectButton);
+    card.appendChild(viewProfile);
+
+
+    div.append(card);
+
+    } 
+    
+    
+} // end of function
+
+
+// set suggested responders data 
+function setAllResponderData(array){
+
+    var dataArray = array;
+    var number = dataArray.length;
+
+    var responderCard = document.getElementsByClassName("allResponderCard");
+
+    var ID= document.getElementsByClassName('allResponderID');
+    var name= document.getElementsByClassName('allResponderName');
+    var municipality= document.getElementsByClassName('allResponderMunicipality');
+    var deliveryRate= document.getElementsByClassName('allDeliveryRate');
+   // var selectButton.innerText = "Select";
+   //var viewProfile.innerText = "View Profile";
+
+    for(var i = 0; i<number;i++){
+        //serviceCard[i].innerText = dataArray[i];
+        //serviceCard[i].setAttribute("onclick","getsuggestedResponders('" + dataArray[i] + "')");
+
+        ID[i].innerText = dataArray[i]['userID'];
+        name[i].innerText = dataArray[i]['userName'];
+        municipality[i].innerText = dataArray[i]['municipality'];
+        deliveryRate[i].innerText = dataArray[i]['deliveryRate'];
+        
+        
+
+    }
+
+}
+
+
+
+// for closing the forms
+
+function closeForms(){
+    var pasabuyResponders = document.getElementById("pasabuyResponders");
+
+
+
+    pasabuyResponders.style.display = "none";
+
+}

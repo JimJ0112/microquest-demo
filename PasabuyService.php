@@ -45,8 +45,40 @@ session_start();
 
     ?>
 
+<!-- responders -->
 
 
+<div id="pasabuyResponders">
+    <div id="closeButton" onclick="closeForms()"> X </div>
+
+                <table>
+                    <tr>
+                        <td>Search for Responder </td>
+                        <td><input type="Search" name="q"></td>
+                    </tr>
+                    <tr>
+                        <td>My Location </td>
+                        <td><input type="text" name="myLocation" id="myLocation"> </td>
+                    </tr>
+                </table>
+
+        <h5> Nearest Responders  </h5>
+        <div id="productSuggestedResponders">
+
+        </div> 
+
+        <h5> Other Responders  </h5>
+        <div id="productAllResponders">
+        </div> 
+
+</div>
+
+
+
+
+
+
+<!-- products -->
 <center>
     <h2 id="selectedCategory" onload="">  </h2>
     <br/>
@@ -72,28 +104,6 @@ session_start();
     </div>
 
 
-    <center>
-    <div id="Responders">
-
-                <table>
-                <tr>
-                    <td>Search for Responder </td>
-                    <td><input type="Search" name="q"></td>
-                </tr>
-                <tr>
-                    <td>My Location </td>
-                    <td><input type="text" name="myLocation" id="myLocation"> </td>
-                </tr>
-                </table>
-
-        <div id="SuggestedResponders">
-        </div> 
-
-        <div id="AllResponders">
-        </div> 
-
-    </div>
-    </center>
 
 
 

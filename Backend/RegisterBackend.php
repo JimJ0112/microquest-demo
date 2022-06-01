@@ -44,6 +44,7 @@ if($exists){
         $idFile  = file_get_contents($_FILES['idFile']["tmp_name"]);
         $idNumber = $_POST['idNumber'];
         $idExpiration= $_POST['idExpiration'];
+        $idFileType = $_FILES['idFile']["type"];
 
         //$otherIDType= $_POST['otherIDType'];
         //$otherIDFile= file_get_contents($_FILES['otherIDFile']["tmp_name"]);
@@ -61,7 +62,7 @@ if($exists){
         } else if($_FILES['idFile']["size"] > 1500000 ){
             header("location: ../LoginForm.php?msg=id image file size too big!");
         } else{
-            echo $result = $DBHandler->registerUser($userType,$userName, $userEmail,$userPassword,$userPhoto,$firstName,$lastName,$userGender,$education,$birthDate,$houseNumber,$street,$baranggay,$municipality,$idType,$idFile,$idNumber,$idExpiration,$otherIDType,$otherIDFile,$otherIDNumber,$otheridExpiration);
+            echo $result = $DBHandler->registerUser($userType,$userName, $userEmail,$userPassword,$userPhoto,$firstName,$lastName,$userGender,$education,$birthDate,$houseNumber,$street,$baranggay,$municipality,$idType,$idFile,$idNumber,$idExpiration,$otherIDType,$otherIDFile,$otherIDNumber,$otheridExpiration,$idFileType);
 
             if($userType === "Responder"){
                 

@@ -46,6 +46,7 @@ if(isset($_POST["formType"])){
         $productDescription=$_POST["productDescription"]; 
         $productPrice=$_POST["productPrice"];
         $productImage=file_get_contents($_FILES["productImage"]["tmp_name"]);
+        $rate = $_POST['rate'];
        // $productStore=$_POST["productStore"];
        // $storeLocation=$_POST["storeLocation"];
 
@@ -54,7 +55,7 @@ if(isset($_POST["formType"])){
 
         echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
         echo $serviceInfoID = $DBHandler ->getData('servicesinfo','responderID',$responderID,'serviceID');
-        echo $DBHandler-> registerProduct($serviceInfoID,$itemCategory,$productName,$productBrand,$productDescription,$productPrice,$productImage,$responderID,$productStore,$storeLocation);      
+        echo $DBHandler-> registerProduct($serviceInfoID,$itemCategory,$productName,$productBrand,$productDescription,$productPrice,$productImage,$responderID,$productStore,$storeLocation,$rate);      
 
 
     } else if($formType === "otherCategories"){

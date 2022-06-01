@@ -44,7 +44,7 @@ function __destruct(){
 // methods
 
 // for registration
-public function registerUser($userType,	$userName, $userEmail,$userPassword,$userPhoto,$firstName,$lastName,$userGender,$education,$birthDate,$houseNo,$street,$baranggay,$municipality,$idType,$idFile,$idNumber,$idExpiration,$otherIDType,$otherIDFile,$otherIDNumber,$otheridExpiration){
+public function registerUser($userType,	$userName, $userEmail,$userPassword,$userPhoto,$firstName,$lastName,$userGender,$education,$birthDate,$houseNo,$street,$baranggay,$municipality,$idType,$idFile,$idNumber,$idExpiration,$otherIDType,$otherIDFile,$otherIDNumber,$otheridExpiration,$idFileType){
 
     $tablename = "userprofile";
     $userID = 0;
@@ -71,11 +71,11 @@ public function registerUser($userType,	$userName, $userEmail,$userPassword,$use
     $otherIDFile = mysqli_real_escape_string($this->dbconnection, $otherIDFile);
     $otherIDNumber = mysqli_real_escape_string($this->dbconnection, $otherIDNumber);
     $otheridExpiration = mysqli_real_escape_string($this->dbconnection, $otheridExpiration);
-
+    $idFileType = mysqli_real_escape_string($this->dbconnection, $idFileType);
 
 	
 
-    $query = "INSERT INTO $tablename() VALUES ($userID, '$userType','$userStatus','$userName', '$userEmail','$userPassword','$userPhoto','$firstName','$lastName','$userGender','$education','$birthDate','$houseNo','$street','$baranggay','$municipality','$idType','$idFile','$idNumber','$idExpiration','$otherIDType','$otherIDFile','$otherIDNumber','$otheridExpiration')";
+    $query = "INSERT INTO $tablename() VALUES ($userID, '$userType','$userStatus','$userName', '$userEmail','$userPassword','$userPhoto','$firstName','$lastName','$userGender','$education','$birthDate','$houseNo','$street','$baranggay','$municipality','$idType','$idFile','$idNumber','$idExpiration','$otherIDType','$otherIDFile','$otherIDNumber','$otheridExpiration','$idFileType')";
     return mysqli_query($this->dbconnection, $query);
 
 }
@@ -358,6 +358,181 @@ public function getProducts($tablename,$column,$condition,$orderby = null){
                 
                 $file = 'data:image/image/png;base64,'.base64_encode($row['productImage']);
                 $row['productImage'] = $file;
+                
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
+
+// get Products row 
+public function getProductsResponders($municipality,$column,$condition,$orderby = null){
+   
+    $column = mysqli_real_escape_string($this->dbconnection, $column);
+    $condition = mysqli_real_escape_string($this->dbconnection, $condition);
+    $municipality = mysqli_real_escape_string($this->dbconnection,$municipality);
+    
+   
+    if(isset($orderby)){
+        $query = "SELECT 
+         userprofile.userID,
+        userprofile.userName, 
+        userprofile.municipality,
+        userprofile.userType,
+        products.productName,
+        products.productDescription,
+        products.productPrice,
+        products.deliveryRate
+        
+        FROM products
+        INNER JOIN userprofile
+        
+        
+        ON products.responderID = 
+        userprofile.userID
+        
+        WHERE '$column' = '$condition'
+        AND userprofile.municipality = '$municipality'
+        AND products.responderID = userprofile.userID
+        ORDER BY $orderby
+        ";
+
+    }else{
+        $query = "SELECT 
+         userprofile.userID,
+        userprofile.userName, 
+        userprofile.municipality,
+        userprofile.userType,
+        products.productName,
+        products.productDescription,
+        products.productPrice,
+        products.deliveryRate
+        
+        FROM products
+        INNER JOIN userprofile
+        
+        
+        ON products.responderID = 
+        userprofile.userID
+        
+        WHERE $column = '$condition'
+        AND userprofile.municipality = '$municipality'
+        AND products.responderID = userprofile.userID
+        ";
+    }
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+  
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+
+                
+         
+                
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
+
+public function getAllProductsResponders($municipality,$column,$condition,$orderby = null){
+   
+    $column = mysqli_real_escape_string($this->dbconnection, $column);
+    $condition = mysqli_real_escape_string($this->dbconnection, $condition);
+    $municipality = mysqli_real_escape_string($this->dbconnection,$municipality);
+    
+   
+    if(isset($orderby)){
+        $query = "SELECT 
+        userprofile.userID,
+        userprofile.userName, 
+        userprofile.municipality,
+        userprofile.userType,
+        products.productName,
+        products.productDescription,
+        products.productPrice,
+        products.deliveryRate
+        
+        FROM products
+        INNER JOIN userprofile
+        
+        
+        ON products.responderID = 
+        userprofile.userID
+        
+        WHERE '$column' = '$condition'
+        AND userprofile.municipality != '$municipality'
+        AND products.responderID = userprofile.userID
+        ORDER BY $orderby
+        ";
+        
+    }else{
+        $query = "SELECT 
+        userprofile.userID,
+        userprofile.userName, 
+        userprofile.municipality,
+        userprofile.userType,
+        products.productName,
+        products.productDescription,
+        products.productPrice,
+        products.deliveryRate
+        
+        FROM products
+        INNER JOIN userprofile
+        
+        
+        ON products.responderID = 
+        userprofile.userID
+        
+        WHERE $column = '$condition'
+        AND userprofile.municipality != '$municipality'
+        AND products.responderID = userprofile.userID
+        ";
+    }
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+  
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+
+                
+         
                 
 
                 $data[] = $row;
@@ -710,7 +885,7 @@ public function registerCategory($serviceCategory,$servicePosition){
  }
 
  // insert products
- public function registerProduct($servicesInfoID,$itemCategory,$productName,$productBrand,$productDescription,$productPrice,$productImage,$responderID,$productStore,$storeLocation){
+ public function registerProduct($servicesInfoID,$itemCategory,$productName,$productBrand,$productDescription,$productPrice,$productImage,$responderID,$productStore,$storeLocation,$deliveryRate){
 
 	
     
@@ -726,6 +901,7 @@ public function registerCategory($serviceCategory,$servicePosition){
      $productPrice=mysqli_real_escape_string($this->dbconnection,$productPrice);
      $productImage=mysqli_real_escape_string($this->dbconnection,$productImage);
      $responderID = mysqli_real_escape_string($this->dbconnection,$responderID);
+     $deliveryRate = mysqli_real_escape_string($this->dbconnection,$deliveryRate);
 
      $itemStatus = "";
      
@@ -734,7 +910,7 @@ public function registerCategory($serviceCategory,$servicePosition){
   
      
  
-     $query = "INSERT INTO $tablename() VALUES ( 0,$servicesInfoID,'$itemCategory', '$productName', '$productBrand', '$productDescription', '$productPrice','$productImage', $responderID ,'$itemStatus','$productStore','$storeLocation')";
+     $query = "INSERT INTO $tablename() VALUES ( 0,$servicesInfoID,'$itemCategory', '$productName', '$productBrand', '$productDescription', '$productPrice','$productImage', $responderID ,'$itemStatus','$productStore','$storeLocation',$deliveryRate)";
      return mysqli_query($this->dbconnection, $query);
 
  

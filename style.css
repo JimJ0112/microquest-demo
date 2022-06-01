@@ -320,6 +320,35 @@ label{
   
 }
 
+.allResponderCard{
+    outline: auto;
+    height: fit-content;
+    width: 200px;
+    cursor: pointer;
+    display: grid;
+   
+    text-overflow:ellipsis;
+}
+
+#pasabuyResponders{
+    display: none;
+    padding: auto;
+    padding-top: 0;
+    outline: auto;
+    height: 900px;
+    align-content: center;
+    width: 100%;
+
+    position: absolute;
+    z-index: 5;
+
+    background-color: white;
+    border: 1px solid black;
+    text-align: center;
+}
+
+
+
 /* Request Board */
 #requestBoardNav{
     display: grid;
