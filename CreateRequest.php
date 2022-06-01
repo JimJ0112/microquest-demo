@@ -3,6 +3,14 @@ session_start();
     if(!isset($_SESSION["userEmail"])){
         header("location:LoginForm.php?msg=Please Login First");
     }
+
+
+    if(isset($_SESSION["userType"])){
+        $usertype = $_SESSION["userType"];
+        if($usertype != "Requestor"){
+            header("location: User_Profile.php?msg= Not a Requestor");
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,11 +32,9 @@ session_start();
     <?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
-            if($usertype === "Responder"){
-                require("Includes/Responder_Navbar.inc.php");
-            }else if($usertype === "Requestor"){
-                require("Includes/Requestor_Navbar.inc.php");
-            }
+                if($usertype === "Requestor"){
+                    require("Includes/Requestor_Navbar.inc.php");
+                }
         }
         
     ?>

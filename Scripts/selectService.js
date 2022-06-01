@@ -36,7 +36,7 @@ function getPositions(name){
             var dataArray = this.response;
             dataArray = JSON.parse(dataArray);
             console.log(dataArray);
-           // positions(dataArray);
+
             var number = dataArray.length;
             createServiceElements(number);
             dataArray = positions(dataArray);

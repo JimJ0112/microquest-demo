@@ -600,6 +600,55 @@ public function getProductCategories(){
 }
 
 
+
+
+
+// get Requests
+public function getRequests($tablename,$column,$condition,$orderby = null){
+    $tablename = mysqli_real_escape_string($this->dbconnection, $tablename);
+    $column = mysqli_real_escape_string($this->dbconnection, $column);
+    $condition = mysqli_real_escape_string($this->dbconnection, $condition);
+    
+   
+    if(isset($orderby)){
+        $query = "SELECT $tablename.*,userprofile.userName,userprofile.municipality FROM $tablename INNER JOIN userprofile ON $tablename.requestorID = userprofile.userID WHERE $column = '$condition' ORDER BY $orderby";
+    }else{
+        $query = "SELECT * FROM $tablename WHERE $column = '$condition'";
+    }
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+  
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+
+                /*
+                $file = 'data:image/image/png;base64,'.base64_encode($row['bannerimage']);
+                $row['bannerimage'] = $file;
+                */
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
+
 /*---------------------------------UPDATE FUNCTIONS----------------------------------------------------- */
 
 // update columns 

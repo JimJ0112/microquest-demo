@@ -20,6 +20,8 @@ function createServiceElements(Number){
     var requestID= document.createElement('td');
     var requestTitle= document.createElement('td');
     var requestorID = document.createElement('td');
+    var requestorUserName = document.createElement('td');
+    var requestorLocation = document.createElement('td');
 
 
 
@@ -35,6 +37,8 @@ function createServiceElements(Number){
     requestID.setAttribute('class','requestID');
     requestTitle.setAttribute('class','requestTitle');
     requestorID.setAttribute('class','requestorID');
+    requestorUserName.setAttribute('class','requestorUserName');
+    requestorLocation.setAttribute('class','requestorLocation');
 
 
 
@@ -48,6 +52,8 @@ function createServiceElements(Number){
     card.appendChild(isNegotiable);
     card.appendChild(dueDate);
     card.appendChild(requestorID);
+    card.appendChild(requestorUserName);
+    card.appendChild(requestorLocation);
 
 
     div.append(card);
@@ -73,6 +79,9 @@ function setData(array){
     var requestID = document.getElementsByClassName('requestID');
     var requestTitle = document.getElementsByClassName('requestTitle');
     var requestorID= document.getElementsByClassName('requestorID');
+    var requestorUserName= document.getElementsByClassName('requestorUserName');
+    var requestorLocation= document.getElementsByClassName('requestorLocation');
+
 
 
 
@@ -86,6 +95,8 @@ function setData(array){
          requestID[i].innerText = dataArray[i]['requestID'];
          requestTitle[i].innerText = dataArray[i]['requestTitle'];
          requestorID[i].innerText = dataArray[i]['requestorID'];
+         requestorUserName[i].innerText =dataArray[i]['userName'];
+         requestorLocation[i].innerText = dataArray[i]['requestorMunicipality'];
 
     }
 

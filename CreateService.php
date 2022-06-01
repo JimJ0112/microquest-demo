@@ -3,6 +3,13 @@ session_start();
     if(!isset($_SESSION["userEmail"])){
         header("location:LoginForm.php?msg=Please Login First");
     }
+
+    if(isset($_SESSION["userType"])){
+        $usertype = $_SESSION["userType"];
+        if($usertype != "Responder"){
+            header("location: User_Profile.php?msg= Not a Reponder");
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -229,6 +236,16 @@ session_start();
 <br/>
 <br/>
 <h2> Offer a Service </h2>
+<?php
+    if(isset($_GET['newUser'])){
+         echo" <a href='Responder_Home.php'> <div class='createRequestButton'> Skip for now </div> <a/>";
+    }
+
+
+?>
+
+
+
     <br/>
         <div>
             <form method="GET" action="Backend/Get_products.php"> 
