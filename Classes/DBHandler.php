@@ -824,6 +824,120 @@ public function getRequests($tablename,$column,$condition,$orderby = null){
 }
 
 
+// getting Messages from messages table
+public function getUserMessages($ID,$groupBy=null){
+    $ID = mysqli_real_escape_string($this->dbconnection, $ID);
+    $tablename = "messages";
+    $column = "messageReciever";
+   
+
+   
+   if(isset($groupBy)){
+        $query = "SELECT * FROM $tablename WHERE $column = $ID  GROUP BY $groupBy";
+   } else {
+
+        $query = "SELECT * FROM $tablename WHERE $column = $ID";
+   }
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+    $file;
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+                //if(strpos($row['ID_FILETYPE'],"image")){
+
+                    if(isset($row['messageFile'])){
+                    $file = 'data:image/image/png;base64,'.base64_encode($row['messageFile']);
+                    $row['messageFile'] = $file;
+                    }
+                /*} else {
+                    $file = 'data:application/pdf;base64,'.base64_encode($row['IDCARD']);
+                    $row['IDCARD'] = $file;
+                    
+                  } 
+                */
+
+
+
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
+
+// getting Messages from messages table
+public function getUserConversation($myID,$ID){
+    $ID = mysqli_real_escape_string($this->dbconnection, $ID);
+    $myID = mysqli_real_escape_string($this->dbconnection, $myID);
+    $tablename = "messages";
+    $column = "messageReciever";
+    $column1 = "messageSender";
+   
+
+   
+
+       
+        $query = "SELECT * FROM $tablename WHERE $column = $ID AND $column1 = $myID OR $column = $myID AND $column1 = $ID";
+   
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+    $file;
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+                //if(strpos($row['ID_FILETYPE'],"image")){
+
+                    if(isset($row['messageFile'])){
+                    $file = 'data:image/image/png;base64,'.base64_encode($row['messageFile']);
+                    $row['messageFile'] = $file;
+                    }
+                /*} else {
+                    $file = 'data:application/pdf;base64,'.base64_encode($row['IDCARD']);
+                    $row['IDCARD'] = $file;
+                    
+                  } 
+                */
+
+
+
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
 /*---------------------------------UPDATE FUNCTIONS----------------------------------------------------- */
 
 // update columns 
@@ -943,6 +1057,36 @@ public function registerCategory($serviceCategory,$servicePosition){
     $query = "INSERT INTO $tablename() VALUES ( 0,'$requestCategory','$requestTitle','$requestDescription','$requestExpectedPrice','$isNegotiable','$datePosted','$dueDate','$requestorID','$requestorMunicipality','$requestStatus')";
     return mysqli_query($this->dbconnection, $query);
 
+
+}
+
+
+// send messages
+public function sendMessage($senderID,$recieverID,$messageBody,$messageDate,$messageTime,$messageFileType=null,$messageFile=null){
+
+$senderID= mysqli_real_escape_string($this->dbconnection,$senderID);
+$recieverID= mysqli_real_escape_string($this->dbconnection,$recieverID);
+$messageBody= mysqli_real_escape_string($this->dbconnection,$messageBody);
+$messageDate = mysqli_real_escape_string($this->dbconnection,$messageDate);
+$messageTime = mysqli_real_escape_string($this->dbconnection,$messageTime);
+$messageStatus = "Sent";
+
+if(isset($messageFileType) && isset($messageFile)){
+$messageFile = mysqli_real_escape_string($this->dbconnection,$messageFile);
+$messageFileType = mysqli_real_escape_string($this->dbconnection,$messageFileType);
+
+} else {
+    $messageFile = "";
+$messageFileType ="";
+
+}
+
+$tablename = "messages";
+
+    
+
+    $query = "INSERT INTO $tablename() VALUES (0,$senderID,$recieverID,'$messageBody','$messageDate','$messageTime', '$messageStatus','$messageFile','$messageFileType')";
+    return mysqli_query($this->dbconnection, $query);
 
 }
 

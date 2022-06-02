@@ -11,7 +11,7 @@
 
 <ul class="navbar">
     <li class="navitem"> <a href="Requestor_Home.php" class="navitem-content">Home </a> </li>
-    <li class="navitem"> <a href="#" class="navitem-content">Messages </a> </li>
+    <li class="navitem"> <a href="Messages.php" class="navitem-content">Messages </a> </li>
     <li class="navitem">
          <a href="User_Profile.php" class="navitem-content">
              <?php
