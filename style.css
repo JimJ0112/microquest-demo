@@ -456,3 +456,65 @@ label{
     align-items: center;
     text-overflow:ellipsis;
 }
+
+/* Public Profile */
+#publicProfileContent{
+    display: grid;
+    outline: auto;
+    width: 100%;
+    background-color: white;
+    height: 1000px;
+    grid-template-areas: "profilepic primarydetails primarydetails primarydetails primarydetails primarydetails"
+                         "otherpersonaldetails otherpersonaldetails otherpersonaldetails otherpersonaldetails otherpersonaldetails otherpersonaldetails"
+                         "referencedetails referencedetails referencedetails referencedetails referencedetails referencedetails"
+                         "servicedetails servicedetails servicedetails servicedetails servicedetails servicedetails";
+}
+#profilePic{
+    outline: auto;
+    width: 100%;
+    grid-area: profilepic;
+    align-content: center;
+}
+
+#userPrimaryDetails{
+    grid-area: primarydetails;
+    display: grid;
+    outline: auto;
+    width: 100%;
+    background-color: white;
+    height: 100%;
+}
+
+#userOtherDetails{
+    grid-area: otherpersonaldetails;
+    display: grid;
+    outline: auto;
+    width: 100%;
+    background-color: white;
+    height: 100%;
+}
+
+#userReferenceDetails{
+    grid-area: referencedetails;
+    display: grid;
+    outline: auto;
+    width: 100%;
+    background-color: white;
+    height: 100%;
+
+}
+#userServicesDetails{
+
+    grid-area: servicedetails;
+    display: grid;
+    outline: auto;
+    width: 100%;
+    background-color: white;
+    height: 100%;
+}
+
+#profileimage{
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}

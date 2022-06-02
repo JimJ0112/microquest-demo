@@ -20,7 +20,7 @@ function createServiceElements(Number){
     var requestID= document.createElement('td');
     var requestTitle= document.createElement('td');
     var requestorID = document.createElement('td');
-    var requestorUserName = document.createElement('td');
+    var requestorUserName = document.createElement('a');
     var requestorLocation = document.createElement('td');
 
 
@@ -97,6 +97,7 @@ function setData(array){
          requestorID[i].innerText = dataArray[i]['requestorID'];
          requestorUserName[i].innerText =dataArray[i]['userName'];
          requestorLocation[i].innerText = dataArray[i]['requestorMunicipality'];
+         requestorUserName[i].href = "Public_Profile.php?userID=" +  dataArray[i]['requestorID'] + "&userType=Requestor";
 
     }
 

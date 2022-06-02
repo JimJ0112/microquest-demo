@@ -220,7 +220,7 @@ function createSuggestedRespondersElements(Number){
     var municipality = document.createElement('td');
     var rate = document.createElement('td');
     var selectButton = document.createElement('button');
-    var viewProfile = document.createElement('button');
+    var viewProfile = document.createElement('a');
     
 
 
@@ -228,6 +228,7 @@ function createSuggestedRespondersElements(Number){
     // set attributes
     selectButton.innerText = "Select";
     viewProfile.innerText = "View Profile";
+    viewProfile.setAttribute('class','viewProfile');
     card.setAttribute('class','responderCard');
     ID.setAttribute('class','responderID');
     name.setAttribute('class','responderName');
@@ -265,7 +266,7 @@ function setResponderData(array){
     var municipality= document.getElementsByClassName('responderMunicipality');
     var rate= document.getElementsByClassName('responderRate');
    // var selectButton.innerText = "Select";
-   //var viewProfile.innerText = "View Profile";
+   var viewProfile = document.getElementsByClassName('viewProfile');
 
     for(var i = 0; i<number;i++){
 
@@ -274,6 +275,7 @@ function setResponderData(array){
         name[i].innerText = dataArray[i]['userName'];
         municipality[i].innerText = dataArray[i]['municipality'];
         rate[i].innerText = dataArray[i]['rate'];
+        viewProfile[i].href= "Public_Profile.php?userID=" +  dataArray[i]['responderID'] + "&userType=Responder";
         
         
 
@@ -292,6 +294,8 @@ function setAvailableResponderData(array){
 
     var responderCard = document.getElementsByClassName("availableResponderCard");
 
+    var availableViewProfile = document.getElementsByClassName('availableViewProfile');
+
     var ID= document.getElementsByClassName('availableResponderID');
     var name= document.getElementsByClassName('availableResponderName');
     var municipality= document.getElementsByClassName('availableResponderMunicipality');
@@ -306,6 +310,7 @@ function setAvailableResponderData(array){
         name[i].innerText = dataArray[i]['userName'];
         municipality[i].innerText = dataArray[i]['municipality'];
         rate[i].innerText = dataArray[i]['rate'];
+        availableViewProfile[i].href= "Public_Profile.php?userID=" +  dataArray[i]['responderID'] + "&userType=Responder";
         
         
 
@@ -384,7 +389,7 @@ function createAvailableRespondersElements(Number){
     var municipality = document.createElement('td');
     var rate = document.createElement('td');
     var selectButton = document.createElement('button');
-    var viewProfile = document.createElement('button');
+    var viewProfile = document.createElement('a');
     
 
 
@@ -392,6 +397,7 @@ function createAvailableRespondersElements(Number){
     // set attributes
     selectButton.innerText = "Select";
     viewProfile.innerText = "View Profile";
+    viewProfile.setAttribute('class','availableViewProfile');
     card.setAttribute('class','availableResponderCard');
     ID.setAttribute('class','availableResponderID');
     name.setAttribute('class','availableResponderName');

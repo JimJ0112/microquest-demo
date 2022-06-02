@@ -142,7 +142,7 @@ function createSuggestedRespondersElements(Number){
     var deliveryRate = document.createElement('td');
 
     var selectButton = document.createElement('button');
-    var viewProfile = document.createElement('button');
+    var viewProfile = document.createElement('a');
     
 
 
@@ -156,6 +156,7 @@ function createSuggestedRespondersElements(Number){
     name.setAttribute('class','responderName');
     municipality.setAttribute('class','responderMunicipality');
     deliveryRate.setAttribute('class','deliveryRate');
+    viewProfile.setAttribute('class','viewProfile');
 
 
     // append elements to the row
@@ -188,7 +189,7 @@ function setResponderData(array){
     var municipality= document.getElementsByClassName('responderMunicipality');
     var deliveryRate= document.getElementsByClassName('deliveryRate');
    // var selectButton.innerText = "Select";
-   //var viewProfile.innerText = "View Profile";
+   var viewProfile = document.getElementsByClassName('viewProfile');
 
     for(var i = 0; i<number;i++){
         //serviceCard[i].innerText = dataArray[i];
@@ -198,6 +199,7 @@ function setResponderData(array){
         name[i].innerText = dataArray[i]['userName'];
         municipality[i].innerText = dataArray[i]['municipality'];
         deliveryRate[i].innerText = dataArray[i]['deliveryRate'];
+        viewProfile[i].href = "Public_Profile.php?userID=" +  dataArray[i]['userID'] + "&userType=Responder";
         
         
 
@@ -520,7 +522,7 @@ function createAllRespondersElements(Number){
     var deliveryRate = document.createElement('td');
 
     var selectButton = document.createElement('button');
-    var viewProfile = document.createElement('button');
+    var viewProfile = document.createElement('a');
     
 
 
@@ -534,6 +536,7 @@ function createAllRespondersElements(Number){
     name.setAttribute('class','allResponderName');
     municipality.setAttribute('class','allResponderMunicipality');
     deliveryRate.setAttribute('class','allDeliveryRate');
+    viewProfile.setAttribute('class','allViewProfile');
 
 
     // append elements to the row
@@ -565,7 +568,8 @@ function setAllResponderData(array){
     var name= document.getElementsByClassName('allResponderName');
     var municipality= document.getElementsByClassName('allResponderMunicipality');
     var deliveryRate= document.getElementsByClassName('allDeliveryRate');
-   // var selectButton.innerText = "Select";
+    var viewProfile = document.getElementsByClassName('allViewProfile')
+   //var selectButton.innerText = "Select";
    //var viewProfile.innerText = "View Profile";
 
     for(var i = 0; i<number;i++){
@@ -576,6 +580,7 @@ function setAllResponderData(array){
         name[i].innerText = dataArray[i]['userName'];
         municipality[i].innerText = dataArray[i]['municipality'];
         deliveryRate[i].innerText = dataArray[i]['deliveryRate'];
+        viewProfile[i].href = "Public_Profile.php?userID=" +  dataArray[i]['userID'] + "&userType=Responder";
         
         
 
