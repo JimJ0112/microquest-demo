@@ -3,6 +3,12 @@ session_start();
     if(!isset($_SESSION["userEmail"])){
         header("location:LoginForm.php?msg=Please Login First");
     }
+
+    if(isset($_SESSION["municipality"])){
+      $municipality = $_SESSION["municipality"];
+
+      echo"<script> sessionStorage.setItem('municipality','$municipality')</script>";
+  }
 ?>
 
 <html lang="en">
@@ -28,7 +34,7 @@ session_start();
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
             if($usertype === "Requestor"){
-                require("Includes/responderNav.inc.php");
+                require("Includes/requestorNav.inc.php");
             } else {
                 header("location:User_Profile.php?msg= not a Responder");
             }
@@ -39,14 +45,14 @@ session_start();
 
 <center>
   <div class="HomeContainer">
-        
-    <!-- ROW -->
+   <!-- ROW -->
     <div class="row">
+    
       <a href="RequestBoard.php"> 
         <div class="column">
           <div class="HomeCard">
             <h3 class="h3"> REQUEST BOARD</h3>
-            <p> Hello <i> <?php echo $_SESSION['userName']?> !</i></p>
+         
             <p> Request board offers you to create request and browse different categories.  </p>
           </div>
         </div>
@@ -56,7 +62,7 @@ session_start();
         <div class="column">
           <div class="HomeCard">
             <h3 class="h3">AVAILABLE SERVICES</h3>
-            <p> Hello <i> <?php echo $_SESSION['userName']?> !</i></p>
+           
             <p>This contains the available services that is offer.</p>
     
           </div>
@@ -71,7 +77,7 @@ session_start();
         <div class="column">
           <div class="HomeCard">
             <h3 class="h3" >MY REQUESTS</h3>
-            <p> Hello <i> <?php echo $_SESSION['userName']?> !</i></p>
+            
             <p>This will view your requests and requests status.   </p>
     
           </div>
@@ -80,7 +86,7 @@ session_start();
         <div class="column">
           <div class="HomeCard">
             <h3 class="h3">AVAILED SERVICES</h3>
-            <p> Hello <i> <?php echo $_SESSION['userName']?> !</i></p>
+      
             <p> This will view your availed services in <i>AVAILABLE SERVICES</i> </p>
 
           </div>

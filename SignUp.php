@@ -20,7 +20,7 @@
 
 
 
-    <div class="card" style="margin-left: -80px;">
+    <div class="card" style="margin-left: -200px;">
         <div class="container">
             <img src="images/requestor.png" alt="John" style="width:100%">
             <h1 class="h_request">Do you want to hire someone for your request?</h1>

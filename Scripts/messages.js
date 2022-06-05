@@ -34,21 +34,32 @@ function createSenderElements(Number){
 // set positions data 
 function setUsersData(array){
 
+    var myID = sessionStorage.getItem('myID');
     var dataArray = array;
     var number = dataArray.length;
+    dataArray.sort();
+
 
     var inboxCard = document.getElementsByClassName("inboxCard");
     for(var i = 0; i<number;i++){
-        
-        inboxCard[i].innerText = dataArray[i]['messageSender'];
-        inboxCard[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageSender'] + "')");
+
+        if (myID === dataArray[i]['messageSender']){
+            inboxCard[i].innerText = dataArray[i]['messageReciever'];
+            inboxCard[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageReciever'] + "')");
+        } else if(myID === dataArray[i]['messageReciever']){
+            inboxCard[i].innerText = dataArray[i]['messageSender'];
+            inboxCard[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageSender'] + "')");
+        }
+
+        //inboxCard[i].innerText = dataArray[i]['messageSender'];
+        //inboxCard[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageSender'] + "')");
 
     }
 
 }
 
 
-// for getting products for pasabuy
+// for getting messages 
 function getMessages(id){
     userID = id;
     var query = "userID="+ userID;     

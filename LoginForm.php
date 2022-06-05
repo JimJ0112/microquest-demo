@@ -11,6 +11,7 @@ session_start();
         echo "<script> alert('$msg')</script>";
 
     }
+    echo "<script> sessionStorage.clear(); </script> ";
 ?>
 
 
@@ -61,15 +62,15 @@ body{
     font-family: 'Courier New', Courier, monospace;
 }
 .card{
-    margin-left: -100px;
+    margin-left: 10px;
     margin-top: 50px;
-    float: left;
-    width: 500px;
-    height: 650px;
+    float: left;    /** eto  */
+    width: 450px;
+    height: 550px;
 }
 .container{
     margin-top: 20px;
-    margin-right: 120px;
+    margin-right: 90px;
     float: right;
     width: 570px;
     height: 760px;

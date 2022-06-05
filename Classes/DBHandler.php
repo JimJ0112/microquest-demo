@@ -121,6 +121,25 @@ public function verifyuser($email,$password){
 
 }
 
+public function firstConversation($myID,$userID){
+    $tablename = "messages";
+    $myID = mysqli_real_escape_string($this->dbconnection, $myID);
+    $userID = mysqli_real_escape_string($this->dbconnection, $userID);
+
+    $query = "SELECT * FROM $tablename WHERE messageSender = $myID AND messageReciever=$userID OR messageSender = $userID AND messageReciever=$myID";
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+
+
+    if($resultCheck > 0){
+        return 1;
+    } else {
+        return 0;
+    }
+  
+
+}
+
 // for admin login
 public function verifyadmin($email,$password){
     $tablename = "admin";
@@ -829,14 +848,17 @@ public function getUserMessages($ID,$groupBy=null){
     $ID = mysqli_real_escape_string($this->dbconnection, $ID);
     $tablename = "messages";
     $column = "messageReciever";
+    $column1 = "messageSender";
    
 
    
    if(isset($groupBy)){
-        $query = "SELECT * FROM $tablename WHERE $column = $ID  GROUP BY $groupBy";
+       $query = "SELECT * FROM $tablename WHERE $column = $ID OR $column1 = $ID AND firstChat = 1 GROUP BY messageSender,messageReciever";
+        //$query = "SELECT * FROM $tablename WHERE $column = $ID  GROUP BY $groupBy";
    } else {
 
-        $query = "SELECT * FROM $tablename WHERE $column = $ID";
+        $query = "SELECT * FROM $tablename WHERE ($column = $ID OR $column1 = $ID) AND firstChat = 1";
+       //$query = "SELECT * FROM $tablename WHERE $column = $ID = $ID";
    }
 
     $result = mysqli_query($this->dbconnection, $query);
@@ -1062,7 +1084,7 @@ public function registerCategory($serviceCategory,$servicePosition){
 
 
 // send messages
-public function sendMessage($senderID,$recieverID,$messageBody,$messageDate,$messageTime,$messageFileType=null,$messageFile=null){
+public function sendMessage($senderID,$recieverID,$messageBody,$messageDate,$messageTime,$firstChat,$messageFileType=null,$messageFile=null){
 
 $senderID= mysqli_real_escape_string($this->dbconnection,$senderID);
 $recieverID= mysqli_real_escape_string($this->dbconnection,$recieverID);
@@ -1070,6 +1092,7 @@ $messageBody= mysqli_real_escape_string($this->dbconnection,$messageBody);
 $messageDate = mysqli_real_escape_string($this->dbconnection,$messageDate);
 $messageTime = mysqli_real_escape_string($this->dbconnection,$messageTime);
 $messageStatus = "Sent";
+$firstChat = mysqli_real_escape_string($this->dbconnection,$firstChat );
 
 if(isset($messageFileType) && isset($messageFile)){
 $messageFile = mysqli_real_escape_string($this->dbconnection,$messageFile);
@@ -1085,7 +1108,7 @@ $tablename = "messages";
 
     
 
-    $query = "INSERT INTO $tablename() VALUES (0,$senderID,$recieverID,'$messageBody','$messageDate','$messageTime', '$messageStatus','$messageFile','$messageFileType')";
+    $query = "INSERT INTO $tablename() VALUES (0,$senderID,$recieverID,'$messageBody','$messageDate','$messageTime', '$messageStatus','$messageFile','$messageFileType',$firstChat)";
     return mysqli_query($this->dbconnection, $query);
 
 }

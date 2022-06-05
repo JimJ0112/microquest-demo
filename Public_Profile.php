@@ -18,7 +18,7 @@ session_start();
     <link rel="stylesheet" href="style.css">
     <script src="Scripts/getUser.js"> </script>
 
-    <title> Profile -  </title>
+    <title> Profile </title>
 </head>
 <body>
     <?php
@@ -57,6 +57,16 @@ session_start();
              <b> Email: </b>   <p id="userEmail"> Email </p><br/><br/>
              <p id="userType"> User Type </p><br/><br/>
 
+             <form action="Backend/insertMessage.php" method="post">
+             <label> Send me a message </label> <br/>
+                 <input type="hidden" name="recieverID"
+                 value='<?php echo $_GET['userID']?>'/>
+                 <input type="hidden" name="senderID" value='<?php echo $_SESSION['userID']; ?>'>
+                 
+                <textarea name="messageBody"> </textarea>
+                <input type="submit" value="SEND"/>
+                
+             </form>
             </div>
 
             

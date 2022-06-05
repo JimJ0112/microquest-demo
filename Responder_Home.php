@@ -3,6 +3,12 @@ session_start();
     if(!isset($_SESSION["userEmail"])){
         header("location:LoginForm.php?msg=Please Login First");
     }
+
+    if(isset($_SESSION["municipality"])){
+      $municipality = $_SESSION["municipality"];
+
+      echo"<script> sessionStorage.setItem('municipality','$municipality')</script>";
+  }
 ?>
 
 <html lang="en">
@@ -39,6 +45,7 @@ session_start();
 <center>
 <div class="HomeContainer">
         
+
     <!-- ROW -->
     <div class="row">
       
@@ -46,7 +53,7 @@ session_start();
         <div class="column">
           <div class="HomeCard">
             <h3 class="h3"> REQUEST BOARD</h3>
-            <p> Hello <i> <?php echo $_SESSION['userName']?>  !</i></p>
+         
             <p> Request board offers you different categories of jobs. </p>
            
           </div>
@@ -56,7 +63,7 @@ session_start();
         <div class="column">
           <div class="HomeCard">
             <h3 class="h3">MY SERVICES</h3>
-            <p> Hello <i> <?php echo $_SESSION['userName']?> !</i>  </p>
+          
             <p> These will contain your services offer!</p>
     
           </div>
@@ -68,7 +75,7 @@ session_start();
         <div class="column">
           <div class="HomeCard">
             <h3 class="h3">REQUEST</h3>
-            <p> Hello <i> <?php echo $_SESSION['userName']?> !</i> </p>
+         
             <p> Tired of finding someone to hire you? Click me! I might contain a request from a client.</p>
            
           </div>
@@ -78,7 +85,7 @@ session_start();
             <div class="column">
                 <div class="HomeCard">
                     <h3 class="h3">OFFER SERVICE</h3>
-                    <p> Hi   <i><?php echo $_SESSION['userName']?> !</i> </p>  
+                    
                     <p>Do you want to create instant service? Press me.</p>
 
                 </div>

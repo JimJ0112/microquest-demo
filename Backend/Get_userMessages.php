@@ -6,7 +6,8 @@ $DBHandler = new DBHandler();
 
 
 $ID = $_POST['userID'];
-$result = $DBHandler->getUserMessages($ID,'messageSender');
+//$result = $DBHandler->getUserMessages($ID,'messageSender');
+$result = $DBHandler->getUserMessages($ID);
 
 
 

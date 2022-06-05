@@ -214,7 +214,7 @@ input[type=text], input[type=password], input[type=date], input[type=address], i
     <div class="right-content">
      
          <div class="right-form-content">
-             <h1 class="h1">RE<i class="fa-solid fa-magnifying-glass">UEST</i>TOR's PROFILE</h1>
+             <h1 class="h1">RE<i class="fa-solid fa-magnifying-glass">UEST</i>OR's PROFILE</h1>
              <!-- FORM -->
             
                  <BR>
@@ -278,7 +278,7 @@ input[type=text], input[type=password], input[type=date], input[type=address], i
                 <label style="color:rgb(191, 126, 70); font-weight: lighter;" for="address">Address</label>
                 <input type="address" name="houseNumber" placeholder="House number"/> 
                 <input type="address" name="street" placeholder="Street"  required/> 
-                <input type="address" name="baranggay" placeholder="Baranggay"  required/> 
+                <input type="address" name="baranggay" placeholder="Barangay"  required/> 
 
                 <label  style="color:rgb(191, 126, 70); font-weight: lighter" for="bday">Municipality</label>
                  <select name="municipality" required> 

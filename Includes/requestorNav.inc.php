@@ -19,7 +19,7 @@
               <a href="User_Profile.php" style="margin-right: 450px;">
                   <?php
                         if(isset($_SESSION["userName"])){
-                            echo $_SESSION["userName"];
+                            echo " <i> Welcome, </i> <b style='color: #fff4c2;  text-shadow: 2px 2px 4px #000000;'>".$_SESSION["userName"]."</b>";
                         } else {
                             echo"User Profile";
                         }

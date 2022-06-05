@@ -6,6 +6,7 @@ $useremail = $_SESSION["Useremail"];
 $DBHandler = new DBHandler();
 $DBHandler-> updateColumn("users","USERSTATUS","offline","email",$useremail);
 
+
 session_destroy();
 header("Location:../LoginForm.php");
 
