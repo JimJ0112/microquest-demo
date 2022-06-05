@@ -59,9 +59,12 @@ session_start();
 
              <form action="Backend/insertMessage.php" method="post">
              <label> Send me a message </label> <br/>
+
                  <input type="hidden" name="recieverID"
                  value='<?php echo $_GET['userID']?>'/>
                  <input type="hidden" name="senderID" value='<?php echo $_SESSION['userID']; ?>'>
+                 <input type="hidden" name="senderUserName" value='<?php echo $_SESSION['userName']; ?>'>
+                 <input type="hidden" name="recieverUserName" id="recieverUserName">
                  
                 <textarea name="messageBody"> </textarea>
                 <input type="submit" value="SEND"/>

@@ -11,16 +11,17 @@ function createSenderElements(Number){
     var card = document.createElement('div');
 
 
-    var data = document.createElement('td');
+    var userName = document.createElement('td');
 
 
 
     // set attributes
     card.setAttribute('class','inboxCard');
+    userName.setAttribute('class','inboxUserName');
 
 
     // append elements to the row
-    card.appendChild(data);
+    card.appendChild(userName);
 
 
     div.append(card);
@@ -41,14 +42,18 @@ function setUsersData(array){
 
 
     var inboxCard = document.getElementsByClassName("inboxCard");
+    var inboxUserName = document.getElementsByClassName("inboxUserName");
     for(var i = 0; i<number;i++){
 
         if (myID === dataArray[i]['messageSender']){
-            inboxCard[i].innerText = dataArray[i]['messageReciever'];
-            inboxCard[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageReciever'] + "')");
+           // inboxCard[i].innerText = dataArray[i]['messageReciever'];
+            inboxUserName[i].innerText = dataArray[i]['recieverUserName'];
+            inboxCard[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageReciever'] + "','"+dataArray[i]['recieverUserName']+"')");
         } else if(myID === dataArray[i]['messageReciever']){
-            inboxCard[i].innerText = dataArray[i]['messageSender'];
-            inboxCard[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageSender'] + "')");
+            //inboxCard[i].innerText = dataArray[i]['messageSender'];
+            inboxUserName.innerText = dataArray[i]['senderUserName'];
+            inboxUserName[i].innerText = dataArray[i]['senderUserName'];
+            inboxCard[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageSender']+ "','"+dataArray[i]['senderUserName']+"')");
         }
 
         //inboxCard[i].innerText = dataArray[i]['messageSender'];
@@ -97,12 +102,21 @@ function getMessages(id){
 
 
 // for targeting a conversation
-function selectConversation(id){
+function selectConversation(id,username){
+
     userID = id;
+    userName = username;
     headerID = document.getElementById('conversationUserID');
+    headerUserName = document.getElementById('conversationUserName');
 
     headerID.innerText = userID;
+    headerUserName.innerText = userName;
     sessionStorage.setItem("selectedConversation",userID);
+
+    sessionStorage.setItem("selectedUserName",username);
+
+    // refreshing this session variable to be used in auto scrolling 
+    sessionStorage.setItem("bottomMessage",0);
 
     setConversation();
 
@@ -125,8 +139,11 @@ function sendMessage(){
     recieverID = headerID;
     sender = sessionStorage.getItem('myID');
     messageBody = document.getElementById('messageBody').value;
+    senderUserName = sessionStorage.getItem('myUserName');
+    recieverUserName = sessionStorage.getItem('selectedUserName');
 
-    var query = "recieverID="+ userID + "&senderID=" + sender+"&messageBody=" + messageBody;     
+    var query = "recieverID="+ userID + "&senderID=" + sender+"&messageBody=" + messageBody + "&senderUserName="+senderUserName+"&recieverUserName="+recieverUserName ;     
+    console.log(query);
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.open("POST", "Backend/insertMessage.php", true);
@@ -174,6 +191,7 @@ function setConversation(){
         if (this.readyState === 4 || this.status === 200){ 
            
             document.getElementById('conversation').innerHTML = "";
+            
 
             var dataArray = this.response;
 
@@ -213,6 +231,7 @@ function createConversationElements(Number){
     for(var i = 0;i<DataNumber;i++){
     
     // create elements for rows
+    var container = document.createElement('div');
     var card = document.createElement('div');
 
 
@@ -224,6 +243,7 @@ function createConversationElements(Number){
 
 
     // set attributes
+    container.setAttribute('class','messageContainer');
     card.setAttribute('class','messageCard');
 
     date.setAttribute('class','messageDate');
@@ -238,9 +258,12 @@ function createConversationElements(Number){
     card.appendChild(sender);
     card.appendChild(br);
     card.appendChild(message);
+    container.appendChild(card)
 
 
-    div.append(card);
+    div.append(container);
+
+
 
     } 
     
@@ -252,7 +275,10 @@ function setMessagesData(array){
 
     var dataArray = array;
     var number = dataArray.length;
+    var myID = sessionStorage.getItem('myID');
+    
 
+    var div = document.getElementsByClassName("messageCard");
     var date = document.getElementsByClassName('messageDate');
     var sender= document.getElementsByClassName('messageSender');
     var message= document.getElementsByClassName('message');
@@ -263,10 +289,39 @@ function setMessagesData(array){
         message[i].innerText = dataArray[i]['messageBody'];
         //message[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageBody'] + "')");
 
+        if(dataArray[i]['messageSender'] === myID ){
+            div[i].setAttribute('style','float:right; background-color:skyblue');
+
+        } else{
+            div[i].setAttribute('style','float:left; background-color:lightgray');
+        }
+
     }
+
+    var lastmessagecount = sessionStorage.getItem('bottomMessage');
+    if(number > lastmessagecount){
+
+     scrollToBottom();
+     sessionStorage.setItem('bottomMessage',number);
+
+    }
+    
+
+    
 
 }
 
+
+
+// scrolling to bottom of the conversation
+function scrollToBottom(){
+
+    var number =  sessionStorage.getItem('bottomMessage');
+    var elem = document.getElementsByClassName('messageCard')[number-1];
+    var div = document.getElementById("conversation");
+    div.scrollTo(0,div.scrollHeight);
+    console.log(elem);
+}
 
 // for closing the forms
 

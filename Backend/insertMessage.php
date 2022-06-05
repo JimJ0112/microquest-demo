@@ -17,6 +17,7 @@ if($senderID != $recieverID){
     $messageDate = date("Y-m-d H:i:s",time());
     $messageTime = time();
     $firstChat =  $DBHandler->firstConversation($senderID,$recieverID);
+
    if($firstChat === 1){
        $firstChat = 0;
    } else{
@@ -25,26 +26,23 @@ if($senderID != $recieverID){
 
    echo $firstChat;
 
+   $senderUserName = $_POST['senderUserName'];
+   $recieverUserName = $_POST['recieverUserName'];
+
     if(isset($_FILES['messageFile'])){
         $messageFile = $_FILES['messageFile']['tmp_name'];
         $messageFiletype = $_FILES['messageFile']['type'];
-        $result = $DBHandler->sendMessage($senderID,$recieverID,$messageBody,$messageDate,$messageTime,$firstChat,$messageFileType,$messageFile);
+        $result = $DBHandler->sendMessage($senderID,$recieverID,$messageBody,$messageDate,$messageTime,$firstChat,$senderUserName,$recieverUserName,$messageFileType,$messageFile);
     }
     
-    $result = $DBHandler->sendMessage($senderID,$recieverID,$messageBody,$messageDate,$messageTime,$firstChat);
+        $result = $DBHandler->sendMessage($senderID,$recieverID,$messageBody,$messageDate,$messageTime,$firstChat,$senderUserName,$recieverUserName);
     
     
-    /*
-    if($result  != "failed to fetch"){
-    
-        $result = json_encode($result);
-        
-    } else {
-    */
+
         echo $result;
         header("location:../Messages.php");
 
-    //}
+ 
     
     
 

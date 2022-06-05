@@ -20,7 +20,9 @@ session_start();
 
     <title> Messages  </title>
 </head>
-<body onload="init()">
+ <body onload="init()"> 
+
+
 <?php 
 if(isset($_SESSION['userID'])){
     $userID = $_SESSION['userID'];
@@ -49,22 +51,30 @@ if(isset($_SESSION['userID'])){
 
     <div id="messagesMain"> 
         <div id="conversationHeader">
-            <p id="conversationUserName"> userName </p>
-            <p id="conversationUserID"> conversation ID </p>
+            <p id="conversationUserName">  </p>
+            <p id="conversationUserID" style="display:none"> conversation ID </p>
         </div>
         <div id="conversation"> </div>
         <div id="messageForm">
                 <input type="hidden" name="senderID" id="senderID">
                 <input type="hidden" name="recieverID" id="recieverID">
-                <input type="text" id="messageBody"> 
+                <input type="hidden" name="senderUserName" value='<?php echo $_SESSION['userName']; ?>'>
+                <input type="hidden" name="recieverUserName" id="recieverUserName">
+
+
+                <textarea id="messageBody"> </textarea>
                 <input type="button" id="send" value="SEND" onclick="sendMessage()"> <br/>
-                <input type="button" id="file" value="CHOOSE FILE">
+                <input type="button" id="file" value="SEND PHOTO">
         </div>
 
         <form action="Backend/" method="post" enctype="multipart/form-data" id="fileForm">
             <div id="closeButton" onclick="closeForms()"> X </div>
             <input type="hidden" name="senderID">
             <input type="hidden" name="recieverID">
+
+            <input type="hidden" name="senderUserName" value='<?php echo $_SESSION['userName']; ?>'>
+            <input type="hidden" name="recieverUserName" id="recieverUserName">
+
             <input type="file" name="messageFile"/> <br/>
             <input type="submit" value="SEND"/>
         </form>

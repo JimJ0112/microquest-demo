@@ -8,7 +8,13 @@ session_start();
       $municipality = $_SESSION["municipality"];
 
       echo"<script> sessionStorage.setItem('municipality','$municipality')</script>";
-  }
+    }
+
+    if(isset($_SESSION["userName"])){
+      $userName = $_SESSION["userName"];
+
+      echo"<script> sessionStorage.setItem('myUserName',' $userName ')</script>";
+    }
 ?>
 
 <html lang="en">

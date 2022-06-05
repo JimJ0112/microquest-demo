@@ -14,6 +14,10 @@ userEmail=document.getElementById("userEmail") ;
 userType =document.getElementById("userType");
 
 
+recieverUserName = document.getElementById("recieverUserName");
+recieverUserName.value = dataArray[0]['userName'];
+
+
 birthDate =document.getElementById("Birth date");
 Address=document.getElementById("Address");
 Education=document.getElementById("Education") ;

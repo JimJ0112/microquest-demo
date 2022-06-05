@@ -1084,7 +1084,7 @@ public function registerCategory($serviceCategory,$servicePosition){
 
 
 // send messages
-public function sendMessage($senderID,$recieverID,$messageBody,$messageDate,$messageTime,$firstChat,$messageFileType=null,$messageFile=null){
+public function sendMessage($senderID,$recieverID,$messageBody,$messageDate,$messageTime,$firstChat,$senderUserName,$recieverUserName,$messageFileType=null,$messageFile=null){
 
 $senderID= mysqli_real_escape_string($this->dbconnection,$senderID);
 $recieverID= mysqli_real_escape_string($this->dbconnection,$recieverID);
@@ -1093,6 +1093,11 @@ $messageDate = mysqli_real_escape_string($this->dbconnection,$messageDate);
 $messageTime = mysqli_real_escape_string($this->dbconnection,$messageTime);
 $messageStatus = "Sent";
 $firstChat = mysqli_real_escape_string($this->dbconnection,$firstChat );
+$senderUserName = mysqli_real_escape_string($this->dbconnection,$senderUserName);
+$recieverUserName= mysqli_real_escape_string($this->dbconnection,$recieverUserName);
+
+
+
 
 if(isset($messageFileType) && isset($messageFile)){
 $messageFile = mysqli_real_escape_string($this->dbconnection,$messageFile);
@@ -1108,7 +1113,7 @@ $tablename = "messages";
 
     
 
-    $query = "INSERT INTO $tablename() VALUES (0,$senderID,$recieverID,'$messageBody','$messageDate','$messageTime', '$messageStatus','$messageFile','$messageFileType',$firstChat)";
+    $query = "INSERT INTO $tablename() VALUES (0,$senderID,$recieverID,'$messageBody','$messageDate','$messageTime', '$messageStatus','$messageFile','$messageFileType',$firstChat,'$senderUserName','$recieverUserName')";
     return mysqli_query($this->dbconnection, $query);
 
 }
