@@ -29,6 +29,8 @@ session_start();
         <link rel="manifest" href="manifest.json">
         <meta content='yes' name='apple-mobile-web-app-capable'/>
         <meta content='yes' name='mobile-web-app-capable'/>
+        <script src="Scripts/emailVerification.js"> </script>
+        <link rel="stylesheet" href="style.css">
 
 
         <style> 
@@ -209,7 +211,7 @@ input[type=text], input[type=password], input[type=date], input[type=address], i
 
 
 <div class="container">
-    <form action="Backend/RegisterBackend.php" method="post" enctype="multipart/form-data"> 
+    <form action="Backend/RegisterBackend.php" method="post" enctype="multipart/form-data" id="registerForm"> 
     
     <div class="right-content">
      
@@ -219,7 +221,7 @@ input[type=text], input[type=password], input[type=date], input[type=address], i
             
                  <BR>
                  <label for="email">Email</label>
-                 <input type="text" name="userEmail" placeholder="Enter a valid email..."  required/>
+                 <input type="text" name="userEmail" placeholder="Enter a valid email..." id="userEmail" required/>
  
                  <label for="username">Username</label>
                  <input type="text" name="userName" placeholder="Enter a username..."  required/>
@@ -228,7 +230,7 @@ input[type=text], input[type=password], input[type=date], input[type=address], i
                  <input type="password" name="userPassword" placeholder="Enter a password"  required/>
  
                  <label for="confirm">Confirm password:</label>
-                 <input type="password" placeholder="Confirm password"  required/>
+                 <input type="password" placeholder="Confirm password" id="confirmPassword" required/>
  
                  <label for="fname">First name:</label>
                  <input type="text" name="firstName" placeholder="Enter your First name" required/>
@@ -246,12 +248,12 @@ input[type=text], input[type=password], input[type=date], input[type=address], i
                  <label for="education">Education Attainment </label>
                  <select name="education"> 
                      <option selected="" disabled="">Select City / Education</option>
-                     <option value="Abucay">Elementary Graduate</option>
-                     <option value="Bagac">Secondary Graduate</option>
-                     <option value="Balanga">Junior High School Graduate</option>
-                     <option value="Dinalupihan">Senior High School Graduate</option>
-                     <option value="Hermosa">College/University Graduate</option>
-                     <option value="Hermosa">Vocational Training Graduate</option>
+                     <option value="Elementary Graduate">Elementary Graduate</option>
+                     <option value="Secondary Graduate">Secondary Graduate</option>
+                     <option value="Junior High School Graduate">Junior High School Graduate</option>
+                     <option value="Senior High School Graduate">Senior High School Graduate</option>
+                     <option value="College/University Graduate">College/University Graduate</option>
+                     <option value="Vocational Training Graduate">Vocational Training Graduate</option>
                  </select>
 
                  <label for="bday">Birthdate</label>
@@ -323,7 +325,9 @@ input[type=text], input[type=password], input[type=date], input[type=address], i
                 
                 <input type="hidden" name="userType" value="Responder"/>
 
-                <input type="submit" value="Register"/>
+                <!-- <input type="submit" value="Register"/> -->
+                <input type="button" value="Register" onclick="checkTextboxes()" id="RegisterButton"/>
+
 
             </div>
 
@@ -332,6 +336,23 @@ input[type=text], input[type=password], input[type=date], input[type=address], i
 
    </div>
 
+
+   
+   <!-- Pop up form for confirming emailed code -->
+   <div id="modalBackground">
+       <center>
+            <div id="modal"> 
+                <div id="closeButton" onclick="closeForms()"> X </div><br/> <br/> <br/>
+
+                <h3> Please enter the code that we have sent to your email</h3> <br/> <br/> <br/>
+                <input type="text" id="emailCode"/> <br/>
+                <p id="codeErrorMessage"> </p><br/> <br/>
+                <a href="#" onclick="verifyEmail()">didn't get the code? resend </a> <br/> <br/>
+                <input type="button" value="Submit" onclick="confirmCode()"/>
+            
+            </div>
+        </center>
+   </div>
 </body>
 </html> 
 

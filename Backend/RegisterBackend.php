@@ -75,7 +75,7 @@ if($exists){
                 $_SESSION["userStatus"]=$userStatus;
                 $_SESSION["userID"]=$userID;
 
-                header("location:../CreateService.php");
+                header("location:../CreateService.php?newUser=true");
 
             } else {
                 
@@ -85,6 +85,11 @@ if($exists){
                 $_SESSION["municipality"] = $municipality;
                 $userStatus = $DBHandler-> getData("userprofile","userEmail",$userEmail,"userStatus");
                 $_SESSION["userStatus"] =$userStatus;
+                $userID = $DBHandler-> getData("userprofile","userEmail",$userEmail,"userID");
+                $_SESSION["userID"]=$userID;
+
+
+
 
                 header("location:../User_Profile.php");
             }

@@ -3,6 +3,10 @@ session_start();
     if(!isset($_SESSION["userEmail"])){
         header("location:LoginForm.php?msg=Please Login First");
     }
+
+        // mail(recepient,'subject','message','sender')
+
+    //mail('jimmanrique12@gmail.com','Account Approved','Hello, Welcome to Hire and Seek, your account has been approved','From: microquest');
 ?>
 <!DOCTYPE html>
 <html lang="en">
