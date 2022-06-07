@@ -30,6 +30,7 @@ session_start();
         <meta content='yes' name='apple-mobile-web-app-capable'/>
         <meta content='yes' name='mobile-web-app-capable'/>
         <script src="Scripts/emailVerification.js"> </script>
+        <script src="Scripts/responderRegistration.js"> </script>
         <link rel="stylesheet" href="style.css">
 
 
@@ -198,7 +199,7 @@ input[type=text], input[type=password], input[type=date], input[type=address], i
     
 </style>
 </head>
-<body>
+<body onload="getServices()">
     <!-- NAV -->
     
     <?php
@@ -299,6 +300,10 @@ input[type=text], input[type=password], input[type=date], input[type=address], i
                      <option value="Samal">Samal</option>
                  </select>
  
+                 <label  style="color:rgb(191, 126, 70); font-weight: lighter" for="bday">Your specialization </label>
+                 <select name="specialization" id="specialization"> 
+
+                 </select>
     
 
                 <label  style="color:rgb(191, 126, 70); font-weight: lighter" for="otherID"> Government provided ID </label>

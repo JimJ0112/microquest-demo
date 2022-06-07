@@ -56,13 +56,19 @@ if($exists){
         $otherIDNumber  = " ";
         $otheridExpiration= " ";
 
+        if(isset($_POST["specialization"])){
+            $specialization = $_POST["specialization"];
+        } else {
+            $specialization = "";
+        }
 
         if($_FILES['userPhoto']["size"] > 1500000){
             header("location: ../LoginForm.php?msg=profile image file size too big!");
         } else if($_FILES['idFile']["size"] > 1500000 ){
             header("location: ../LoginForm.php?msg=id image file size too big!");
         } else{
-            echo $result = $DBHandler->registerUser($userType,$userName, $userEmail,$userPassword,$userPhoto,$firstName,$lastName,$userGender,$education,$birthDate,$houseNumber,$street,$baranggay,$municipality,$idType,$idFile,$idNumber,$idExpiration,$otherIDType,$otherIDFile,$otherIDNumber,$otheridExpiration,$idFileType);
+
+            echo $result = $DBHandler->registerUser($userType,$userName, $userEmail,$userPassword,$userPhoto,$firstName,$lastName,$userGender,$education,$birthDate,$houseNumber,$street,$baranggay,$municipality,$idType,$idFile,$idNumber,$idExpiration,$otherIDType,$otherIDFile,$otherIDNumber,$otheridExpiration,$idFileType,$specialization);
 
             if($userType === "Responder"){
                 
@@ -74,7 +80,8 @@ if($exists){
                 $userID = $DBHandler-> getData("userprofile","userEmail",$userEmail,"userID");
                 $_SESSION["userStatus"]=$userStatus;
                 $_SESSION["userID"]=$userID;
-
+                $specialization = $DBHandler-> getData("userprofile","userEmail",$userEmail,"specialization");
+                $_SESSION['specialization'] = $specialization;
                 header("location:../CreateService.php?newUser=true");
 
             } else {

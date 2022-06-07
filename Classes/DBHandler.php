@@ -44,7 +44,7 @@ function __destruct(){
 // methods
 
 // for registration
-public function registerUser($userType,	$userName, $userEmail,$userPassword,$userPhoto,$firstName,$lastName,$userGender,$education,$birthDate,$houseNo,$street,$baranggay,$municipality,$idType,$idFile,$idNumber,$idExpiration,$otherIDType,$otherIDFile,$otherIDNumber,$otheridExpiration,$idFileType){
+public function registerUser($userType,	$userName, $userEmail,$userPassword,$userPhoto,$firstName,$lastName,$userGender,$education,$birthDate,$houseNo,$street,$baranggay,$municipality,$idType,$idFile,$idNumber,$idExpiration,$otherIDType,$otherIDFile,$otherIDNumber,$otheridExpiration,$idFileType,$specialization = null){
 
     $tablename = "userprofile";
     $userID = 0;
@@ -73,9 +73,15 @@ public function registerUser($userType,	$userName, $userEmail,$userPassword,$use
     $otheridExpiration = mysqli_real_escape_string($this->dbconnection, $otheridExpiration);
     $idFileType = mysqli_real_escape_string($this->dbconnection, $idFileType);
 
+    if(isset($specialization)){
+    
+        $query = "INSERT INTO $tablename() VALUES ($userID, '$userType','$userStatus','$userName', '$userEmail','$userPassword','$userPhoto','$firstName','$lastName','$userGender','$education','$birthDate','$houseNo','$street','$baranggay','$municipality','$idType','$idFile','$idNumber','$idExpiration','$otherIDType','$otherIDFile','$otherIDNumber','$otheridExpiration','$idFileType','$specialization')";
+    } else{
+        $query = "INSERT INTO $tablename() VALUES ($userID, '$userType','$userStatus','$userName', '$userEmail','$userPassword','$userPhoto','$firstName','$lastName','$userGender','$education','$birthDate','$houseNo','$street','$baranggay','$municipality','$idType','$idFile','$idNumber','$idExpiration','$otherIDType','$otherIDFile','$otherIDNumber','$otheridExpiration','$idFileType')";
+    }
 	
 
-    $query = "INSERT INTO $tablename() VALUES ($userID, '$userType','$userStatus','$userName', '$userEmail','$userPassword','$userPhoto','$firstName','$lastName','$userGender','$education','$birthDate','$houseNo','$street','$baranggay','$municipality','$idType','$idFile','$idNumber','$idExpiration','$otherIDType','$otherIDFile','$otherIDNumber','$otheridExpiration','$idFileType')";
+   
     return mysqli_query($this->dbconnection, $query);
 
 }

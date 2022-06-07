@@ -21,6 +21,7 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
         $username = $DBHandler-> getData("userprofile","userEmail",$email,"userName");
         $municipality = $DBHandler-> getData("userprofile","userEmail",$email,"municipality");
         $baranggay = $DBHandler-> getData("userprofile","userEmail",$email,"baranggay");
+        $specialization = $DBHandler-> getData("userprofile","userEmail",$email,"specialization");
     
 
         //$DBHandler-> updateColumn("userprofile","userStatus","online","userEmail",$email);
@@ -36,11 +37,14 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
         $_SESSION["userStatus"] = $userstatus;
         $_SESSION["municipality"] = $municipality;
         $_SESSION["baranggay"] = $baranggay;
+        $_SESSION['specialization'] = $specialization;
 
         //$_SESSION["approvalstatus"] = $approvalstatus;
         //header("location: ../User_Profile.php");
 
         if($usertype ==="Responder"){
+
+            
             header("location: ../Responder_Home.php");
         } else if($usertype ==="Requestor"){
             header("location: ../Requestor_Home.php");

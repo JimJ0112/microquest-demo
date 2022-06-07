@@ -26,7 +26,21 @@ session_start();
 
     <title> Request Board </title>
 </head>
-<body onload="getRequests()">
+<body onload= 
+    <?php
+       if(isset($_SESSION['specialization'])){
+
+            $specialization = $_SESSION['specialization'];
+            echo "setCategory('$specialization')";
+
+        } else{
+            echo "getRequests()";
+        }
+    
+    ?>
+>
+
+<!-- end of body -->
     <?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
@@ -63,8 +77,22 @@ session_start();
 
 
 <div id="requestBoardNav"> 
+    <?php
+       if(isset($_SESSION['userType']) && isset($_SESSION['specialization'])){
+            $usertype = $_SESSION['userType'];
+            if($usertype === "Responder"){
+                $specialization = $_SESSION['specialization'];
+                echo "<div class='serviceCard-main' onclick= setCategory('$specialization')> Based on your specialization </div>";
+                
+            }
+        }
+    
+    ?>
+
+
+
+
     <div class="serviceCard-main" onclick="getRequests()"> All requests </div>
-    <div class="serviceCard-main" onclick="getRequests()"> Based on your specialization </div>  
     <div class="serviceCard-main" onclick="setCategory('Home Service')"> Home Services </div> 
     <div class="serviceCard-main" onclick="setCategory('Pasabuy')"> Pasabuy </div>
     <div class="serviceCard-main" onclick="setCategory('Computer related work')"> Computer Related</div>
