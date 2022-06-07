@@ -115,16 +115,19 @@ function getRequests(){
     xmlhttp.onreadystatechange = function() {
         if (this.readyState === 4 || this.status === 200){ 
            
-
+            var RequestsContainer = document.getElementById('RequestsContainer');
+            RequestsContainer.innerHTML = "";
 
             var dataArray = this.response;
+
+            if(dataArray != "failed to fetch"){
             dataArray = JSON.parse(dataArray);
             console.log(dataArray);
 
             var number = dataArray.length;
             createServiceElements(number);
             setData(dataArray);
-
+            }
 
      
         }else{
@@ -137,6 +140,44 @@ function getRequests(){
 }// end of function
 
 
+
+// getting requests based on category selected
+
+function setCategory(category){
+    var selectedCategory = category;
+    var query = "category=" + selectedCategory;
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open("POST", "Backend/Get_categorizedRequests.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onreadystatechange = function() {
+
+        if (this.readyState === 4 || this.status === 200){ 
+           
+
+            var RequestsContainer = document.getElementById('RequestsContainer');
+            RequestsContainer.innerHTML = "";
+
+            var dataArray = this.response;
+
+            if(dataArray != "failed to fetch"){
+            dataArray = JSON.parse(dataArray);
+            console.log(dataArray);
+
+            var number = dataArray.length;
+            createServiceElements(number);
+            setData(dataArray);
+            }
+
+     
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send(query);
+}
 
 
 

@@ -63,10 +63,12 @@ session_start();
 
 
 <div id="requestBoardNav"> 
+    <div class="serviceCard-main" onclick="getRequests()"> All requests </div>
+    <div class="serviceCard-main" onclick="getRequests()"> Based on your specialization </div>  
     <div class="serviceCard-main" onclick="setCategory('Home Service')"> Home Services </div> 
     <div class="serviceCard-main" onclick="setCategory('Pasabuy')"> Pasabuy </div>
     <div class="serviceCard-main" onclick="setCategory('Computer related work')"> Computer Related</div>
-    <div class="serviceCard-main" onclick="setCategory('Other')"> Other</div>
+    <div class="serviceCard-main" onclick="getRequests()"> Other</div>
 </div>
 
 </center>

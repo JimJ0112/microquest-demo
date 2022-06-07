@@ -359,7 +359,7 @@ label{
     margin: 0;
     padding: 10px;
     align-content: center;
-    grid-template-columns: 1fr 1fr 1fr 1fr ;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;
     width: 98.5%;
     height: 25%;
 
