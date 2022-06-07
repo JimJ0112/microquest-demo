@@ -859,7 +859,7 @@ public function getUserMessages($ID,$groupBy=null){
 
    
    if(isset($groupBy)){
-       $query = "SELECT * FROM $tablename WHERE $column = $ID OR $column1 = $ID AND firstChat = 1 GROUP BY messageSender,messageReciever";
+       $query = "SELECT * FROM $tablename WHERE $column = $ID OR $column1 = $ID AND firstChat = 1 GROUP BY messageSender,messageReciever ORDER BY messageID ";
         //$query = "SELECT * FROM $tablename WHERE $column = $ID  GROUP BY $groupBy";
    } else {
 
@@ -1097,7 +1097,7 @@ $recieverID= mysqli_real_escape_string($this->dbconnection,$recieverID);
 $messageBody= mysqli_real_escape_string($this->dbconnection,$messageBody);
 $messageDate = mysqli_real_escape_string($this->dbconnection,$messageDate);
 $messageTime = mysqli_real_escape_string($this->dbconnection,$messageTime);
-$messageStatus = "Sent";
+$messageStatus = "New";
 $firstChat = mysqli_real_escape_string($this->dbconnection,$firstChat );
 $senderUserName = mysqli_real_escape_string($this->dbconnection,$senderUserName);
 $recieverUserName= mysqli_real_escape_string($this->dbconnection,$recieverUserName);

@@ -37,6 +37,7 @@ session_start();
 <body>
     <!-- NAV -->
     <?php
+
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
             if($usertype === "Requestor"){
@@ -47,7 +48,7 @@ session_start();
         }
 
 
-?>
+    ?>
 
 <center>
   <div class="HomeContainer">

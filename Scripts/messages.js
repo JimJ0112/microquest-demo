@@ -55,7 +55,7 @@ function setUsersData(array){
             inboxUserName[i].innerText = dataArray[i]['senderUserName'];
             inboxCard[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageSender']+ "','"+dataArray[i]['senderUserName']+"')");
         }
-
+ 
         //inboxCard[i].innerText = dataArray[i]['messageSender'];
         //inboxCard[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageSender'] + "')");
 
@@ -65,8 +65,9 @@ function setUsersData(array){
 
 
 // for getting messages 
-function getMessages(id){
-    userID = id;
+function getMessages(/*id*/){
+    //userID = id;
+    userID = sessionStorage.getItem('myID');
     var query = "userID="+ userID;     
     var xmlhttp = new XMLHttpRequest();
 
@@ -78,7 +79,10 @@ function getMessages(id){
             var dataArray = this.response;
 
             if(dataArray != "failed to fetch"){
-            
+
+            inbox = document.getElementById('inbox');
+            inbox.innerHTML = "";
+
             dataArray = JSON.parse(dataArray);
             console.log(dataArray);
             var number = dataArray.length
@@ -125,10 +129,12 @@ function selectConversation(id,username){
 
 function init() { 
     // This is the function the browser first runs when it's loaded.
+    getMessages();
     setConversation();
     
     // Then runs the refresh function for the first time.
     var int = self.setInterval(function () {
+    getMessages();
     setConversation();
     }, 2000); // Set the refresh() function to run every 10 seconds. [1 second would be 1000, and 1/10th of a second would be 100 etc.
 }
@@ -328,4 +334,16 @@ function scrollToBottom(){
 function closeForms(){
     var fileForm = document.getElementById("fileForm");
     fileForm.style.display = "none";
+}
+
+// not send message when textbox is empty
+function checkText(){
+    send = document.getElementById('send');
+    messageBody = document.getElementById('messageBody');
+
+    if(messageBody.value === "" || messageBody.value <= "   "){
+        send.disabled = true;
+    } else{
+        send.disabled = false;
+    }
 }

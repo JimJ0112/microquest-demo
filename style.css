@@ -589,6 +589,7 @@ label{
 #send{
     grid-area: send;
     width: 100px;
+    
 }
 
 #file{
@@ -662,4 +663,40 @@ label{
 #codeErrorMessage{
     font-weight: bolder;
     color: red;
+}
+
+
+/*request info */
+#requestInfoContent{
+    display: grid;
+    outline: auto;
+    width: 100%;
+    height: 1000px;
+    grid-template-areas: "requestinfo requestinfo message"
+                         "requestinfo requestinfo message"
+                         "requestinfo requestinfo ratings"
+                         "requestinfo requestinfo rating";
+
+
+}
+
+#messageMe{
+
+    grid-area: message;
+    outline: auto;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-content: center;
+    padding: auto;
+
+}
+
+#requestInfoMain{
+    grid-area: requestinfo;
+    outline: auto;
+    width: 100%;
+    height: 100%;
+    font-size: larger;
+    
 }

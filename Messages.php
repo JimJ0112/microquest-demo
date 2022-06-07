@@ -62,8 +62,8 @@ if(isset($_SESSION['userID'])){
                 <input type="hidden" name="recieverUserName" id="recieverUserName">
 
 
-                <textarea id="messageBody"> </textarea>
-                <input type="button" id="send" value="SEND" onclick="sendMessage()"> <br/>
+                <textarea id="messageBody" oninput="checkText()"> </textarea>
+                <input type="button" id="send" value="SEND" onclick="sendMessage()" disabled> <br/>
                 <input type="button" id="file" value="SEND PHOTO">
         </div>
 
