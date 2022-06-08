@@ -152,7 +152,16 @@ function getsuggestedResponders(position){
     var position = position;
     var category =  sessionStorage.getItem("selectedCategory");
     var municipality = sessionStorage.getItem('municipality');
-    
+
+    var divCategory= document.getElementById("Category"); 
+    var divPosition=document.getElementById("Position");
+
+    divCategory.value = sessionStorage.getItem("selectedCategory");
+    divPosition.value= position;
+
+    console.log(divCategory.value);
+
+
     var xmlhttp = new XMLHttpRequest();
     
     query = "position=" + position + "&municipality=" + municipality +"&category=" + category;
@@ -192,6 +201,9 @@ function getsuggestedResponders(position){
     };
     
     xmlhttp.send(query);
+
+
+    
     
 }// end of function
 
@@ -265,7 +277,7 @@ function setResponderData(array){
     var name= document.getElementsByClassName('responderName');
     var municipality= document.getElementsByClassName('responderMunicipality');
     var rate= document.getElementsByClassName('responderRate');
-   // var selectButton.innerText = "Select";
+    var selectButton = getElementsByClassName('selectButton');
    var viewProfile = document.getElementsByClassName('viewProfile');
 
     for(var i = 0; i<number;i++){
@@ -276,7 +288,7 @@ function setResponderData(array){
         municipality[i].innerText = dataArray[i]['municipality'];
         rate[i].innerText = dataArray[i]['rate'];
         viewProfile[i].href= "Public_Profile.php?userID=" +  dataArray[i]['responderID'] + "&userType=Responder";
-        
+        selectButton.setAttribute('onclick','selectResponder('+ dataArray[i]['responderID']+','+dataArray[i]['rate']+')');
         
 
     }
@@ -295,6 +307,7 @@ function setAvailableResponderData(array){
     var responderCard = document.getElementsByClassName("availableResponderCard");
 
     var availableViewProfile = document.getElementsByClassName('availableViewProfile');
+    var availableSelectButton = document.getElementsByClassName('availableSelectButton');
 
     var ID= document.getElementsByClassName('availableResponderID');
     var name= document.getElementsByClassName('availableResponderName');
@@ -311,7 +324,7 @@ function setAvailableResponderData(array){
         municipality[i].innerText = dataArray[i]['municipality'];
         rate[i].innerText = dataArray[i]['rate'];
         availableViewProfile[i].href= "Public_Profile.php?userID=" +  dataArray[i]['responderID'] + "&userType=Responder";
-        
+        availableSelectButton[i].setAttribute('onclick','selectResponder('+ dataArray[i]['responderID']+','+dataArray[i]['rate']+')');
         
 
     }
@@ -397,6 +410,7 @@ function createAvailableRespondersElements(Number){
     // set attributes
     selectButton.innerText = "Select";
     viewProfile.innerText = "View Profile";
+    selectButton.setAttribute('class','availableSelectButton');
     viewProfile.setAttribute('class','availableViewProfile');
     card.setAttribute('class','availableResponderCard');
     ID.setAttribute('class','availableResponderID');
@@ -420,3 +434,33 @@ function createAvailableRespondersElements(Number){
     
     
 } // end of function
+
+
+
+/* Avail Service form */
+function selectResponder(responderID,rate){
+    var responderID = responderID;
+    var rate = rate;
+
+    divResponderID =document.getElementById("responderID");
+    divServicePrice =document.getElementById("servicePrice");
+
+    divResponderID.value = responderID;
+    divServicePrice.value = rate;
+
+    var form = document.getElementById('AvailServiceFormContainer'); 
+    form.style.display = "block";
+}
+
+
+// closing form 
+// for closing the forms
+function closeForms(){
+    
+var modal = document.getElementById("AvailServiceFormContainer");
+   modal.style.display = "none";
+
+   //sessionStorage.setItem('vercode','');
+
+
+}

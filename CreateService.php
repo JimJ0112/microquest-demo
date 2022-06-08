@@ -58,7 +58,7 @@ session_start();
                     </select><br/>
                
           
-                    <input name="otherServicePosition" id="otherServicePosition" type="text" pleaceholder="Please enter">
+                    <input name="otherServicePosition" id="otherServicePosition" type="text" pleaceholder="Please enter"/>
 
            
                 <td> Rate </td>

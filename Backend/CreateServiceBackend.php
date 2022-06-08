@@ -19,19 +19,45 @@ if(isset($_POST["formType"])){
     $certificateFile=file_get_contents($_FILES["certificateFile"]["tmp_name"]);
 
     
+    if($servicePosition ==="Other"){
+            
+           
+        $servicePosition = $_POST['otherServicePosition'];
+        
+        //echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
+        
+    }else{
+
+        $servicePosition=$_POST["servicePosition"];
+        
+        
+        //echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
+    }
+
     
     if($formType === "regularServices"){
 
+        /*
         if(isset($_POST['otherServicePosition'])){
             
+           
             $servicePosition = $_POST['otherServicePosition'];
+            
             echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
-            echo $servicePosition;
+            
         }else{
+
             $servicePosition=$_POST["servicePosition"];
-            echo $servicePosition;
+            
+            
             echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
         }
+        */
+
+    
+        echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
+
+        //echo $serviceCategory,$servicePosition,$rate,$responderID,$certification;
 
     } else if($formType === "pasabuy"){
         

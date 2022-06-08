@@ -580,10 +580,11 @@ public function getServices($tablename,$column,$condition,$orderby = null){
     $tablename = mysqli_real_escape_string($this->dbconnection, $tablename);
     $column = mysqli_real_escape_string($this->dbconnection, $column);
     $condition = mysqli_real_escape_string($this->dbconnection, $condition);
+// 09/06/2022 1:28am nilagyan ko muna ng servicesinfo.serviceStatus = 'Active', not sure if that's a good idea tho
     
    
     if(isset($orderby)){
-        $query = "SELECT * FROM $tablename WHERE $column = '$condition' GROUP BY $orderby";
+        $query = "SELECT * FROM $tablename WHERE $column = '$condition' AND serviceStatus = 'Active'  GROUP BY $orderby";
     }else{
         $query = "SELECT * FROM $tablename WHERE $column = '$condition'";
     }
@@ -626,9 +627,10 @@ public function getOtherServices(){
     $column = "serviceCategory";
  
     
+// 09/06/2022 1:28am nilagyan ko muna ng servicesinfo.serviceStatus = 'Active', not sure if that's a good idea tho
    
 
-    $query = "SELECT * FROM $tablename WHERE $column != 'Home Service' AND $column !='Computer related work' AND $column !='Pasabuy' GROUP BY serviceCategory";
+    $query = "SELECT * FROM $tablename WHERE $column != 'Home Service' AND $column !='Computer related work' AND $column !='Pasabuy' AND serviceStatus = 'Active' GROUP BY serviceCategory";
 
 
     $result = mysqli_query($this->dbconnection, $query);
@@ -663,6 +665,55 @@ public function getOtherServices(){
   
 }
 
+// get user services
+// 2:25 am nilagyan ko ng serviceCategory != 'Pasabuy' condition to
+
+public function getMyServices($tablename,$column,$condition,$orderby = null){
+    $tablename = mysqli_real_escape_string($this->dbconnection, $tablename);
+    $column = mysqli_real_escape_string($this->dbconnection, $column);
+    $condition = mysqli_real_escape_string($this->dbconnection, $condition);
+    
+   
+    if(isset($orderby)){
+        $query = "SELECT * FROM $tablename WHERE $column = '$condition' GROUP BY $orderby";
+    }else{
+        $query = "SELECT * FROM $tablename WHERE $column = '$condition' AND serviceCategory != 'Pasabuy'";
+    }
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+  
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+
+                
+                $file = 'data:image/image/png;base64,'.base64_encode($row['certificateFile']);
+                $row['certificateFile'] = $file;
+                
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
+
+
 
 // get responders based on their services and location
 
@@ -676,7 +727,9 @@ public function getResponders($position,$municipality,$serviceCategory){
     
    
 // 29/05/2022 9:51pm nilagyan ko muna ng group by tong query na to para hindi dumoble, need to check out later - jim 
-    $query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.municipality, servicesinfo.rate, servicesinfo.serviceCategory FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality = '$municipality' AND userprofile.userType = 'Responder' AND servicesinfo.serviceCategory = '$serviceCategory' GROUP BY userprofile.userID";
+// 09/06/2022 1:28am nilagyan ko muna ng servicesinfo.serviceStatus = 'Active', not sure if that's a good idea tho
+   
+    $query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.municipality, servicesinfo.rate, servicesinfo.serviceCategory FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality = '$municipality' AND userprofile.userType = 'Responder' AND servicesinfo.serviceCategory = '$serviceCategory' AND servicesinfo.serviceStatus = 'Active' GROUP BY userprofile.userID";
    
 
     $result = mysqli_query($this->dbconnection, $query);
@@ -722,7 +775,8 @@ public function getAvailableResponders($position,$municipality,$category){
     
    
 // 29/05/2022 9:51pm nilagyan ko muna ng group by tong query na to para hindi dumoble, need to check out later - jim 
-$query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.municipality, servicesinfo.rate FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality != '$municipality' AND userprofile.userType = 'Responder' AND servicesinfo.serviceCategory = '$category' GROUP BY userprofile.userID";
+// 09/06/2022 1:28am nilagyan ko muna ng servicesinfo.serviceStatus = 'Active', not sure if that's a good idea tho
+$query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.municipality, servicesinfo.rate FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality != '$municipality' AND userprofile.userType = 'Responder' AND servicesinfo.serviceCategory = '$category' AND servicesinfo.serviceStatus = 'Active' GROUP BY userprofile.userID";
    
 
     $result = mysqli_query($this->dbconnection, $query);
@@ -1001,7 +1055,7 @@ public function registerService($serviceCategory,$servicePosition,$rate,$respond
     $responderID= mysqli_real_escape_string($this->dbconnection,$responderID);
     $certification= mysqli_real_escape_string($this->dbconnection,$certification);
     $certificateFile= mysqli_real_escape_string($this->dbconnection,$certificateFile);
-    $serviceStatus = "";
+    $serviceStatus = "Active";
 
     
 

@@ -46,6 +46,54 @@ session_start();
 
 
 
+
+<center>
+    <div id="AvailServiceFormContainer"> 
+    <div id="closeButton" onclick="closeForms()"> X </div><br/> <br/> <br/>
+     <div id="AvailServiceForm"> 
+        
+        <form>
+            <table>
+
+                <tr>
+                <td> <input type="text" name="category" id="Category" readonly> </td>
+                </tr>
+
+                <tr>
+                <input type="text" name="position" id="Position" readonly> </td>
+                </tr>
+
+                <tr>
+                <td> <input type="text" name="responderID" id="responderID" readonly> </td>
+                </tr>
+
+                <tr>
+                <td> <input type="text" name="servicePrice" id="servicePrice" readonly> </td>
+                </tr>
+
+                <tr>
+                <td> <input type = "datetime-local" name="dueDate"> </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <textarea name="additionalNotes">
+                        </textarea> 
+                    </td>
+                </tr>
+
+            </table>
+
+            <input type="submit">
+
+        </form>
+
+
+     </div>
+    </div>
+    </center>
+
+
 <center>
 <h2 id="selectedCategory">  </h2>
     <br/>
@@ -100,46 +148,7 @@ session_start();
 
 
 
-    <center>
-    <div id="AvailServiceForm"> 
-        
-        <form>
-            <table>
-
-                <tr>
-                <td> <input type="text" name="category" id="Category"> </td>
-                </tr>
-
-                <tr>
-                <input type="text" name="position" id="Position"> </td>
-                </tr>
-
-                <tr>
-                <td> <input type="text" name="responderID" id="responderID"> </td>
-                </tr>
-
-                <tr>
-                <td> <input type="text" name="servicePrice" id="servicePrice"> </td>
-                </tr>
-
-                <tr>
-                <td> <input type = "datetime-local" name="dueDate"> </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <textarea name="additionalNotes">
-                        </textarea> 
-                    </td>
-                </tr>
-
-            </table>
-
-        </form>
-
-
-    </div>
-    </center>
+    
 
 
 

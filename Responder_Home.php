@@ -66,6 +66,7 @@ session_start();
         </div>
       </a>
       
+      <a href="MyServices.php">
         <div class="column">
           <div class="HomeCard">
             <h3 class="h3">MY SERVICES</h3>
@@ -75,6 +76,7 @@ session_start();
           </div>
         </div>
       </div>
+      </a>
       
       <!-- ROW -->
       <div class="row">
