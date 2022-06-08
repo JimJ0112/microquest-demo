@@ -6,53 +6,69 @@ function setData(array){
 
 var dataArray = array;
 
-profilepic = document.getElementById("profilePic");
 
-fullName=document.getElementById("fullName");
-userName=document.getElementById("userName");
-userEmail=document.getElementById("userEmail") ;
-userType =document.getElementById("userType");
+/*message me portion */
+requestorImageContainer = document.getElementById("requestorImageContainer");
+requestorName= document.getElementById("requestorName");
+recieverID = document.getElementById("recieverID");
+recieverUserName= document.getElementById("recieverUserName");
+ 
+/*request info portion */
+requestTitle= document.getElementById("requestTitle");
 
-
-
-recieverUserName = document.getElementById("recieverUserName");
-recieverUserName.value = dataArray[0]['userName'];
-
-
-birthDate =document.getElementById("Birth date");
-Address=document.getElementById("Address");
-Education=document.getElementById("Education") ;
+category= document.getElementById("category");
 
 
-userGovID=document.getElementById("userGovID");
-userGovIDFile=document.getElementById("userGovIDFile");
-userGovIDNumber=document.getElementById("userGovIDNumber");
-
-userServicesDetails=document.getElementById("userServicesDetails");
-
-
-userName.innerText = dataArray[0]['userName'];
-userEmail.innerText = dataArray[0]['userEmail'];
-userType.innerText = dataArray[0]['userType'];
+requestorLocation= document.getElementById( "requestorLocation");
+datePosted = document.getElementById("datePosted");
+dueDate =document.getElementById("dueDate");
+expectedPrice =document.getElementById("expectedPrice");
+isNegotiable=document.getElementById("isNegotiable");
 
 
-fullName.innerText = dataArray[0]['firstName'] + " " + dataArray[0]['lastName'] ;
-birthDate.innerText  = dataArray[0]['birthDate'];
-//Address.innerText = dataArray[0]['houseNo'] + " "+dataArray[0]['street'] + " "+ dataArray[0]['baranggay'] + " "+ dataArray[0]['municipality'];
-Address.innerText = dataArray[0]['street'] + " "+ dataArray[0]['baranggay'] + " "+ dataArray[0]['municipality'];
-Education.innerText = dataArray[0]['education'];
+
+requestNotes =document.getElementById("requestNotes");
 
 
-userGovID.innerText = dataArray[0]['idType'];
-userGovIDNumber.innerText = dataArray[0]['idNumber'];
 
-userGovIDFile
+
+
+
+
+
+
+
+
+
+// set data to elements
+/*message me portion */
+requestorName.innerText= dataArray[0]['userName'];
+requestorName.href="Public_Profile.php?userID=" +  dataArray[0]['requestorID'] + "&userType=Requestor";
+recieverID.value = dataArray[0]['requestorID'];
+recieverUserName.value= dataArray[0]['userName'];
+
+/*request info portion */
+requestTitle.innerText= dataArray[0]['requestTitle'];
+
+category.innerText= dataArray[0]['requestCategory'];
+
+
+requestorLocation.innerText= dataArray[0]['requestorMunicipality'];
+datePosted.innerText = dataArray[0]['datePosted'];
+dueDate.innerText = dataArray[0]['dueDate'];
+expectedPrice.innerText = dataArray[0]['requestExpectedPrice'];
+isNegotiable.innerText = dataArray[0]['isNegotiable'];
+
+
+
+requestNotes.innerText = dataArray[0]['requestDescription'];
+
 
 // for displaying profile pic 
 var profileimage = new Image();
 profileimage.src = dataArray[0]['userPhoto'];
-profileimage.setAttribute("Id",'profileimage');
-profilepic.appendChild(profileimage);
+profileimage.setAttribute("Id",'requestorProfile');
+requestorImageContainer.appendChild(profileimage);
 
 
 }
@@ -86,11 +102,9 @@ function getRequest(requestID){
 
             } else {
                 
-
-
                 dataArray = JSON.parse(dataArray);
                 console.log(dataArray);
-                //setData(dataArray);    
+                setData(dataArray);    
             }
 
 
@@ -104,4 +118,14 @@ function getRequest(requestID){
     
 }// end of function
 
+function checkText(){
+    send = document.getElementById('send');
+    messageBody = document.getElementById('requestInfoMessageBody');
+
+    if(messageBody.value === "" || messageBody.value <= "   "){
+        send.disabled = true;
+    } else{
+        send.disabled = false;
+    }
+}
 

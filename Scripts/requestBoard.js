@@ -22,6 +22,7 @@ function createServiceElements(Number){
     var requestorID = document.createElement('td');
     var requestorUserName = document.createElement('a');
     var requestorLocation = document.createElement('td');
+    var viewRequest = document.createElement('a');
 
 
 
@@ -39,6 +40,8 @@ function createServiceElements(Number){
     requestorID.setAttribute('class','requestorID');
     requestorUserName.setAttribute('class','requestorUserName');
     requestorLocation.setAttribute('class','requestorLocation');
+    viewRequest.setAttribute('class','viewRequest');
+    viewRequest.innerText = "View More";
 
 
 
@@ -54,6 +57,7 @@ function createServiceElements(Number){
     card.appendChild(requestorID);
     card.appendChild(requestorUserName);
     card.appendChild(requestorLocation);
+    card.appendChild(viewRequest)
 
 
     div.append(card);
@@ -81,6 +85,7 @@ function setData(array){
     var requestorID= document.getElementsByClassName('requestorID');
     var requestorUserName= document.getElementsByClassName('requestorUserName');
     var requestorLocation= document.getElementsByClassName('requestorLocation');
+    var viewRequest = document.getElementsByClassName('viewRequest');
 
 
 
@@ -99,6 +104,7 @@ function setData(array){
          requestorLocation[i].innerText = dataArray[i]['requestorMunicipality'];
          requestorUserName[i].href = "Public_Profile.php?userID=" +  dataArray[i]['requestorID'] + "&userType=Requestor";
 
+         viewRequest[i].href = "RequestInfo.php?requestID=" + dataArray[i]['requestID'];
     }
 
 }

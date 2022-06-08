@@ -26,21 +26,19 @@ session_start();
 
     <title> Request Board </title>
 </head>
-<body onload= 
-    <?php
+<body onload="<?php
        if(isset($_SESSION['specialization'])){
 
             $specialization = $_SESSION['specialization'];
-            echo "setCategory('$specialization')";
-
+            echo 'setCategory(\''.$specialization.'\')';
         } else{
-            echo "getRequests()";
+            echo 'getRequests()';
         }
     
-    ?>
->
+    ?>">
 
 <!-- end of body -->
+
     <?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];

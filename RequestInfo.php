@@ -52,17 +52,17 @@ session_start();
         <div id="messageMe">
             <center>
                 <form action="Backend/insertMessage.php" method="post">
-                <h3 id="requestorName"> Requestor Name </h3>
+                <div id="requestorImageContainer"> </div> <br/>
+                <a id="requestorName"> Requestor Name </a> <br/>
                 <label> Send me a message </label> <br/>
 
-                 <input type="hidden" name="recieverID"
-                 value='<?php echo $_GET['userID']?>'/>
+                 <input type="hidden" name="recieverID" id="recieverID"/>
                  <input type="hidden" name="senderID" value='<?php echo $_SESSION['userID']; ?>'>
                  <input type="hidden" name="senderUserName" value='<?php echo $_SESSION['userName']; ?>'>
                  <input type="hidden" name="recieverUserName" id="recieverUserName">
                  
-                <input type="text" name="messageBody">  <br/>
-                <input type="submit" value="SEND"/>
+                <textarea name="messageBody" id="requestInfoMessageBody" oninput="checkText()"> </textarea> <br/>
+                <input type="submit" value="SEND" id="send" disabled/>
                 
                 </form>
             </center>
@@ -77,8 +77,9 @@ session_start();
            <br/> <br/> <br/> 
             <h3> Requestor's Location: <span id="requestorLocation"> location </span> </h3> <br/> <br/> <br/> 
 
+            <h3> Date posted: <span id="datePosted">  </span> </h3>
             <h3> Due date: <span id="dueDate"> 01/01/2022 </span> </h3>
-            <h3> Expected price: <span id="expectedPrice"> price </span> </h3>
+            <h3> Expected price: Php <span id="expectedPrice"> price </span> </h3>
             <h3> <span id="isNegotiable"> negotiable </span> </h3> <br/> <br/> 
 
             <h3> Notes: </h3> <br/>

@@ -811,7 +811,7 @@ public function getRequests($tablename,$column,$condition,$orderby = null){
     
    
     if(isset($orderby)){
-        $query = "SELECT $tablename.*,userprofile.userName,userprofile.municipality FROM $tablename INNER JOIN userprofile ON $tablename.requestorID = userprofile.userID WHERE $column = '$condition' ORDER BY $orderby";
+        $query = "SELECT $tablename.*,userprofile.userName,userprofile.municipality,userprofile.userPhoto FROM $tablename INNER JOIN userprofile ON $tablename.requestorID = userprofile.userID WHERE $column = '$condition' ORDER BY $orderby";
     }else{
         $query = "SELECT * FROM $tablename WHERE $column = '$condition'";
     }
@@ -819,6 +819,7 @@ public function getRequests($tablename,$column,$condition,$orderby = null){
     $result = mysqli_query($this->dbconnection, $query);
     $resultCheck = mysqli_num_rows($result);
     $data = array();
+    
   
 
 
@@ -828,10 +829,10 @@ public function getRequests($tablename,$column,$condition,$orderby = null){
             while($row = mysqli_fetch_assoc($result)){
                 
 
-                /*
-                $file = 'data:image/image/png;base64,'.base64_encode($row['bannerimage']);
-                $row['bannerimage'] = $file;
-                */
+                
+                $file = 'data:image/image/png;base64,'.base64_encode($row['userPhoto']);
+                $row['userPhoto'] = $file;
+                
 
                 $data[] = $row;
                 
