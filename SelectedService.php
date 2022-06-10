@@ -53,45 +53,46 @@ session_start();
      <div id="AvailServiceForm"> 
         
         <form>
-            <table>
 
-                <tr>
-                <td> <input type="text" name="category" id="Category" readonly> </td>
-                </tr>
+            <h3> Confirm Transaction </h3> <br/><br/><br/>
+      
+                <label> Category </label> <br/>
+                <input type="text" name="category" id="Category" readonly> <br/> 
+        
 
-                <tr>
-                <input type="text" name="position" id="Position" readonly> </td>
-                </tr>
+        
+                <label> Service </label> <br/>
+                <input type="text" name="position" id="Position" readonly> <br/>
+            
 
-                <tr>
-                <td> <input type="text" name="responderID" id="responderID" readonly> </td>
-                </tr>
+    
+                <label> Responder ID </label> <br/>
+                <input type="text" name="responderID" id="responderID" readonly> <br/>
+  
 
-                <tr>
-                <td> <input type="text" name="servicePrice" id="servicePrice" readonly> </td>
-                </tr>
+                <label> Price  </label> <br/>
+                Php <input type="text" name="servicePrice" id="servicePrice" readonly> <br/>
+  
 
-                <tr>
-                <td> <input type = "datetime-local" name="dueDate"> </td>
-                </tr>
+         
+                <label> Due Date </label> <br/>
+                <input type = "datetime-local" name="dueDate" required> <br/>
 
-                <tr>
-                    <td>
+
+
+                <label> Additional Notes </label> <br/>
+
                         <textarea name="additionalNotes">
-                        </textarea> 
-                    </td>
-                </tr>
-
-            </table>
-
-            <input type="submit">
+                        </textarea> <br/><br/>
+ 
+            <input type="submit" value="Confirm">
 
         </form>
 
 
      </div>
     </div>
-    </center>
+</center>
 
 
 <center>

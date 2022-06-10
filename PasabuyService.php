@@ -47,6 +47,67 @@ session_start();
 
 <!-- responders -->
 
+<center>
+    <div id="pasabuyFormContainer"> 
+    <div id="closeButton" onclick="closeConfirmationForm()"> X </div><br/> <br/> <br/>
+     <div id="AvailServiceForm"> 
+        
+        <form>
+
+            <h3> Confirm Transaction </h3> <br/><br/><br/>
+      
+                <label> Product Category </label> <br/>
+                <input type="text" name="productCategory" id="productCategory" readonly> <br/> 
+        
+        
+                <label> Product ID </label> <br/>
+                <input type="text" name="productID" id="productID" readonly> <br/>
+
+                
+                <label> Quantity </label> <br/>
+                <input type="number" name="orderQuantity" id="orderQuantity"> <br/>
+
+                <label> Product Price </label> <br/>
+                <input type="text" name="productPrice" id="productPrice" readonly> <br/>
+
+            
+
+    
+                <label> Responder ID </label> <br/>
+                <input type="text" name="responderID" id="responderID" readonly> <br/>
+  
+
+                <label> Delivery Price  </label> <br/>
+                Php <input type="number" name="deliveryPrice" id="deliveryPrice" readonly> <br/>
+  
+
+         
+                <label> Due Date </label> <br/>
+                <input type = "datetime-local" name="dueDate" required> <br/>
+
+
+
+                <label> Additional Notes </label> <br/>
+
+                        <textarea name="additionalNotes">
+                        </textarea> <br/><br/>
+
+                <input type="button" onclick="getsuggestedResponders(' ')" value="Select Responder">
+ 
+            <input type="submit" value="Confirm">
+
+        </form>
+
+
+     </div>
+    </div>
+</center>
+
+
+
+
+
+
 
 <div id="pasabuyResponders">
     <div id="closeButton" onclick="closeForms()"> X </div>
@@ -113,46 +174,7 @@ session_start();
 
 
 
-    <center>
-    <div id="AvailServiceForm"> 
-        
-        <form>
-            <table>
 
-                <tr>
-                <td> <input type="text" name="category" id="Category"> </td>
-                </tr>
-
-                <tr>
-                <input type="text" name="position" id="Position"> </td>
-                </tr>
-
-                <tr>
-                <td> <input type="text" name="responderID" id="responderID"> </td>
-                </tr>
-
-                <tr>
-                <td> <input type="text" name="servicePrice" id="servicePrice"> </td>
-                </tr>
-
-                <tr>
-                <td> <input type = "datetime-local" name="dueDate"> </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <textarea name="additionalNotes">
-                        </textarea> 
-                    </td>
-                </tr>
-
-            </table>
-
-        </form>
-
-
-    </div>
-    </center>
 
 
 

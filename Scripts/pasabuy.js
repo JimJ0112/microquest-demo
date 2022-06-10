@@ -66,8 +66,9 @@ function getPositions(name){
 
 // gets data from php 
 function getsuggestedResponders(productName){
-    var productName = productName;
+    //var productName = productName;
     var municipality = sessionStorage.getItem('municipality');
+    var productName = sessionStorage.getItem('selectedProductName');
     
     var xmlhttp = new XMLHttpRequest();
     
@@ -157,6 +158,7 @@ function createSuggestedRespondersElements(Number){
     municipality.setAttribute('class','responderMunicipality');
     deliveryRate.setAttribute('class','deliveryRate');
     viewProfile.setAttribute('class','viewProfile');
+    selectButton.setAttribute('class','selectButton');
 
 
     // append elements to the row
@@ -190,6 +192,7 @@ function setResponderData(array){
     var deliveryRate= document.getElementsByClassName('deliveryRate');
    // var selectButton.innerText = "Select";
    var viewProfile = document.getElementsByClassName('viewProfile');
+   var selectButton = document.getElementsByClassName('selectButton');
 
     for(var i = 0; i<number;i++){
         //serviceCard[i].innerText = dataArray[i];
@@ -200,7 +203,7 @@ function setResponderData(array){
         municipality[i].innerText = dataArray[i]['municipality'];
         deliveryRate[i].innerText = dataArray[i]['deliveryRate'];
         viewProfile[i].href = "Public_Profile.php?userID=" +  dataArray[i]['userID'] + "&userType=Responder";
-        
+        selectButton[i].setAttribute("onclick","setResponderForm("+ dataArray[i]['userID']+","+dataArray[i]['deliveryRate']+")");
         
 
     }
@@ -267,6 +270,7 @@ function createProductElements(Number){
     var textqty = document.createElement('p');
     var quantity = document.createElement('input');
     var select = document.createElement('button');
+    var selectResponder = document.createElement('button');
 
     br= document.createElement('br');
 
@@ -283,8 +287,10 @@ function createProductElements(Number){
     moreInfoButton.setAttribute('class','moreInfoButton');
     quantity.setAttribute('class','quantity');
     quantity.setAttribute('type','number');
+    selectResponder.setAttribute('class','selectResponderButton');
     select.setAttribute('class','selectButton');
     textqty.innerHTML = "Qty";
+    selectResponder.innerText="Select Responder";
     
 
 
@@ -304,6 +310,7 @@ function createProductElements(Number){
     card.appendChild(quantity);
 
     card.appendChild(moreInfoButton);
+   // card.appendChild(selectResponder);
     card.appendChild(select);
 
 
@@ -332,18 +339,23 @@ function setProductData(array){
     moreInfoButton= document.getElementsByClassName('moreInfoButton');
     quantity= document.getElementsByClassName('quantity');
     select = document.getElementsByClassName('selectButton');
+   // selectResponderButton = document.getElementsByClassName('selectResponderButton');
 
     for(var i = 0; i<number;i++){
 
-        
-
-        productCard[i].setAttribute("onclick","getsuggestedResponders('" +dataArray[i]['productName'] + "')");
+     //   selectResponderButton[i].setAttribute("onclick","getsuggestedResponders('" +dataArray[i]['productName'] + "')");
+        //sessionStorage.setItem('selectedProductName');
+        productCard[i].setAttribute('onclick',"setProductNameSessionStorage('"+dataArray[i]['productName']+"')");
+        //productCard[i].setAttribute("onclick","getsuggestedResponders('" +dataArray[i]['productName'] + "')");
         productID[i].innerText = dataArray[i]['productID'];
         
         productName[i].innerText = dataArray[i]['productName'];
         productBrand[i].innerText = "Brand name: "+dataArray[i]['productBrand'];
         productPrice[i].innerText = "Price: "+dataArray[i]['productPrice'];
         moreInfoButton[i].innerText = "More Info"
+
+        //category,id,price,qtyNumber)
+        select[i].setAttribute("onclick","setProductForm('"+dataArray[i]['productCategory']+"',"+ dataArray[i]['productID']+","+ dataArray[i]['productPrice']+","+ i + ")");
         //quantity[i].setAttribute('ID','product');
         select[i].innerText  = "Select"
     
@@ -480,7 +492,7 @@ function getallResponders(productName){
 
             if(dataArray === "No responders near you for this service"){
 
-                allResponders.innerText = dataArray;
+                allResponders.innerText = "No other active responders";
             } else{
                 dataArray = JSON.parse(dataArray);
                 console.log(dataArray);
@@ -537,6 +549,7 @@ function createAllRespondersElements(Number){
     municipality.setAttribute('class','allResponderMunicipality');
     deliveryRate.setAttribute('class','allDeliveryRate');
     viewProfile.setAttribute('class','allViewProfile');
+    selectButton.setAttribute('class','availableSelectButton');
 
 
     // append elements to the row
@@ -568,7 +581,8 @@ function setAllResponderData(array){
     var name= document.getElementsByClassName('allResponderName');
     var municipality= document.getElementsByClassName('allResponderMunicipality');
     var deliveryRate= document.getElementsByClassName('allDeliveryRate');
-    var viewProfile = document.getElementsByClassName('allViewProfile')
+    var viewProfile = document.getElementsByClassName('allViewProfile');
+    var selectButton = document.getElementsByClassName('availableSelectButton');
    //var selectButton.innerText = "Select";
    //var viewProfile.innerText = "View Profile";
 
@@ -581,7 +595,7 @@ function setAllResponderData(array){
         municipality[i].innerText = dataArray[i]['municipality'];
         deliveryRate[i].innerText = dataArray[i]['deliveryRate'];
         viewProfile[i].href = "Public_Profile.php?userID=" +  dataArray[i]['userID'] + "&userType=Responder";
-        
+        selectButton[i].setAttribute('onclick','setResponderForm('+dataArray[i]['userID']+","+dataArray[i]['deliveryRate']+")");
         
 
     }
@@ -599,4 +613,78 @@ function closeForms(){
 
     pasabuyResponders.style.display = "none";
 
+}
+
+
+
+// setting order form 
+
+
+
+responderID = document.getElementById("responderID");
+deliveryPrice = document.getElementById("deliveryPrice"); 
+
+
+function setProductForm(category,id,price,qtyNumber){
+
+var category = category;
+var pID = id;
+var price = price;
+var qtyNumber = qtyNumber;
+
+
+productCategory = document.getElementById("productCategory");
+productID = document.getElementById("productID");
+productPrice = document.getElementById("productPrice"); 
+pasabuyFormContainer = document.getElementById("pasabuyFormContainer");
+
+pasabuyFormContainer.style.display = "Block";
+
+productCategory.value = category;
+productID.value = id;
+productPrice.value = price;
+
+
+orderQuantity = document.getElementById("orderQuantity");
+divQuantity = document.getElementsByClassName("quantity")[qtyNumber];
+
+    if(divQuantity.value <= 0){
+
+        orderQuantity.value = 1;
+    }else{
+        orderQuantity.value = divQuantity.value;
+    }
+
+}
+
+function setResponderForm(id,deliveryPrice){
+  var  responderID = id;
+  var deliveryPrice = deliveryPrice;
+
+  divResponderID = document.getElementById("responderID");
+  divDeliveryPrice = document.getElementById("deliveryPrice"); 
+
+  divResponderID.value = responderID;
+  divDeliveryPrice.value = deliveryPrice;
+  closeForms();
+
+}
+
+
+// set product name in session storage
+function setProductNameSessionStorage(productName){
+
+    var productName = productName;
+
+    sessionStorage.setItem('selectedProductName',productName);
+}
+
+
+//closing confirmation form
+function closeConfirmationForm(){
+    pasabuyFormContainer = document.getElementById("pasabuyFormContainer");
+    pasabuyFormContainer.style.display = "none";
+    //console.log("hey");
+    AvailServiceForm = document.getElementById("AvailServiceForm");
+    AvailServiceForm.reset();
 }

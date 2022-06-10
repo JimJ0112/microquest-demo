@@ -621,6 +621,53 @@ public function getServices($tablename,$column,$condition,$orderby = null){
   
 }
 
+
+// get Services row 
+public function getServicesForSpecialization($tablename,$column,$condition,$orderby = null){
+    $tablename = mysqli_real_escape_string($this->dbconnection, $tablename);
+    $column = mysqli_real_escape_string($this->dbconnection, $column);
+    $condition = mysqli_real_escape_string($this->dbconnection, $condition);
+// 09/06/2022 1:28am nilagyan ko muna ng servicesinfo.serviceStatus = 'Active', not sure if that's a good idea tho
+    
+   
+    if(isset($orderby)){
+        $query = "SELECT * FROM $tablename WHERE $column = '$condition'  GROUP BY $orderby";
+    }else{
+        $query = "SELECT * FROM $tablename WHERE $column = '$condition'";
+    }
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+  
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+
+                
+                $file = 'data:image/image/png;base64,'.base64_encode($row['certificateFile']);
+                $row['certificateFile'] = $file;
+                
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
 // get other Services row 
 public function getOtherServices(){
     $tablename = "servicesinfo";
@@ -904,6 +951,53 @@ public function getRequests($tablename,$column,$condition,$orderby = null){
 }
 
 
+// get Ny Requests
+public function getMyRequests($tablename,$column,$condition,$orderby = null){
+    $tablename = mysqli_real_escape_string($this->dbconnection, $tablename);
+    $column = mysqli_real_escape_string($this->dbconnection, $column);
+    $condition = mysqli_real_escape_string($this->dbconnection, $condition);
+    
+   
+    if(isset($orderby)){
+        $query = "SELECT $tablename.*,userprofile.userName,userprofile.municipality,userprofile.userPhoto FROM $tablename INNER JOIN userprofile ON $tablename.requestorID = userprofile.userID WHERE $column = '$condition' ORDER BY $orderby";
+    }else{
+        $query = "SELECT * FROM $tablename WHERE $column = '$condition'";
+    }
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+    
+  
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+
+                
+                //$file = 'data:image/image/png;base64,'.base64_encode($row['userPhoto']);
+                //$row['userPhoto'] = $file;
+                
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
+
 // getting Messages from messages table
 public function getUserMessages($ID,$groupBy=null){
     $ID = mysqli_real_escape_string($this->dbconnection, $ID);
@@ -1032,6 +1126,26 @@ public function updateColumn($tablename,$column,$name,$condition,$conditionvalue
     $conditionvalue = mysqli_real_escape_string($this->dbconnection, $conditionvalue);
 
     $query = "UPDATE $tablename SET $column = '$name' WHERE $condition = '$conditionvalue' ";
+
+    $result = mysqli_query($this->dbconnection, $query);
+
+
+        
+  
+}
+
+
+/*---------------------------------DELETE FUNCTIONS----------------------------------------------------- */
+
+// update columns 
+public function deleteColumn($tablename,$column,$name,$condition,$conditionvalue){
+    $tablename = mysqli_real_escape_string($this->dbconnection, $tablename);
+    $column = mysqli_real_escape_string($this->dbconnection, $column);
+    $condition = mysqli_real_escape_string($this->dbconnection, $condition);
+    $name = mysqli_real_escape_string($this->dbconnection, $name);
+    $conditionvalue = mysqli_real_escape_string($this->dbconnection, $conditionvalue);
+
+    $query = "DELETE FROM $tablename WHERE $condition = '$conditionvalue' ";
 
     $result = mysqli_query($this->dbconnection, $query);
 

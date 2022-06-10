@@ -815,3 +815,14 @@ label{
     width: 300px;
     height: 200px;
 }
+
+
+/*Pasabuy form - avail service*/
+
+#pasabuyFormContainer{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backdrop-filter: blur(2px);
+    display: none;
+}

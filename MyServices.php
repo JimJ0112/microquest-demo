@@ -26,7 +26,7 @@ session_start();
     <link rel="stylesheet" href="style.css">
 
     <script src="Scripts/myServices.js"> </script>
-    <title> Pasabuy </title>
+    <title> My Services </title>
 </head>
 
 <body>
