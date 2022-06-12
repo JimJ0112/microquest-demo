@@ -282,6 +282,8 @@ function setMessagesData(array){
     var dataArray = array;
     var number = dataArray.length;
     var myID = sessionStorage.getItem('myID');
+    var conversationUserName = document.getElementById('conversationUserName');
+    conversationUserName.innerText = sessionStorage.getItem('selectedUserName');
     
 
     var div = document.getElementsByClassName("messageCard");
@@ -341,9 +343,41 @@ function checkText(){
     send = document.getElementById('send');
     messageBody = document.getElementById('messageBody');
 
-    if(messageBody.value === "" || messageBody.value <= "   "){
+    if(messageBody.value === "" ){
         send.disabled = true;
     } else{
         send.disabled = false;
     }
+
+
+  
 }
+
+// check if entered
+var messageBody = document.getElementById('messageBody');
+
+messageBody.addEventListener('keypress',function(e){
+  
+    var code = eval(e.keyCode);
+
+    if(messageBody.value ===""){
+        if(code == 32){
+            e.preventDefault();
+        }
+
+        if(code == 13){
+            e.preventDefault();
+        }
+    }
+
+
+    if(code === 13){
+
+        if(messageBody.value != "" ){
+            sendMessage();
+        }
+    }
+
+   
+});
+

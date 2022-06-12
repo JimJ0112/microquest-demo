@@ -30,7 +30,8 @@ isNegotiable=document.getElementById("isNegotiable");
 requestNotes =document.getElementById("requestNotes");
 
 
-
+requestorID = document.getElementById("requestorID");
+price =document.getElementById("price");
 
 
 
@@ -70,6 +71,10 @@ profileimage.src = dataArray[0]['userPhoto'];
 profileimage.setAttribute("Id",'requestorProfile');
 requestorImageContainer.appendChild(profileimage);
 
+
+// apply form portion
+requestorID.value = dataArray[0]['requestorID'];
+price.value =  dataArray[0]['requestExpectedPrice'];
 
 }
 
@@ -129,3 +134,8 @@ function checkText(){
     }
 }
 
+// set the form
+function setApplyForm(){
+
+
+}

@@ -45,6 +45,27 @@ session_start();
     ?>
 
 
+<div id="formBackground"> 
+    <br/> <br/> <br/>  <br/> <br/> <br/>
+    <div>
+        <center>
+        <h3> Are you sure you want to apply to this request?</h3> 
+        <input type="Button" value="Yes"/>
+        <input type="Button" value="No"/>
+        </center>
+    </div>
+
+
+    <form> 
+        <input type="hidden" name="requestID" value="<?php echo $requestID ?>"/>
+        <input type="hidden" name="requestorID" id="requestorID"/>
+        <input type="hidden" name="responderID" value="<?php echo $_SESSION['userID']?>"/>
+        <input type="hidden" name="price" id="price"/>
+        <input type="hidden" name="transactionStartDate" value="<?php 
+            date_default_timezone_set("Asia/Manila");
+            echo date("Y-m-d H:i:s",time());?>"/>
+    </form>
+</div>
 
     <div id="requestInfoContent">
     

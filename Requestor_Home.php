@@ -81,6 +81,7 @@ session_start();
       <!-- ROW -->
       <div class="row">
 
+      <a href="MyRequests.php">
         <div class="column">
           <div class="HomeCard">
             <h3 class="h3" >MY REQUESTS</h3>
@@ -89,6 +90,7 @@ session_start();
     
           </div>
         </div>  
+      </a>
       
         <div class="column">
           <div class="HomeCard">

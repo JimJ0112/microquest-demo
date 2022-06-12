@@ -49,6 +49,7 @@ session_start();
     ?>
 
 <center>
+
 <div class="HomeContainer">
         
 
@@ -79,16 +80,19 @@ session_start();
       </a>
       
       <!-- ROW -->
+      <a href="Requests-Orders.php">
       <div class="row">
         <div class="column">
           <div class="HomeCard">
-            <h3 class="h3">REQUEST</h3>
+            <h3 class="h3">ORDERS/REQUESTS</h3>
          
             <p> Tired of finding someone to hire you? Click me! I might contain a request from a client.</p>
            
           </div>
         </div>
-      
+      </a>
+
+
         <a href="CreateService.php">
             <div class="column">
                 <div class="HomeCard">

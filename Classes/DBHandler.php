@@ -951,7 +951,7 @@ public function getRequests($tablename,$column,$condition,$orderby = null){
 }
 
 
-// get Ny Requests
+// get My Requests
 public function getMyRequests($tablename,$column,$condition,$orderby = null){
     $tablename = mysqli_real_escape_string($this->dbconnection, $tablename);
     $column = mysqli_real_escape_string($this->dbconnection, $column);
@@ -1115,6 +1115,99 @@ public function getUserConversation($myID,$ID){
         
   
 }
+
+
+
+
+//get transactions
+
+public function getMyTransactions($ID,$column,$transactionType){
+
+    $ID = mysqli_real_escape_string($this->dbconnection, $ID);
+    $column = mysqli_real_escape_string($this->dbconnection, $column);
+    $transactionType = mysqli_real_escape_string($this->dbconnection, $transactionType);
+
+    $tablename = "transactions";
+
+   
+
+    if($transactionType === "Request"){
+        $query = "SELECT transactions.*, requestor.userID, responder.userID, requestor.userName as RequestorName, responder.userName as ResponderName, requests.* FROM $tablename INNER JOIN userprofile requestor ON (requestor.userID = transactions.requestorID) INNER JOIN userprofile responder ON (responder.userID = transactions.responderID) INNER JOIN requestsinfo requests ON (requests.requestID = transactions.requestID) WHERE transactions.$column = $ID;";
+
+        $result = mysqli_query($this->dbconnection, $query);
+        $resultCheck = mysqli_num_rows($result);
+        $data = array();
+        
+    
+        if($resultCheck > 0){
+           
+    
+                while($row = mysqli_fetch_assoc($result)){
+                    
+    
+    
+    
+                    $data[] = $row;
+                    
+                 
+                }
+                
+                return $data;
+            
+            
+            
+    
+        } else {return "failed to fetch";}
+
+    } else if($transactionType === "Service"){
+       // $query = "SELECT transactions.*, requestor.userID, responder.userID, requestor.userName as RequestorName, responder.userName as ResponderName, services.* FROM transactions INNER JOIN userprofile requestor ON (requestor.userID = transactions.requestorID) INNER JOIN userprofile responder ON (responder.userID = transactions.responderID) INNER JOIN servicesinfo services ON (services.serviceID = transactions.serviceID) WHERE transactions.responderID = 11;";
+        $query = "SELECT transactions.*, requestor.userID, responder.userID, requestor.userName as RequestorName, responder.userName as ResponderName, services.* FROM $tablename INNER JOIN userprofile requestor ON (requestor.userID = transactions.requestorID) INNER JOIN userprofile responder ON (responder.userID = transactions.responderID) INNER JOIN servicesinfo services ON (services.serviceID = transactions.serviceID) WHERE transactions.$column = $ID;";
+
+        $result = mysqli_query($this->dbconnection, $query);
+        $resultCheck = mysqli_num_rows($result);
+        $data = array();
+        $file;
+        
+    
+        if($resultCheck > 0){
+           
+    
+                while($row = mysqli_fetch_assoc($result)){
+                    
+    
+    
+                    $file = 'data:image/image/png;base64,'.base64_encode($row['certificateFile']);
+                    $row['certificateFile'] = $file;
+    
+                    $data[] = $row;
+                    
+                 
+                }
+                
+                return $data;
+            
+            
+            
+    
+        } else {return "failed to fetch";}
+
+    } else {
+        echo "failed query"; 
+    }
+   
+
+ 
+    //$query = "SELECT transactions.*, requestor.userID, responder.userID, requestor.userName as RequestorName, responder.userName as ResponderName, requests.* FROM $tablename INNER JOIN userprofile requestor ON (requestor.userID = transactions.requestorID) INNER JOIN userprofile responder ON (responder.userID = transactions.responderID) INNER JOIN requestsinfo requests ON (requests.requestID = transactions.requestID) WHERE transactions.$column = $ID;";
+
+
+
+
+
+
+        
+  
+}
+
 /*---------------------------------UPDATE FUNCTIONS----------------------------------------------------- */
 
 // update columns 
@@ -1247,7 +1340,7 @@ public function registerCategory($serviceCategory,$servicePosition){
     $isNegotiable=mysqli_real_escape_string($this->dbconnection,$isNegotiable);
     $dueDate = mysqli_real_escape_string($this->dbconnection,$dueDate);
     $requestDescription=mysqli_real_escape_string($this->dbconnection, $requestDescription);
-    $requestStatus ="";
+    $requestStatus ="Active";
  
     
 

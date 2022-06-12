@@ -7,8 +7,8 @@ $DBHandler = new DBHandler();
 
 $tablename = "requestsinfo";
 $column = "requestorID";
-//$condition = $_POST['userID'];
-$condition = 14;
+$condition = $_POST['userID'];
+//$condition = 14;
 $categories = $DBHandler->getMyRequests($tablename,$column,$condition);
 
 

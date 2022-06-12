@@ -25,7 +25,7 @@ session_start();
     
     <link rel="stylesheet" href="style.css">
 
-    <script src="Scripts/myServices.js"> </script>
+    <script src="Scripts/myRequests.js"> </script>
     <title> My Services </title>
 </head>
 
@@ -35,10 +35,10 @@ session_start();
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
 
-            if($usertype === "Responder"){
-                require("Includes/Responder_Navbar.inc.php");
-            }else if($usertype === "Requestor"){
-                header("location:Requestor_Home.php?Msg= Not a Responder");
+            if($usertype === "Requestor"){
+                require("Includes/Requestor_Navbar.inc.php");
+            }else if($usertype === "Responder"){
+                header("location:Responder_Home.php?Msg= Not a Responder");
             }
         }
     ?>
@@ -55,14 +55,32 @@ session_start();
     <div id="updateFormBackground">
         <center>
         <div id="closeButton" onclick="closeForms()"> X </div>
-            <br/> <br/> <br/> <br/> <br/> <br/>
+            <br/> 
             <form action="Backend/UpdateRequest.php" method="post" id="updateRequest"> 
-                
-                <br/> <br/>
-                <input type="hidden" name="serviceID" id="serviceID"/>
+            
+              
+                <input type="hidden" name="requestID" id="requestID"/> <br/> <br/>
 
-                <label> Change Rate </label><br/><br/>
-                <input type= "number" name="rate" id="rate" placeholder="Php 0.00"/> <br/><br/>
+                <label> Title  </label> <br/> <br/>
+                <input type="text" name="updateTitle" id="updateTitle" /> <br/> <br/>
+
+
+                <label> Due Date  </label> <br/> <br/>
+                <input type="date" name="updateDueDate" id="updateDueDate" /> <br/> <br/>
+
+                <label> Expected Price  </label> <br/> <br/>
+                <input type="number" name="updatePrice" id="updatePrice" /> <br/> <br/>
+
+                <label> Negotiable  </label> <br/> <br/>
+                <select name="updateNegotiable" id="updateNegotiable">
+                    <option value="Negotiable"> Negotiable </option>
+                    <option value="Not Negotiable">Not Negotiable </option>
+                </select> <br/> <br/>
+
+                <label> Description  </label> <br/> <br/>
+                <textarea name="updateDescription"  id="updateDescription" rows="15" cols="25" style="resize:none;"> </textarea> <br/> <br/>
+
+ 
                 <input type="submit"/>
             </form>
         </center>
@@ -72,7 +90,7 @@ session_start();
      <div id="myRequestsNav">
         <center>
             <div id="MyRequestsButton">
-                My Services
+                My Requests
             </div> 
 
         </center>
@@ -87,9 +105,30 @@ session_start();
 
 
   
-    <div id="myRequestsContent"> 
+    <center>
 
-    </div>
+
+    <Table> 
+        <thead class="requestsHeader">
+            <td> Request ID </td>
+            <td> Category</td>
+            <td> Title</td>
+            <td> Expected Price</td>
+            <td> Negotiable</td>
+            <td> Date Posted</td>
+            <td> Due Date</td>
+            <td> Description</td>
+            <td> Status </td>
+            <td> </td>
+        </thead>
+
+        <tbody id="myRequestsContent">
+
+        </tbody>
+
+    </table>
+
+    </center>
 
    
 

@@ -16,7 +16,7 @@ session_start();
     <meta content='yes' name='mobile-web-app-capable'/>
     
     <link rel="stylesheet" href="style.css">
-    <script src="Scripts/messages.js"> </script>
+    
 
     <title> Messages  </title>
 </head>
@@ -47,7 +47,17 @@ if(isset($_SESSION['userID'])){
     ?>
 <div id="messagesContent">
 
-<div id="inbox"> </div>
+<div id="searchDiv">
+<h1 id="Chats"> Chats</h1>
+
+    <input type="search" name="search" id="messageSearch"/> 
+    <input type="image" src="Images/search.png" value="search" id="messageSearchButton"/>
+    <input type="image" src="Images/write.png" value="Create New Message" id="createNewMessage"/>
+
+</div>
+
+<div id="inbox">
+</div>
 
     <div id="messagesMain"> 
         <div id="conversationHeader">
@@ -62,9 +72,12 @@ if(isset($_SESSION['userID'])){
                 <input type="hidden" name="recieverUserName" id="recieverUserName">
 
 
-                <textarea id="messageBody" oninput="checkText()"> </textarea>
+                
+                <textarea id="messageBody" oninput="checkText()"></textarea>
+                <!-- <input type="text" id="messageBody" oninput="checkText()"> -->
                 <input type="button" id="send" value="SEND" onclick="sendMessage()" disabled> <br/>
                 <input type="button" id="file" value="SEND PHOTO">
+                
         </div>
 
         <form action="Backend/" method="post" enctype="multipart/form-data" id="fileForm">
@@ -83,5 +96,7 @@ if(isset($_SESSION['userID'])){
 
 </div>
 
+
+<script src="Scripts/messages.js">  </script>
 </body>
 </html>

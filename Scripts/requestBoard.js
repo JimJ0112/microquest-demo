@@ -127,12 +127,15 @@ function getRequests(){
             var dataArray = this.response;
 
             if(dataArray != "failed to fetch"){
+                
             dataArray = JSON.parse(dataArray);
             console.log(dataArray);
 
             var number = dataArray.length;
             createServiceElements(number);
             setData(dataArray);
+            } else{
+                RequestsContainer.innerText = "No Requests";
             }
 
      
