@@ -92,6 +92,7 @@ session_start();
         </div>  
       </a>
       
+      <a href="RequestApplications-Services.php">
         <div class="column">
           <div class="HomeCard">
             <h3 class="h3">AVAILED SERVICES</h3>
@@ -101,6 +102,7 @@ session_start();
           </div>
         </div>
       </div>
+      </a>
 
 </div>
 </center>

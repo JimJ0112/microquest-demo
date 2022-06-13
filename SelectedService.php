@@ -52,9 +52,12 @@ session_start();
     <div id="closeButton" onclick="closeForms()"> X </div><br/> <br/> <br/>
      <div id="AvailServiceForm"> 
         
-        <form>
+        <form action="Backend/RegisterServiceOrder.php" method="post">
 
             <h3> Confirm Transaction </h3> <br/><br/><br/>
+
+            <input type="hidden" name="formServiceID" id="formServiceID"/>
+            <input type="hidden" name="requestorID" value="<?php echo $_SESSION["userID"] ?>"/>
       
                 <label> Category </label> <br/>
                 <input type="text" name="category" id="Category" readonly> <br/> 
@@ -82,8 +85,7 @@ session_start();
 
                 <label> Additional Notes </label> <br/>
 
-                        <textarea name="additionalNotes">
-                        </textarea> <br/><br/>
+                        <textarea name="additionalNotes"></textarea> <br/><br/>
  
             <input type="submit" value="Confirm">
 

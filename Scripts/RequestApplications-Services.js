@@ -1,7 +1,7 @@
 
 function getServiceOrders(userID){
     var userID = userID;
-    var query = "userID=" + userID +"&TransactionType=Service&column=responderID";
+    var query = "userID=" + userID +"&TransactionType=Service&column=requestorID";
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.open("POST", "Backend/Get_myTransactions.php", true);
@@ -17,7 +17,7 @@ function getServiceOrders(userID){
             if(dataArray === "failed to fetch"){
                 var content = document.getElementById("requestInfoContent");
                 var h2 = document.createElement('h2');
-                h2.innerText = "Request does not exist, entered link might be broken";
+                h2.innerText = "No availed services yet";
                 div.innerHTML = "";
                 div.style.textAlign = "center";
                 div.appendChild(h2);
@@ -45,7 +45,7 @@ function getServiceOrders(userID){
 
 function getRequestApplications(userID){
     var userID = userID;
-    var query = "userID=" + userID +"&TransactionType=Request&column=responderID";
+    var query = "userID=" + userID +"&TransactionType=Request&column=requestorID";
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.open("POST", "Backend/Get_myTransactions.php", true);
@@ -61,7 +61,7 @@ function getRequestApplications(userID){
             if(dataArray === "failed to fetch"){
                 var content = document.getElementById("requestInfoContent");
                 var h2 = document.createElement('h2');
-                h2.innerText = "Request does not exist, entered link might be broken";
+                h2.innerText = "No request applications yet";
                 div.innerHTML = "";
                 div.style.textAlign = "center";
                 div.appendChild(h2);
@@ -100,8 +100,8 @@ function createServiceOrderElements(number){
 
         // about the transactions 
         transactionID= document.createElement('p');
-        requestorID= document.createElement('p');
-        RequestorName = document.createElement('p');
+        responderID= document.createElement('p');
+        responderName = document.createElement('p');
         price= document.createElement('p');
         rate= document.createElement('p');
         transactionInfoCol = document.createElement('td');
@@ -132,8 +132,8 @@ function createServiceOrderElements(number){
 
         // about the transactions 
         transactionID.setAttribute('class','transactionID');
-        requestorID.setAttribute('class','requestorID');
-        RequestorName.setAttribute('class','RequestorName');
+        responderID.setAttribute('class','responderID');
+        responderName.setAttribute('class','responderName');
         price.setAttribute('class','price');
         rate.setAttribute('class','rate');
 
@@ -160,8 +160,8 @@ function createServiceOrderElements(number){
         transactionInfoCol.appendChild(serviceCategory);
         transactionInfoCol.appendChild(servicePosition);
 
-        transactionInfoCol.appendChild(requestorID);
-        transactionInfoCol.appendChild(RequestorName);
+        transactionInfoCol.appendChild(responderID);
+        transactionInfoCol.appendChild(responderName);
         transactionInfoCol.appendChild(price);
         transactionInfoCol.appendChild(rate);
 
@@ -171,7 +171,7 @@ function createServiceOrderElements(number){
         transactionInfoCol.appendChild(rate);
         transactionInfoCol.appendChild(viewService);
 
-        buttonsCol.appendChild(AcceptButton);
+      
         buttonsCol.appendChild(br);
         buttonsCol.appendChild(br);
         buttonsCol.appendChild(cancelButton);
@@ -210,8 +210,8 @@ function setServiceOrdersData(array){
     
             // about the transactions 
             transactionID= document.getElementsByClassName('transactionID');
-            requestorID= document.getElementsByClassName('requestorID');
-            RequestorName= document.getElementsByClassName('RequestorName');
+            responderID= document.getElementsByClassName('responderID');
+            responderName= document.getElementsByClassName('responderName');
             price= document.getElementsByClassName('price');
             rate= document.getElementsByClassName('rate');
 
@@ -221,7 +221,7 @@ function setServiceOrdersData(array){
     
             buttonsCol= document.getElementsByClassName('buttonsCol');
             cancelButton= document.getElementsByClassName('cancelButton');
-            AcceptButton= document.getElementsByClassName('AcceptButton');
+           // AcceptButton= document.getElementsByClassName('AcceptButton');
             viewService = document.getElementsByClassName('viewService');
 
     
@@ -233,8 +233,8 @@ function setServiceOrdersData(array){
 
             for(var i=0; i<number;i++){
                 transactionID[i].innerHTML = "<b>Transaction ID: </b>"+ dataArray[i]['transactionID'];
-                requestorID[i].innerHTML = "<b>Requestor ID: </b>"+ dataArray[i]['requestorID'];
-                RequestorName[i].innerHTML = "<b>Requestor Name: </b>"+ dataArray[i]['RequestorName'];
+                responderID[i].innerHTML = "<b>Responder ID: </b>"+ dataArray[i]['responderID'];
+                responderName[i].innerHTML = "<b>Responder Name: </b>"+ dataArray[i]['ResponderName'];
                 price[i].innerHTML = "<b>Price: </b> Php "+ dataArray[i]['price'];
                 rate[i].innerHTML = "<b>Responder Rate: </b> Php "+ dataArray[i]['rate'];
     
@@ -252,9 +252,8 @@ function setServiceOrdersData(array){
                 serviceCategory[i].innerHTML = "<b> Service Category: </b>"+ dataArray[i]['serviceCategory'];
                 servicePosition[i].innerHTML = "<b> Service Type: </b>"+ dataArray[i]['servicePosition'];
                 serviceStatus[i].innerHTML = "<b> Service Status: </b>"+ dataArray[i]['serviceStatus'];
-
-                AcceptButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'accepted')");
                 cancelButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'cancelled')");
+
             }
     
 
@@ -292,7 +291,7 @@ function createAppliedRequestsElements(number){
         var requestContainer = document.createElement('div');
 
 
-        RequestorName = document.createElement('p');
+        responderName = document.createElement('p');
         requestTitle = document.createElement('p');
         requestCategory = document.createElement('p');
         requestDescription= document.createElement('p');
@@ -309,13 +308,14 @@ function createAppliedRequestsElements(number){
         var buttonsCol = document.createElement('td');
         
         var cancelButton = document.createElement('button');
+        var acceptButton = document.createElement('button');
 
         // set element attributes
         requestRow.setAttribute('class','requestRow');
         requestContainer.setAttribute('class','requestContainer');
 
 
-        RequestorName.setAttribute('class','RequestorName');
+        responderName.setAttribute('class','responderName');
         requestTitle.setAttribute('class','requestTitle');
         requestCategory.setAttribute('class','requestCategory');
         requestDescription.setAttribute('class','requestDescription');
@@ -331,10 +331,12 @@ function createAppliedRequestsElements(number){
         infoCol.setAttribute('class','infoCol');
         buttonsCol.setAttribute('class','buttonsCol');
         cancelButton.setAttribute('class','cancelButton');
+        acceptButton.setAttribute('class','acceptButton');
         cancelButton.innerText = "Cancel";
+        acceptButton.innerText = "Accept";
 
         // append elements
-        infoCol.appendChild(RequestorName);
+        infoCol.appendChild(responderName);
         infoCol.appendChild(requestTitle);
         infoCol.appendChild(requestCategory);
         infoCol.appendChild(requestExpectedPrice);
@@ -346,7 +348,9 @@ function createAppliedRequestsElements(number){
         infoCol.appendChild(transactionStartDate);
         infoCol.appendChild(transactionStatus);
 
+        buttonsCol.appendChild(acceptButton);
         buttonsCol.appendChild(cancelButton);
+        
 
         requestRow.appendChild(infoCol);
         requestRow.appendChild(buttonsCol);
@@ -372,7 +376,7 @@ function setRequestsApplicationData(array){
     var dataArray = array;
     var number = dataArray.length;
 
-    RequestorName = document.getElementsByClassName('RequestorName');
+    responderName = document.getElementsByClassName('responderName');
     requestTitle= document.getElementsByClassName('requestTitle');
     requestCategory= document.getElementsByClassName('requestCategory');
     requestDescription= document.getElementsByClassName('requestDescription');
@@ -387,14 +391,14 @@ function setRequestsApplicationData(array){
 
     infoCol= document.getElementsByClassName('infoCol');
     buttonsCol= document.getElementsByClassName('buttonsCol');
+    acceptButton = document.getElementsByClassName('acceptButton');
     cancelButton = document.getElementsByClassName('cancelButton');
-    
     
 
 
     for(var i=0; i<number;i++){
 
-        RequestorName[i].innerHTML = "<b> Requestor Name: </b>"+dataArray[i]['RequestorName'];
+        responderName[i].innerHTML = "<b> Responder Name: </b>"+dataArray[i]['ResponderName'];
         requestTitle[i].innerHTML = "<b> Title: </b>"+dataArray[i]['requestTitle'];
         requestCategory[i].innerHTML = "<b> Category:  </b>"+dataArray[i]['requestCategory'];
         requestDescription[i].innerHTML = "<b> Description: </b>"+dataArray[i]['requestDescription'];
@@ -406,14 +410,14 @@ function setRequestsApplicationData(array){
     
         transactionStartDate[i].innerHTML = "<b>Application Date: </b>"+dataArray[i]['transactionStartDate'];
         transactionStatus[i].innerHTML = "<b>Application Status: </b>"+dataArray[i]['transactionStatus'];
+        acceptButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'accepted')");
         cancelButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'cancelled')");
-    
+
     }
     
 
 }
 
-/*------------------------------------------------------------------------------------------------------- */
 // accept requests 
 function updateRequestApplication(transactionID,update){
     var transactionID = transactionID;
@@ -444,7 +448,7 @@ function updateRequestApplication(transactionID,update){
 // --------------------- For cancelled transactions --------------------------------------------------------------
 function getCancelledRequests(userID){
     var userID = userID;
-    var query = "userID=" + userID +"&TransactionType=Request&column=responderID";
+    var query = "userID=" + userID +"&TransactionType=Request&column=requestorID";
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.open("POST", "Backend/Get_cancelledTransactions.php", true);
@@ -487,7 +491,7 @@ function getCancelledRequests(userID){
 
 function getCancelledServices(userID){
     var userID = userID;
-    var query = "userID=" + userID +"&TransactionType=Service&column=responderID";
+    var query = "userID=" + userID +"&TransactionType=Service&column=requestorID";
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.open("POST", "Backend/Get_cancelledTransactions.php", true);
@@ -531,7 +535,7 @@ function getCancelledServices(userID){
 
 function getAcceptedRequestApplications(userID){
     var userID = userID;
-    var query = "userID=" + userID +"&TransactionType=Request&column=responderID";
+    var query = "userID=" + userID +"&TransactionType=Request&column=requestorID";
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.open("POST", "Backend/Get_acceptedTransactions.php", true);
@@ -573,11 +577,11 @@ function getAcceptedRequestApplications(userID){
 
 /*----Completed------------------------------------------------------------------------------------------ */
 
-
+//--------------accepted requests -------------------------------------------------------------------------------
 
 function getCompletedRequests(userID){
     var userID = userID;
-    var query = "userID=" + userID +"&TransactionType=Request&column=responderID";
+    var query = "userID=" + userID +"&TransactionType=Request&column=requestorID";
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.open("POST", "Backend/Get_completedTransactions.php", true);
@@ -591,9 +595,9 @@ function getCompletedRequests(userID){
             var dataArray = this.response;
 
             if(dataArray === "failed to fetch"){
-                var content = document.getElementById("requestsOrdersContent");
+                var content = document.getElementById("requestInfoContent");
                 var h2 = document.createElement('h2');
-                h2.innerText = "You currently have no completed service orders";
+                h2.innerText = "You currently have no cancelled service orders";
                 div.innerHTML = "";
                 div.style.textAlign = "center";
                 div.appendChild(h2);
@@ -620,7 +624,7 @@ function getCompletedRequests(userID){
 
 function getCompletedService(userID){
     var userID = userID;
-    var query = "userID=" + userID +"&TransactionType=Service&column=responderID";
+    var query = "userID=" + userID +"&TransactionType=Request&column=requestorID";
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.open("POST", "Backend/Get_completedTransactions.php", true);
@@ -636,7 +640,7 @@ function getCompletedService(userID){
             if(dataArray === "failed to fetch"){
                 var content = document.getElementById("requestInfoContent");
                 var h2 = document.createElement('h2');
-                h2.innerText = "You currently have no completed service orders";
+                h2.innerText = "You currently have no cancelled service orders";
                 div.innerHTML = "";
                 div.style.textAlign = "center";
                 div.appendChild(h2);

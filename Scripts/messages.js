@@ -375,6 +375,7 @@ messageBody.addEventListener('keypress',function(e){
 
         if(messageBody.value != "" ){
             sendMessage();
+           
         }
     }
 

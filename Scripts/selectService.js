@@ -290,7 +290,7 @@ function setResponderData(array){
         municipality[i].innerText = dataArray[i]['municipality'];
         rate[i].innerText = dataArray[i]['rate'];
         viewProfile[i].href= "Public_Profile.php?userID=" +  dataArray[i]['responderID'] + "&userType=Responder";
-        selectButton[i].setAttribute('onclick','selectResponder('+ dataArray[i]['responderID']+','+dataArray[i]['rate']+')');
+        selectButton[i].setAttribute('onclick','selectResponder('+ dataArray[i]['serviceID']+','+ dataArray[i]['responderID']+','+dataArray[i]['rate']+')');
         
 
     }
@@ -326,7 +326,7 @@ function setAvailableResponderData(array){
         municipality[i].innerText = dataArray[i]['municipality'];
         rate[i].innerText = dataArray[i]['rate'];
         availableViewProfile[i].href= "Public_Profile.php?userID=" +  dataArray[i]['responderID'] + "&userType=Responder";
-        availableSelectButton[i].setAttribute('onclick','selectResponder('+ dataArray[i]['responderID']+','+dataArray[i]['rate']+')');
+        availableSelectButton[i].setAttribute('onclick','selectResponder('+dataArray[i]['serviceID'] +','+ dataArray[i]['responderID']+','+dataArray[i]['rate']+')');
         
 
     }
@@ -440,15 +440,18 @@ function createAvailableRespondersElements(Number){
 
 
 /* Avail Service form */
-function selectResponder(responderID,rate){
+function selectResponder(serviceID,responderID,rate){
+    var serviceID = serviceID;
     var responderID = responderID;
     var rate = rate;
 
     divResponderID =document.getElementById("responderID");
     divServicePrice =document.getElementById("servicePrice");
+    divServiceID = document.getElementById('formServiceID');
 
     divResponderID.value = responderID;
     divServicePrice.value = rate;
+    divServiceID.value = serviceID;
 
     var form = document.getElementById('AvailServiceFormContainer'); 
     form.style.display = "block";

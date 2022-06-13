@@ -25,7 +25,7 @@ session_start();
     
     <link rel="stylesheet" href="style.css">
 
-    <script src="Scripts/Requests-Orders.js"> </script>
+    <script src="Scripts/RequestApplications-Services.js"> </script>
     <title> My Services </title>
 </head>
 
@@ -35,10 +35,10 @@ session_start();
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
 
-            if($usertype === "Responder"){
-                require("Includes/Responder_Navbar.inc.php");
+            if($usertype === "Requestor"){
+                require("Includes/Requestor_Navbar.inc.php");
             }else if($usertype === "Responder"){
-                header("location:Requestor_Home.php?Msg= Not a Responder");
+                header("location:Responder_Home.php?Msg= Not a Requestor");
             }
         }
     ?>
@@ -46,7 +46,7 @@ session_start();
     <?php
         if(isset($_SESSION['userID'])){
             $userID = $_SESSION['userID'];
-            echo"<script> getRequestApplications($userID); </script>";
+            echo"<script> getServiceOrders($userID); </script>";
             echo"<script> sessionStorage.setItem('myID',$userID)</script>";
         }
     ?>
@@ -57,37 +57,34 @@ session_start();
 
      <div id="orderRequestsNav">
         <center>
-            <div class="orderRequestsButton" onclick='<?php echo"getRequestApplications($userID)"?>'>
-                 Applied Requests
-            </div> 
 
             <div class="orderRequestsButton" onclick='<?php echo"getServiceOrders($userID)"?>'>
-                 Service Orders
+                 Pending Service Orders
+            </div> 
+
+            <div class="orderRequestsButton" onclick='<?php echo"getRequestApplications($userID)"?>'>
+                 Request Applications
             </div> 
 
             <div class="orderRequestsButton" onclick='<?php echo"getAcceptedRequestApplications($userID)"?>'>
-                 Accepted Requests
+                 Accepted Request Applications
             </div> 
 
-            <div class="orderRequestsButton" onclick='<?php echo"getServiceOrders($userID)"?>'>
-                 Accepted Orders
+            <div class="orderRequestsButton" onclick='<?php echo" getCompletedService($userID)"?>'>
+                 Completed Orders
             </div> 
-
             <div class="orderRequestsButton" onclick='<?php echo"getCompletedRequests($userID)"?>'>
                  Completed Requests
             </div> 
 
-            <div class="orderRequestsButton" onclick='<?php echo"getCompletedService($userID)"?>'>
-                 Completed Orders
-            </div> 
-
             <div class="orderRequestsButton" onclick='<?php echo"getCancelledRequests($userID)"?>'>
-                 Cancelled Requests
+                 Cancelled Requests 
             </div> 
 
             <div class="orderRequestsButton" onclick='<?php echo"getCancelledServices($userID)"?>'>
-                 Cancelled Orders
-            </div>
+                 Cancelled Service Orders 
+            </div> 
+
 
         </center>
     </div>

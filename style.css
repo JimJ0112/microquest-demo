@@ -781,6 +781,7 @@ label{
     height: 100%;
     position: absolute;
     backdrop-filter: blur(2px);
+    display: none;
     
 }
 
@@ -903,15 +904,17 @@ label{
 
 /*Requests-Orders page */
 #orderRequestsNav{
-   
+   border: 1px solid black;
+   display: grid;
+  
+   height: fit-content;
 }
 
-#orderRequestsButton{
+.orderRequestsButton{
     display: inline-block;
     outline: auto;
-    padding: 5px;
-    border-radius: 10px;
-    margin: 50px;
+    padding: 20px;
+    
     cursor: pointer;
 }
 

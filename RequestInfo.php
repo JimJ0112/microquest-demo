@@ -22,13 +22,14 @@ session_start();
 
     <title> Request </title>
 </head>
-<body>
+<body onload="checkTransactionExists()">
     <?php
         if(isset($_GET['requestID'])){
 
             $requestID = $_GET['requestID'];
 
-            echo "<script> getRequest($requestID) </script>";
+            echo "<script> getRequest($requestID);
+            sessionStorage.setItem('requestID','$requestID') </script>";
         }
     ?>
 
@@ -50,13 +51,14 @@ session_start();
     <div>
         <center>
         <h3> Are you sure you want to apply to this request?</h3> 
-        <input type="Button" value="Yes"/>
-        <input type="Button" value="No"/>
+        <input type="Button" value="Yes" onclick="acceptApplyForm()"/>
+        <input type="Button" value="No" onclick="cancelApplyForm()"/>
         </center>
     </div>
 
 
-    <form> 
+    <form action="Backend/RegisterRequestApplicationTransaction.php" method="post" id="requestApplicationForm">
+        <input type="hidden" name="formType" value="requestApplication"/> 
         <input type="hidden" name="requestID" value="<?php echo $requestID ?>"/>
         <input type="hidden" name="requestorID" id="requestorID"/>
         <input type="hidden" name="responderID" value="<?php echo $_SESSION['userID']?>"/>
@@ -64,6 +66,7 @@ session_start();
         <input type="hidden" name="transactionStartDate" value="<?php 
             date_default_timezone_set("Asia/Manila");
             echo date("Y-m-d H:i:s",time());?>"/>
+        <input type="hidden" name="requestDueDate" id="requestDueDate"/>
     </form>
 </div>
 
@@ -116,7 +119,7 @@ session_start();
                         $usertype = $_SESSION["userType"];
 
                             if($usertype === "Responder"){
-                                echo "<input type=button value=Apply id=applyButton class=button />";
+                                echo "<input type=button value=Apply id=applyButton class=button onclick='showApplyForm()'/>";
                             }
                     }
 

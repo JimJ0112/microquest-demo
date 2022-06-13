@@ -32,7 +32,7 @@ requestNotes =document.getElementById("requestNotes");
 
 requestorID = document.getElementById("requestorID");
 price =document.getElementById("price");
-
+requestDueDate = document.getElementById('requestDueDate');
 
 
 
@@ -75,6 +75,9 @@ requestorImageContainer.appendChild(profileimage);
 // apply form portion
 requestorID.value = dataArray[0]['requestorID'];
 price.value =  dataArray[0]['requestExpectedPrice'];
+requestDueDate.value  = dataArray[0]['dueDate'];
+
+sessionStorage.setItem('requestorID',dataArray[0]['requestorID']);
 
 }
 
@@ -134,8 +137,58 @@ function checkText(){
     }
 }
 
-// set the form
-function setApplyForm(){
 
-
+// show modal
+function showApplyForm(){
+    document.getElementById('formBackground').style.display = "block";
 }
+
+
+// set yes or no modal
+function cancelApplyForm(){
+document.getElementById('formBackground').style.display = "none";
+}
+
+// set yes or no modal
+function acceptApplyForm(){
+    document.getElementById('formBackground').style.display = "none";
+    document.getElementById('requestApplicationForm').submit();
+    
+}
+
+
+// check if already has transaction 
+function checkTransactionExists(){
+   
+    
+    var requestID = sessionStorage.getItem('requestID');
+    var responderID = sessionStorage.getItem('myID');
+    var requestorID = sessionStorage.getItem('requestorID');
+    var query = "requestID=" + requestID +"&responderID=" + responderID + "&requestorID="+requestorID;
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open("POST", "Backend/Check_TransactionsExist.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onload = function() {
+        if (this.readyState === 4 || this.status === 200){ 
+           
+  
+
+            var dataArray = this.response;
+            console.log(dataArray);
+            if(dataArray === "true"){
+            document.getElementById('applyButton').disabled = true;
+            }
+   
+
+
+     
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send(query);
+    
+}// end of function
