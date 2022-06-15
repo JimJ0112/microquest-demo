@@ -37,11 +37,24 @@ if(isset($_SESSION['userID'])){
 <?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
+
             if($usertype === "Responder"){
                 require("Includes/Responder_Navbar.inc.php");
             }else if($usertype === "Requestor"){
                 require("Includes/Requestor_Navbar.inc.php");
             }
+
+
+            /*
+            if($usertype === "Responder"){
+
+                require("Includes/responderNav.inc.php");
+            }else if($usertype === "Requestor"){
+
+                require("Includes/requestorNav.inc.php");
+            }
+            */
+
         }
 
     ?>
@@ -74,9 +87,9 @@ if(isset($_SESSION['userID'])){
 
 
                 
-                <textarea id="messageBody" oninput="checkText()"></textarea>
-                <!-- <input type="text" id="messageBody" oninput="checkText()"> -->
-                <input type="button" id="send" value="SEND" onclick="sendMessage()" disabled> <br/>
+                <!--<textarea id="messageBody" oninput="checkText()"></textarea>-->
+                <input type="text" id="messageBody" oninput="checkText()"> 
+                <input type="button" id="send" value="SEND" onclick="sendMessage()" disabled> 
                 <input type="button" id="file" value="SEND PHOTO">
                 
         </div>

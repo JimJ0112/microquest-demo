@@ -17,7 +17,7 @@ function getServiceOrders(userID){
             if(dataArray === "failed to fetch"){
                 var content = document.getElementById("requestInfoContent");
                 var h2 = document.createElement('h2');
-                h2.innerText = "No request application";
+                h2.innerText = "No service orders yet";
                 div.innerHTML = "";
                 div.style.textAlign = "center";
                 div.appendChild(h2);
@@ -61,7 +61,7 @@ function getRequestApplications(userID){
             if(dataArray === "failed to fetch"){
                 var content = document.getElementById("requestInfoContent");
                 var h2 = document.createElement('h2');
-                h2.innerText = "Request does not exist, entered link might be broken";
+                h2.innerText = "No request applications yet";
                 div.innerHTML = "";
                 div.style.textAlign = "center";
                 div.appendChild(h2);

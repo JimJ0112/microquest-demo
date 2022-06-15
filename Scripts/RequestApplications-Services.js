@@ -597,7 +597,7 @@ function getCompletedRequests(userID){
             if(dataArray === "failed to fetch"){
                 var content = document.getElementById("requestInfoContent");
                 var h2 = document.createElement('h2');
-                h2.innerText = "You currently have no completed service orders";
+                h2.innerText = "You currently have no completed requests";
                 div.innerHTML = "";
                 div.style.textAlign = "center";
                 div.appendChild(h2);

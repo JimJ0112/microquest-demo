@@ -7,6 +7,7 @@ body{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
    /* background-image: url('Images/p.jpg'); */
 
+   /*background-color: rgb(61, 36, 7);*/
 
 }
 
@@ -593,14 +594,17 @@ label{
     
     grid-area: messageform;
     align-content: center;
+    /*
     grid-template-areas: "fill messagebody messagebody filler none"
                          "fill messagebody messagebody filler send"
                          "fill messagebody messagebody filler file";
+    */
 
+    grid-template-areas: "messagebody messagebody messagebody messagebody  send file"
 }
 #messageBody{
     width: 100%;
-    height: 200px;
+    height: 40px;
     grid-area: messagebody;
     resize: none;
 }
@@ -648,7 +652,8 @@ label{
     cursor: pointer;
     word-break: break-all;
     overflow-wrap: break-word;
-    margin: 100px;
+    margin: 70px;
+    
 
 }
 

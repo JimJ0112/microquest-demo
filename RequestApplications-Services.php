@@ -57,12 +57,8 @@ session_start();
 
      <div id="orderRequestsNav">
         <center>
-
-            <div class="orderRequestsButton" onclick='<?php echo"getServiceOrders($userID)"?>'>
-                 Pending Service Orders
-            </div> 
-
-            <div class="orderRequestsButton" onclick='<?php echo"getRequestApplications($userID)"?>'>
+            
+        <div class="orderRequestsButton" onclick='<?php echo"getRequestApplications($userID)"?>'>
                  Request Applications
             </div> 
 
@@ -70,9 +66,7 @@ session_start();
                  Accepted Request Applications
             </div> 
 
-            <div class="orderRequestsButton" onclick='<?php echo" getCompletedService($userID)"?>'>
-                 Completed Orders
-            </div> 
+
             <div class="orderRequestsButton" onclick='<?php echo"getCompletedRequests($userID)"?>'>
                  Completed Requests
             </div> 
@@ -81,9 +75,18 @@ session_start();
                  Cancelled Requests 
             </div> 
 
-            <div class="orderRequestsButton" onclick='<?php echo"getCancelledServices($userID)"?>'>
-                 Cancelled Service Orders 
+            <div class="orderRequestsButton" onclick='<?php echo"getServiceOrders($userID)"?>'>
+                 Pending Services
             </div> 
+            <div class="orderRequestsButton" onclick='<?php echo" getCompletedService($userID)"?>'>
+                 Completed Services
+            </div> 
+            <div class="orderRequestsButton" onclick='<?php echo"getCancelledServices($userID)"?>'>
+                 Cancelled Services
+            </div> 
+
+
+
 
 
         </center>

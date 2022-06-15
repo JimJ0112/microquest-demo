@@ -453,8 +453,11 @@ function selectResponder(serviceID,responderID,rate){
     divServicePrice.value = rate;
     divServiceID.value = serviceID;
 
+    availableTimeSlots();
     var form = document.getElementById('AvailServiceFormContainer'); 
     form.style.display = "block";
+
+
 }
 
 
@@ -466,6 +469,137 @@ var modal = document.getElementById("AvailServiceFormContainer");
    modal.style.display = "none";
 
    //sessionStorage.setItem('vercode','');
+
+
+}
+
+//-------------------------------------chech timeslots-------------------------------------------------------
+
+function availableTimeSlots(){
+    var responderID = document.getElementById('responderID').value;
+    var date = document.getElementById("dueDate").value;
+    
+    var xmlhttp = new XMLHttpRequest();
+    
+    query = "responderID=" + responderID + "&date=" + date;
+    console.log(query);
+
+    xmlhttp.open("POST", "Backend/Get_serviceTimeSlots.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onload = function() {
+        if (this.readyState === 4 || this.status === 200){ 
+           
+
+           
+
+
+            var dataArray = this.response;
+            
+
+            if(dataArray === "failed to fetch"){
+
+                console.log(dataArray);
+                var select = document.getElementsByClassName('timeSlot');
+                select[0].disabled = false;
+                select[1].disabled = false;
+                select[2].disabled = false;
+                select[3].disabled = false;
+                select[4].disabled = false;
+                select[5].disabled = false;
+                select[6].disabled = false;
+                select[7].disabled = false;
+                select[8].disabled = false;
+
+            } else{
+
+                dataArray = JSON.parse(dataArray);
+                console.log(dataArray);
+                var select = document.getElementsByClassName('timeSlot');
+                select[0].disabled = false;
+                select[1].disabled = false;
+                select[2].disabled = false;
+                select[3].disabled = false;
+                select[4].disabled = false;
+                select[5].disabled = false;
+                select[6].disabled = false;
+                select[7].disabled = false;
+                select[8].disabled = false;
+                disableExistingTimeslots(dataArray);
+ 
+ 
+            }
+
+     
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send(query);
+    
+}// end of function
+
+// disable existing timeslots
+function disableExistingTimeslots(array){
+    
+var dataArray = array;
+var number = dataArray.length;
+var select = document.getElementsByClassName('timeSlot');
+
+
+
+for(var i = 0; i<8; i++){
+
+
+    
+        if(select[0].value === dataArray[i]['timeSlot']){
+            select[0].disabled = true;
+            console.log('matched');
+        } else if(select[1].value === dataArray[i]['timeSlot']){
+            select[1].disabled = true;
+            console.log('matched');
+
+        } else if(select[2].value === dataArray[i]['timeSlot']){
+            select[2].disabled = true;
+            console.log('matched');
+        } else if(select[3].value === dataArray[i]['timeSlot']){
+            select[3].disabled = true;
+            console.log('matched');
+        } else if(select[4].value === dataArray[i]['timeSlot']){
+            select[4].disabled = true;
+            console.log('matched');
+        } else if(select[5].value === dataArray[i]['timeSlot']){
+            select[5].disabled = true;
+            console.log('matched');
+        } else if(select[6].value === dataArray[i]['timeSlot']){
+            select[6].disabled = true;
+            console.log('matched');
+        } else if(select[7].value === dataArray[i]['timeSlot']){
+            select[7].disabled = true;
+            console.log('matched');
+        } else if(select[8].value === dataArray[i]['timeSlot']){
+            select[8].disabled = true;
+            console.log('matched');
+        } else{
+
+
+        }
+
+    
+  
+    /*
+        for(var j = 0; j<number; j++){
+            if(select[i].value === dataArray[j]['timeSlot']){
+                select[i].disabled = true;
+            } else{
+                select[i].disabled = false;
+            }
+        }
+    */ 
+
+    
+
+}
 
 
 }

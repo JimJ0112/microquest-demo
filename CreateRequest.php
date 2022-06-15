@@ -11,7 +11,15 @@ session_start();
             header("location: User_Profile.php?msg= Not a Requestor");
         }
     }
+
+
+    
+    date_default_timezone_set("Asia/Manila");
+    $today = date("Y-m-d");
+  
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +77,7 @@ session_start();
     </select>  <br/>
 
     <label> Until when is your request available? </label>
-    <input type="date" name="dueDate"> <br/>
+    <input type="date" name="dueDate" min="<?php echo $today; ?>" max="" value="<?php echo $today;?>"> <br/>
 
     <label> More details about your request </label>
     <textarea name="requestDescription"> </textarea> <br/>
@@ -110,7 +118,7 @@ session_start();
     </select>  <br/>
 
     <label> Until when is your request available? </label>
-    <input type="date" name="dueDate"> <br/>
+    <input type="date" name="dueDate" min="<?php echo $today; ?>" max="" value="<?php echo $today;?>"> <br/>
 
   <input type="submit"> <br/>
 
@@ -145,10 +153,11 @@ session_start();
     </select>   <br/>
 
     <label> Until when is your request available? </label>
-    <input type="date" name="dueDate"> <br/>
+
+    <input type="date" name="dueDate" min="<?php echo $today; ?>" max="" value="<?php echo $today;?>"> <br/>
 
     <label> More details about your request </label>
-    <textarea name="requestDescription"> </textarea> <br/>
+    <textarea name="requestDescription"></textarea> <br/>
 
 
     <input type="submit"><br/>

@@ -61,32 +61,37 @@ session_start();
                  Applied Requests
             </div> 
 
-            <div class="orderRequestsButton" onclick='<?php echo"getServiceOrders($userID)"?>'>
-                 Service Orders
-            </div> 
-
             <div class="orderRequestsButton" onclick='<?php echo"getAcceptedRequestApplications($userID)"?>'>
                  Accepted Requests
-            </div> 
-
-            <div class="orderRequestsButton" onclick='<?php echo"getAcceptedServices($userID)"?>'>
-                 Accepted Orders
             </div> 
 
             <div class="orderRequestsButton" onclick='<?php echo"getCompletedRequests($userID)"?>'>
                  Completed Requests
             </div> 
 
-            <div class="orderRequestsButton" onclick='<?php echo"getCompletedService($userID)"?>'>
-                 Completed Orders
-            </div> 
-
             <div class="orderRequestsButton" onclick='<?php echo"getCancelledRequests($userID)"?>'>
                  Cancelled Requests
             </div> 
 
+
+            <div class="orderRequestsButton" onclick='<?php echo"getServiceOrders($userID)"?>'>
+                 Services
+            </div> 
+
+
+
+            <div class="orderRequestsButton" onclick='<?php echo"getAcceptedServices($userID)"?>'>
+                 Accepted Services
+            </div> 
+
+
+
+            <div class="orderRequestsButton" onclick='<?php echo"getCompletedService($userID)"?>'>
+                 Completed Services
+            </div> 
+
             <div class="orderRequestsButton" onclick='<?php echo"getCancelledServices($userID)"?>'>
-                 Cancelled Orders
+                 Cancelled Services
             </div>
 
         </center>

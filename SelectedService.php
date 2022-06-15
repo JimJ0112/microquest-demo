@@ -78,27 +78,53 @@ session_start();
   
 
          
-                <label> Due Date </label> <br/>
+                <label> Select Date </label> <br/>
                 
                 <?php
                             date_default_timezone_set("Asia/Manila");
-                            $today = date("d-m-Y\TH:i:sP",time());
+                            $today = date("Y-m-d");
+                          
                 ?>
 
-                <input type = "datetime-local" name="dueDate" min="<?php echo $today?>" max="" required> <br/>
+                <input type = "date" name="dueDate" id="dueDate" min="<?php echo $today; ?>" max="" value="<?php echo $today;?>"onchange="availableTimeSlots()"required> <br/>
+
+                <label> Time Slot </label> <br/>
+                <select id="responderTimeSlots" name="responderTimeSlots" onchange="availableTimeSlots()" required>
+                    <option default hidden> Choose time</option>
+                    <option class="timeSlot" value="9:00  to 10:00 AM"> 9:00  to 10:00 AM</option>
+                    <option class="timeSlot" value="10:00 to 11:00 AM"> 10:00 to 11:00 AM</option>
+                    <option class="timeSlot" value="11:00 to 12:00 PM"> 11:00 to 12:00 PM</option>
+                    <option class="timeSlot" value="12:00 to 01:00 PM"> 12:00 to 01:00 PM</option>
+                    <option class="timeSlot" value="01:00 to 02:00 PM"> 01:00 to 02:00 PM</option>
+                    <option class="timeSlot" value="02:00 to 03:00 PM"> 02:00 to 03:00 PM</option>
+                    <option class="timeSlot" value="03:00 to 04:00 PM"> 03:00 to 04:00 PM</option>
+                    <option class="timeSlot" value="04:00 to 05:00 PM"> 04:00 to 05:00 PM</option>
+                    <option class="timeSlot" value="05:00 to 06:00 PM"> 05:00 to 06:00 PM</option>
+
+                </select> <br/>
 
 
 
                 <label> Additional Notes </label> <br/>
 
-                        <textarea name="additionalNotes"></textarea> <br/><br/>
+                <textarea name="additionalNotes"></textarea> <br/><br/>
+                <a href="#" target="_blank">Terms and Conditions </a> <br/> <br/>
+                <input type="checkBox" required/>
+                <label> I agree to the terms and conditions </label>
+                <br/> <br/>
+                
  
-            <input type="submit" value="Confirm">
+                <input type="submit" value="Confirm">
 
         </form>
 
 
      </div>
+
+
+
+
+
     </div>
 </center>
 

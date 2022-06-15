@@ -23,8 +23,9 @@ $transactionStartDate =  date("Y-m-d H:i:s",time());
 
 $requestorID = $_POST['requestorID'];
 
+$responderTimeSlots = $_POST['responderTimeSlots'];
 
-$result = $DBHandler->registerServiceTransaction($formServiceID,$responderID,$requestorID,$servicePrice,$dueDate,$additionalNotes,$transactionStartDate);
+$result = $DBHandler->registerServiceTransaction($formServiceID,$responderID,$requestorID,$servicePrice,$dueDate,$responderTimeSlots,$additionalNotes,$transactionStartDate);
 echo $result;
 
 header("location:../RequestApplications-Services.php");

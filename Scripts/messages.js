@@ -310,20 +310,20 @@ function setMessagesData(array){
 
     var div = document.getElementsByClassName("messageCard");
     var date = document.getElementsByClassName('messageDate');
-    var sender= document.getElementsByClassName('messageSender');
+    //var sender= document.getElementsByClassName('messageSender');
     var message= document.getElementsByClassName('message');
     for(var i = 0; i<number;i++){
         
         date[i].innerText = dataArray[i]['messageDate'];
-        sender[i].innerText = dataArray[i]['messageSender'];
+      //  sender[i].innerText = dataArray[i]['messageSender'];
         message[i].innerText = dataArray[i]['messageBody'];
         //message[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageBody'] + "')");
 
         if(dataArray[i]['messageSender'] === myID ){
-            div[i].setAttribute('style','float:right; background-color:skyblue');
-
+            div[i].setAttribute('style','float:right; background-color:skyblue; border-radius: 20px 20px 0px 20px; ');
+            ;
         } else{
-            div[i].setAttribute('style','float:left; background-color:lightgray');
+            div[i].setAttribute('style','float:left; background-color:lightgray; border-radius: 20px 20px 20px 0px; text-align:center;');
         }
 
     }

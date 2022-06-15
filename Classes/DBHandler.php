@@ -1585,6 +1585,56 @@ public function getCompletedTransactions($ID,$column,$transactionType){
 }// end of function
 
 
+
+// get timeslots
+// get cancelled transactions
+public function getMyTimeSlots($responderID,$date){
+
+    $responderID = mysqli_real_escape_string($this->dbconnection, $responderID);
+    $date = mysqli_real_escape_string($this->dbconnection, $date);
+    $tablename = "transactions";
+
+       $query = "SELECT * FROM $tablename WHERE (responderID = $responderID AND dueDate = '$date') AND transactionStatus = 'accepted'";
+
+        $result = mysqli_query($this->dbconnection, $query);
+        $resultCheck = mysqli_num_rows($result);
+        $data = array();
+        $file;
+        
+    
+        if($resultCheck > 0){
+           
+    
+                while($row = mysqli_fetch_assoc($result)){
+                    
+    
+                    $data[] = $row;
+                    
+                 
+                }
+                
+                return $data;
+            
+            
+            
+    
+        } else {return "failed to fetch";}
+
+  
+   
+
+ 
+   
+
+
+
+
+
+        
+  
+}// end of function
+
+
 /*---------------------------------UPDATE FUNCTIONS----------------------------------------------------- */
 
 // update columns 
@@ -1795,7 +1845,7 @@ public function registerRequestTransaction($requestID,$responderID,$requestorID,
 
 
 // register request application
-public function registerServiceTransaction($formServiceID,$responderID,$requestorID,$servicePrice,$dueDate,$additionalNotes,$transactionStartDate){
+public function registerServiceTransaction($formServiceID,$responderID,$requestorID,$servicePrice,$dueDate,$responderTimeSlots,$additionalNotes,$transactionStartDate){
 
     $formServiceID= mysqli_real_escape_string($this->dbconnection, $formServiceID);
     $responderID = mysqli_real_escape_string($this->dbconnection, $responderID);
@@ -1804,6 +1854,7 @@ public function registerServiceTransaction($formServiceID,$responderID,$requesto
     $dueDate = mysqli_real_escape_string($this->dbconnection, $dueDate);
     $additionalNotes = mysqli_real_escape_string($this->dbconnection, $additionalNotes);
     $transactionStartDate = mysqli_real_escape_string($this->dbconnection, $transactionStartDate);
+    $responderTimeSlots= mysqli_real_escape_string($this->dbconnection,$responderTimeSlots);
     
     $transactionsStatus = "pending";
 
@@ -1816,7 +1867,7 @@ public function registerServiceTransaction($formServiceID,$responderID,$requesto
    //	transactionID	requestID	serviceID	requestorID	responderID	price	transactionStatus	transactionStartDate	transactionEndDate	
 
 
-    $query = "INSERT INTO $tablename VALUES(0,null,$formServiceID,$requestorID,$responderID,$servicePrice,'$transactionsStatus','$transactionStartDate',null,'$dueDate','$additionalNotes')";
+    $query = "INSERT INTO $tablename VALUES(0,null,$formServiceID,$requestorID,$responderID,$servicePrice,'$transactionsStatus','$transactionStartDate',null,'$dueDate','$responderTimeSlots','$additionalNotes')";
 
     $result = mysqli_query($this->dbconnection, $query);
  

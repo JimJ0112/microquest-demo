@@ -309,7 +309,7 @@ function createProductElements(Number){
     card.appendChild(textqty);
     card.appendChild(quantity);
 
-    card.appendChild(moreInfoButton);
+   // card.appendChild(moreInfoButton);
    // card.appendChild(selectResponder);
     card.appendChild(select);
 
@@ -336,7 +336,7 @@ function setProductData(array){
     productName= document.getElementsByClassName('productName');
     productBrand= document.getElementsByClassName('productBrand');
     productPrice= document.getElementsByClassName('productPrice');
-    moreInfoButton= document.getElementsByClassName('moreInfoButton');
+   // moreInfoButton= document.getElementsByClassName('moreInfoButton');
     quantity= document.getElementsByClassName('quantity');
     select = document.getElementsByClassName('selectButton');
    // selectResponderButton = document.getElementsByClassName('selectResponderButton');
@@ -352,7 +352,7 @@ function setProductData(array){
         productName[i].innerText = dataArray[i]['productName'];
         productBrand[i].innerText = "Brand name: "+dataArray[i]['productBrand'];
         productPrice[i].innerText = "Price: "+dataArray[i]['productPrice'];
-        moreInfoButton[i].innerText = "More Info"
+      //  moreInfoButton[i].innerText = "More Info"
 
         //category,id,price,qtyNumber)
         select[i].setAttribute("onclick","setProductForm('"+dataArray[i]['productCategory']+"',"+ dataArray[i]['productID']+","+ dataArray[i]['productPrice']+","+ i + ")");

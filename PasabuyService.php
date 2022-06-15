@@ -27,7 +27,10 @@ session_start();
     <title> Pasabuy </title>
 </head>
 
+<!--
 <body onload="getProductCategories()">
+-->
+<body onload="getProducts()">
     <?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
@@ -153,12 +156,14 @@ session_start();
     
 
     <br/>
+    <!--
     <h3> Products From </h3>
 
     <div id="productCategories">
         
     </div>
-    <h5> Products </h5>
+    -->
+    <h3> Products </h3>
     <div id="products">
  
         
