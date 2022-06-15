@@ -51,8 +51,8 @@ if(isset($_SESSION['userID'])){
 <h1 id="Chats"> Chats</h1>
 
     <input type="search" name="search" id="messageSearch"/> 
-    <input type="image" src="Images/search.png" value="search" id="messageSearchButton"/>
-    <input type="image" src="Images/write.png" value="Create New Message" id="createNewMessage"/>
+    <input type="button" src="Images/search.png" value="🔍" id="messageSearchButton"/>
+    <input type="button" src="Images/write.png" value="📝" id="createNewMessage"/>
 
 </div>
 
@@ -61,6 +61,7 @@ if(isset($_SESSION['userID'])){
 
     <div id="messagesMain"> 
         <div id="conversationHeader">
+            <image id="conversationImage"/>
             <p id="conversationUserName">  </p>
             <p id="conversationUserID" style="display:none"> conversation ID </p>
         </div>

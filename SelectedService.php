@@ -79,7 +79,13 @@ session_start();
 
          
                 <label> Due Date </label> <br/>
-                <input type = "datetime-local" name="dueDate" required> <br/>
+                
+                <?php
+                            date_default_timezone_set("Asia/Manila");
+                            $today = date("d-m-Y\TH:i:sP",time());
+                ?>
+
+                <input type = "datetime-local" name="dueDate" min="<?php echo $today?>" max="" required> <br/>
 
 
 

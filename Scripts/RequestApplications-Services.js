@@ -239,7 +239,7 @@ function setServiceOrdersData(array){
                 rate[i].innerHTML = "<b>Responder Rate: </b> Php "+ dataArray[i]['rate'];
     
                 transactionStartDate[i].innerHTML = "<b>Order Date: </b>"+ dataArray[i]['transactionStartDate'];
-                transactionEndDate[i].innerHTML = "<b>Order Due Date: </b>"+ dataArray[i]['transactionEndDate'];
+                transactionEndDate[i].innerHTML = "<b>Order Due Date: </b>"+ dataArray[i]['dueDate'];
                 transactionStatus[i].innerHTML = "<b>Order Status: </b>"+ dataArray[i]['transactionStatus'];
         
                 viewService[i].setAttribute('onclick','callService('+i+')');
@@ -475,8 +475,8 @@ function getCancelledRequests(userID){
                 dataArray = JSON.parse(dataArray);
                 console.log(dataArray);
                 number = dataArray.length;
-                createAppliedRequestsElements(number)
-                setRequestsApplicationData(dataArray);    
+                createNoButtonAppliedRequestsElements(number)
+                setNoButtonRequestsApplicationData(dataArray);    
             }
 
         }else{
@@ -518,8 +518,8 @@ function getCancelledServices(userID){
                 dataArray = JSON.parse(dataArray);
                 console.log(dataArray);
                 number = dataArray.length;
-                createServiceOrderElements(number)
-                setServiceOrdersData(dataArray);    
+                createNoButtonServiceOrderElements(number)
+                setNoButtonServiceOrdersData(dataArray);    
             }
 
         }else{
@@ -551,7 +551,7 @@ function getAcceptedRequestApplications(userID){
             if(dataArray === "failed to fetch"){
                 var content = document.getElementById("requestInfoContent");
                 var h2 = document.createElement('h2');
-                h2.innerText = "You currently have no cancelled service orders";
+                h2.innerText = "You currently have no accepted Request";
                 div.innerHTML = "";
                 div.style.textAlign = "center";
                 div.appendChild(h2);
@@ -562,8 +562,8 @@ function getAcceptedRequestApplications(userID){
                 dataArray = JSON.parse(dataArray);
                 console.log(dataArray);
                 number = dataArray.length;
-                createAppliedRequestsElements(number)
-                setRequestsApplicationData(dataArray);  
+                createAcceptedRequestsElements(number)
+                setAcceptedApplicationData(dataArray);  
             }
 
         }else{
@@ -597,7 +597,7 @@ function getCompletedRequests(userID){
             if(dataArray === "failed to fetch"){
                 var content = document.getElementById("requestInfoContent");
                 var h2 = document.createElement('h2');
-                h2.innerText = "You currently have no cancelled service orders";
+                h2.innerText = "You currently have no completed service orders";
                 div.innerHTML = "";
                 div.style.textAlign = "center";
                 div.appendChild(h2);
@@ -608,8 +608,8 @@ function getCompletedRequests(userID){
                 dataArray = JSON.parse(dataArray);
                 console.log(dataArray);
                 number = dataArray.length;
-                createAppliedRequestsElements(number)
-                setRequestsApplicationData(dataArray);  
+                createNoButtonAppliedRequestsElements(number)
+                setNoButtonRequestsApplicationData(dataArray);  
             }
 
         }else{
@@ -624,7 +624,7 @@ function getCompletedRequests(userID){
 
 function getCompletedService(userID){
     var userID = userID;
-    var query = "userID=" + userID +"&TransactionType=Request&column=requestorID";
+    var query = "userID=" + userID +"&TransactionType=Service&column=requestorID";
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.open("POST", "Backend/Get_completedTransactions.php", true);
@@ -640,10 +640,11 @@ function getCompletedService(userID){
             if(dataArray === "failed to fetch"){
                 var content = document.getElementById("requestInfoContent");
                 var h2 = document.createElement('h2');
-                h2.innerText = "You currently have no cancelled service orders";
+                h2.innerText = "You currently have no completed service orders";
                 div.innerHTML = "";
                 div.style.textAlign = "center";
                 div.appendChild(h2);
+
 
 
             } else {
@@ -651,8 +652,8 @@ function getCompletedService(userID){
                 dataArray = JSON.parse(dataArray);
                 console.log(dataArray);
                 number = dataArray.length;
-                createAppliedRequestsElements(number)
-                setRequestsApplicationData(dataArray);  
+                createNoButtonServiceOrderElements(number)
+                setNoButtonServiceOrdersData(dataArray);  
             }
 
         }else{
@@ -663,3 +664,540 @@ function getCompletedService(userID){
     xmlhttp.send(query);
     
 }// end of function
+
+
+
+/* ------------------------------------- create elements with no buttons------------------------------------ */
+
+// create service order elements to append ------------------------------------------------------------------------
+
+function createNoButtonServiceOrderElements(number){
+
+    var number = number;
+    var div = document.getElementById('requestsOrdersContent');
+
+    for(var i = 0; i<number; i++){
+        var serviceOrderRow = document.createElement('tr');
+        var serviceInfoRow = document.createElement('tr');
+        var serviceOrderContainer = document.createElement('div')
+
+        // about the transactions 
+        transactionID= document.createElement('p');
+        responderID= document.createElement('p');
+        ResponderName = document.createElement('p');
+        price= document.createElement('p');
+        rate= document.createElement('p');
+        transactionInfoCol = document.createElement('td');
+
+        // about the service 
+        serviceID= document.createElement('p');
+        serviceCategory= document.createElement('p');
+        servicePosition= document.createElement('p');
+        serviceStatus = document.createElement('p');
+
+        transactionStartDate= document.createElement('p');
+        transactionEndDate= document.createElement('p');
+        transactionStatus= document.createElement('p');
+        viewService = document.createElement('button');
+
+        buttonsCol = document.createElement('td');
+        cancelButton = document.createElement('button');
+        AcceptButton = document.createElement('button');
+        br = document.createElement('br');
+
+
+        // set attributes 
+        serviceOrderRow.setAttribute('class','serviceOrderRow');
+        serviceInfoRow.setAttribute('class','serviceInfoRow');
+        serviceOrderContainer.setAttribute('class','serviceOrderContainer');
+        serviceStatus.setAttribute('class','serviceStatus');
+        transactionInfoCol.setAttribute('class','transactionInfoCol');
+
+        // about the transactions 
+        transactionID.setAttribute('class','transactionID');
+        responderID.setAttribute('class','responderID');
+        ResponderName.setAttribute('class','ResponderName');
+        price.setAttribute('class','price');
+        rate.setAttribute('class','rate');
+
+        // about the service 
+        serviceID.setAttribute('class','serviceID');
+        serviceCategory.setAttribute('class','serviceCategory');
+        servicePosition.setAttribute('class','servicePosition');
+
+        transactionStartDate.setAttribute('class','transactionStartDate');
+        transactionEndDate.setAttribute('class','transactionEndDate');
+        transactionStatus.setAttribute('class','transactionStatus');
+        viewService.setAttribute('class','viewService');
+        viewService.innerText = "View Service";
+
+
+        buttonsCol.setAttribute('class','buttonsCol');
+        cancelButton.setAttribute('class','cancelButton');
+        AcceptButton.setAttribute('class','AcceptButton');
+        AcceptButton.innerText = "Accept";
+        cancelButton.innerText = "Cancel";
+
+        // append them
+        transactionInfoCol.appendChild(transactionID);
+        transactionInfoCol.appendChild(serviceCategory);
+        transactionInfoCol.appendChild(servicePosition);
+
+        transactionInfoCol.appendChild(responderID);
+        transactionInfoCol.appendChild(ResponderName);
+        transactionInfoCol.appendChild(price);
+        transactionInfoCol.appendChild(rate);
+
+        transactionInfoCol.appendChild(transactionStartDate);
+        transactionInfoCol.appendChild(transactionEndDate);
+        transactionInfoCol.appendChild(transactionStatus);
+        transactionInfoCol.appendChild(rate);
+        transactionInfoCol.appendChild(viewService);
+
+        //buttonsCol.appendChild(AcceptButton);
+       // buttonsCol.appendChild(br);
+       // buttonsCol.appendChild(br);
+       // buttonsCol.appendChild(cancelButton);
+
+
+        serviceInfoRow.appendChild(serviceCategory);
+        serviceInfoRow.appendChild(servicePosition);
+        serviceInfoRow.appendChild(serviceID);
+        serviceInfoRow.appendChild(rate);
+        serviceInfoRow.appendChild(serviceStatus);
+
+        serviceOrderRow.appendChild(transactionInfoCol);
+        serviceOrderRow.appendChild(buttonsCol);
+        
+        serviceOrderContainer.appendChild(serviceOrderRow);
+        serviceOrderContainer.appendChild(serviceInfoRow);
+        
+        div.appendChild(serviceOrderContainer);
+
+
+
+        
+
+
+    }
+} // end of function
+
+//-----------for requests-------------------------------------
+
+function createNoButtonAppliedRequestsElements(number){
+
+    var number = number;
+    var div = document.getElementById('requestsOrdersContent');
+
+    for(var i = 0; i<number; i++){
+        // create elements
+        var requestRow = document.createElement('tr');
+        var requestContainer = document.createElement('div');
+
+
+        RequestorName = document.createElement('p');
+        requestTitle = document.createElement('p');
+        requestCategory = document.createElement('p');
+        requestDescription= document.createElement('p');
+        requestExpectedPrice= document.createElement('p');
+        isNegotiable= document.createElement('p');
+        datePosted= document.createElement('p');
+        dueDate= document.createElement('p');
+        requestStatus= document.createElement('p');
+
+        transactionStartDate= document.createElement('p');
+        transactionStatus= document.createElement('p');
+
+        var infoCol = document.createElement('td');
+        var buttonsCol = document.createElement('td');
+        
+        var cancelButton = document.createElement('button');
+
+        // set element attributes
+        requestRow.setAttribute('class','requestRow');
+        requestContainer.setAttribute('class','requestContainer');
+
+
+        RequestorName.setAttribute('class','RequestorName');
+        requestTitle.setAttribute('class','requestTitle');
+        requestCategory.setAttribute('class','requestCategory');
+        requestDescription.setAttribute('class','requestDescription');
+        requestExpectedPrice.setAttribute('class','requestExpectedPrice');
+        isNegotiable.setAttribute('class','isNegotiable');
+        datePosted.setAttribute('class','datePosted');
+        dueDate.setAttribute('class','dueDate');
+        requestStatus.setAttribute('class','requestStatus');
+
+        transactionStartDate.setAttribute('class','transactionStartDate');
+        transactionStatus.setAttribute('class','transactionStatus');
+
+        infoCol.setAttribute('class','infoCol');
+        buttonsCol.setAttribute('class','buttonsCol');
+        cancelButton.setAttribute('class','cancelButton');
+        cancelButton.innerText = "Cancel";
+
+        // append elements
+        infoCol.appendChild(RequestorName);
+        infoCol.appendChild(requestTitle);
+        infoCol.appendChild(requestCategory);
+        infoCol.appendChild(requestExpectedPrice);
+        infoCol.appendChild(isNegotiable);
+        infoCol.appendChild(datePosted);
+        infoCol.appendChild(dueDate);
+        infoCol.appendChild(requestStatus);
+        infoCol.appendChild(requestDescription);
+        infoCol.appendChild(transactionStartDate);
+        infoCol.appendChild(transactionStatus);
+
+        //buttonsCol.appendChild(cancelButton);
+
+        requestRow.appendChild(infoCol);
+        requestRow.appendChild(buttonsCol);
+
+        requestContainer.appendChild(requestRow);
+        
+
+
+        
+        div.appendChild(requestContainer);
+
+
+
+        
+
+
+    }
+} // end of function
+
+// set data for no buttons
+
+function setNoButtonServiceOrdersData(array){
+    var dataArray = array;
+    var number = dataArray.length;
+
+            
+    
+            // about the transactions 
+            transactionID= document.getElementsByClassName('transactionID');
+            responderID= document.getElementsByClassName('responderID');
+            ResponderName= document.getElementsByClassName('ResponderName');
+            price= document.getElementsByClassName('price');
+            rate= document.getElementsByClassName('rate');
+
+            transactionStartDate= document.getElementsByClassName('transactionStartDate');
+            transactionEndDate= document.getElementsByClassName('transactionEndDate');
+            transactionStatus= document.getElementsByClassName('transactionStatus');
+    
+            buttonsCol= document.getElementsByClassName('buttonsCol');
+            //cancelButton= document.getElementsByClassName('cancelButton');
+            //AcceptButton= document.getElementsByClassName('AcceptButton');
+            viewService = document.getElementsByClassName('viewService');
+
+    
+            // about the service 
+            serviceID= document.getElementsByClassName('serviceID');
+            serviceCategory= document.getElementsByClassName('serviceCategory');
+            servicePosition= document.getElementsByClassName('servicePosition');
+            serviceStatus = document.getElementsByClassName('serviceStatus');
+
+            for(var i=0; i<number;i++){
+                transactionID[i].innerHTML = "<b>Transaction ID: </b>"+ dataArray[i]['transactionID'];
+                responderID[i].innerHTML = "<b>Responder ID: </b>"+ dataArray[i]['responderID'];
+                ResponderName[i].innerHTML = "<b>Responder Name: </b>"+ dataArray[i]['ResponderName'];
+                price[i].innerHTML = "<b>Price: </b> Php "+ dataArray[i]['price'];
+                rate[i].innerHTML = "<b>Responder Rate: </b> Php "+ dataArray[i]['rate'];
+    
+                transactionStartDate[i].innerHTML = "<b>Order Date: </b>"+ dataArray[i]['transactionStartDate'];
+                transactionEndDate[i].innerHTML = "<b>Order Due Date: </b>"+ dataArray[i]['transactionEndDate'];
+                transactionStatus[i].innerHTML = "<b>Order Status: </b>"+ dataArray[i]['transactionStatus'];
+        
+                viewService[i].setAttribute('onclick','callService('+i+')');
+                //cancelButton[i].innerText = dataArray[i][''];
+                //AcceptButton[i].innerText = dataArray[i][''];
+    
+        
+                // about the service 
+                serviceID[i].innerHTML = "<b> Service ID: </b>"+ dataArray[i]['serviceID'];
+                serviceCategory[i].innerHTML = "<b> Service Category: </b>"+ dataArray[i]['serviceCategory'];
+                servicePosition[i].innerHTML = "<b> Service Type: </b>"+ dataArray[i]['servicePosition'];
+                //AcceptButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'accepted')");
+                serviceStatus[i].innerHTML = "<b> Service Status: </b>"+ dataArray[i]['serviceStatus'];
+
+                //cancelButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'cancelled')");
+            }
+    
+
+}
+
+
+
+// set requests data
+function setNoButtonRequestsApplicationData(array){
+    var dataArray = array;
+    var number = dataArray.length;
+
+    RequestorName = document.getElementsByClassName('RequestorName');
+    requestTitle= document.getElementsByClassName('requestTitle');
+    requestCategory= document.getElementsByClassName('requestCategory');
+    requestDescription= document.getElementsByClassName('requestDescription');
+    requestExpectedPrice= document.getElementsByClassName('requestExpectedPrice');
+    isNegotiable= document.getElementsByClassName('isNegotiable');
+    datePosted= document.getElementsByClassName('datePosted');
+    dueDate= document.getElementsByClassName('dueDate');
+    requestStatus= document.getElementsByClassName('requestStatus');
+
+    transactionStartDate= document.getElementsByClassName('transactionStartDate');
+    transactionStatus= document.getElementsByClassName('transactionStatus');
+
+    infoCol= document.getElementsByClassName('infoCol');
+    buttonsCol= document.getElementsByClassName('buttonsCol');
+    //cancelButton = document.getElementsByClassName('cancelButton');
+    
+    
+
+
+    for(var i=0; i<number;i++){
+
+        RequestorName[i].innerHTML = "<b> Responder Name: </b>"+dataArray[i]['ResponderName'];
+        requestTitle[i].innerHTML = "<b> Title: </b>"+dataArray[i]['requestTitle'];
+        requestCategory[i].innerHTML = "<b> Category:  </b>"+dataArray[i]['requestCategory'];
+        requestDescription[i].innerHTML = "<b> Description: </b>"+dataArray[i]['requestDescription'];
+        requestExpectedPrice[i].innerHTML = "<b> Expected Price:  </b> Php "+dataArray[i]['requestExpectedPrice'];
+        isNegotiable[i].innerHTML = dataArray[i]['isNegotiable'];
+        datePosted[i].innerHTML = "<b> Date Posted: </b>"+dataArray[i]['datePosted'];
+        dueDate[i].innerHTML = "<b> Due Date: </b>"+dataArray[i]['dueDate'];
+        requestStatus[i].innerHTML = "<b> Request Status:  </b>"+dataArray[i]['requestStatus'];
+    
+        transactionStartDate[i].innerHTML = "<b>Application Date: </b>"+dataArray[i]['transactionStartDate'];
+        transactionStatus[i].innerHTML = "<b>Application Status: </b>"+dataArray[i]['transactionStatus'];
+       // cancelButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'cancelled')");
+    
+    }
+    
+
+}
+
+
+
+//--- create elements without buttons --------------------------------------------------------------------------------
+
+function createNoAcceptAppliedRequestsElements(number){
+
+    var number = number;
+    var div = document.getElementById('requestsOrdersContent');
+
+    for(var i = 0; i<number; i++){
+        // create elements
+        var requestRow = document.createElement('tr');
+        var requestContainer = document.createElement('div');
+
+
+        RequestorName = document.createElement('p');
+        requestTitle = document.createElement('p');
+        requestCategory = document.createElement('p');
+        requestDescription= document.createElement('p');
+        requestExpectedPrice= document.createElement('p');
+        isNegotiable= document.createElement('p');
+        datePosted= document.createElement('p');
+        dueDate= document.createElement('p');
+        requestStatus= document.createElement('p');
+
+        transactionStartDate= document.createElement('p');
+        transactionStatus= document.createElement('p');
+
+        var infoCol = document.createElement('td');
+        var buttonsCol = document.createElement('td');
+        
+        var cancelButton = document.createElement('button');
+
+        // set element attributes
+        requestRow.setAttribute('class','requestRow');
+        requestContainer.setAttribute('class','requestContainer');
+
+
+        RequestorName.setAttribute('class','RequestorName');
+        requestTitle.setAttribute('class','requestTitle');
+        requestCategory.setAttribute('class','requestCategory');
+        requestDescription.setAttribute('class','requestDescription');
+        requestExpectedPrice.setAttribute('class','requestExpectedPrice');
+        isNegotiable.setAttribute('class','isNegotiable');
+        datePosted.setAttribute('class','datePosted');
+        dueDate.setAttribute('class','dueDate');
+        requestStatus.setAttribute('class','requestStatus');
+
+        transactionStartDate.setAttribute('class','transactionStartDate');
+        transactionStatus.setAttribute('class','transactionStatus');
+
+        infoCol.setAttribute('class','infoCol');
+        buttonsCol.setAttribute('class','buttonsCol');
+        cancelButton.setAttribute('class','cancelButton');
+        cancelButton.innerText = "Cancel";
+
+        // append elements
+        infoCol.appendChild(RequestorName);
+        infoCol.appendChild(requestTitle);
+        infoCol.appendChild(requestCategory);
+        infoCol.appendChild(requestExpectedPrice);
+        infoCol.appendChild(isNegotiable);
+        infoCol.appendChild(datePosted);
+        infoCol.appendChild(dueDate);
+        infoCol.appendChild(requestStatus);
+        infoCol.appendChild(requestDescription);
+        infoCol.appendChild(transactionStartDate);
+        infoCol.appendChild(transactionStatus);
+
+        //buttonsCol.appendChild(cancelButton);
+
+        requestRow.appendChild(infoCol);
+        requestRow.appendChild(buttonsCol);
+
+        requestContainer.appendChild(requestRow);
+        
+
+
+        
+        div.appendChild(requestContainer);
+
+
+
+        
+
+
+    }
+} // end of function
+
+
+// create elements for accepted request applications
+function createAcceptedRequestsElements(number){
+
+    var number = number;
+    var div = document.getElementById('requestsOrdersContent');
+
+    for(var i = 0; i<number; i++){
+        // create elements
+        var requestRow = document.createElement('tr');
+        var requestContainer = document.createElement('div');
+
+
+        RequestorName = document.createElement('p');
+        requestTitle = document.createElement('p');
+        requestCategory = document.createElement('p');
+        requestDescription= document.createElement('p');
+        requestExpectedPrice= document.createElement('p');
+        isNegotiable= document.createElement('p');
+        datePosted= document.createElement('p');
+        dueDate= document.createElement('p');
+        requestStatus= document.createElement('p');
+
+        transactionStartDate= document.createElement('p');
+        transactionStatus= document.createElement('p');
+
+        var infoCol = document.createElement('td');
+        var buttonsCol = document.createElement('td');
+        
+        var cancelButton = document.createElement('button');
+
+        // set element attributes
+        requestRow.setAttribute('class','requestRow');
+        requestContainer.setAttribute('class','requestContainer');
+
+
+        RequestorName.setAttribute('class','RequestorName');
+        requestTitle.setAttribute('class','requestTitle');
+        requestCategory.setAttribute('class','requestCategory');
+        requestDescription.setAttribute('class','requestDescription');
+        requestExpectedPrice.setAttribute('class','requestExpectedPrice');
+        isNegotiable.setAttribute('class','isNegotiable');
+        datePosted.setAttribute('class','datePosted');
+        dueDate.setAttribute('class','dueDate');
+        requestStatus.setAttribute('class','requestStatus');
+
+        transactionStartDate.setAttribute('class','transactionStartDate');
+        transactionStatus.setAttribute('class','transactionStatus');
+
+        infoCol.setAttribute('class','infoCol');
+        buttonsCol.setAttribute('class','buttonsCol');
+        cancelButton.setAttribute('class','cancelButton');
+        cancelButton.innerText = "Cancel";
+
+        // append elements
+        infoCol.appendChild(RequestorName);
+        infoCol.appendChild(requestTitle);
+        infoCol.appendChild(requestCategory);
+        infoCol.appendChild(requestExpectedPrice);
+        infoCol.appendChild(isNegotiable);
+        infoCol.appendChild(datePosted);
+        infoCol.appendChild(dueDate);
+        infoCol.appendChild(requestStatus);
+        infoCol.appendChild(requestDescription);
+        infoCol.appendChild(transactionStartDate);
+        infoCol.appendChild(transactionStatus);
+
+        buttonsCol.appendChild(cancelButton);
+
+        requestRow.appendChild(infoCol);
+        requestRow.appendChild(buttonsCol);
+
+        requestContainer.appendChild(requestRow);
+        
+
+
+        
+        div.appendChild(requestContainer);
+
+
+
+        
+
+
+    }
+} // end of function
+
+// set request application data
+// set requests data
+function setAcceptedApplicationData(array){
+    var dataArray = array;
+    var number = dataArray.length;
+
+    RequestorName = document.getElementsByClassName('RequestorName');
+    requestTitle= document.getElementsByClassName('requestTitle');
+    requestCategory= document.getElementsByClassName('requestCategory');
+    requestDescription= document.getElementsByClassName('requestDescription');
+    requestExpectedPrice= document.getElementsByClassName('requestExpectedPrice');
+    isNegotiable= document.getElementsByClassName('isNegotiable');
+    datePosted= document.getElementsByClassName('datePosted');
+    dueDate= document.getElementsByClassName('dueDate');
+    requestStatus= document.getElementsByClassName('requestStatus');
+
+    transactionStartDate= document.getElementsByClassName('transactionStartDate');
+    transactionStatus= document.getElementsByClassName('transactionStatus');
+
+    infoCol= document.getElementsByClassName('infoCol');
+    buttonsCol= document.getElementsByClassName('buttonsCol');
+    cancelButton = document.getElementsByClassName('cancelButton');
+    
+    
+
+
+    for(var i=0; i<number;i++){
+
+        RequestorName[i].innerHTML = "<b> Responder Name: </b>"+dataArray[i]['ResponderName'];
+        requestTitle[i].innerHTML = "<b> Title: </b>"+dataArray[i]['requestTitle'];
+        requestCategory[i].innerHTML = "<b> Category:  </b>"+dataArray[i]['requestCategory'];
+        requestDescription[i].innerHTML = "<b> Description: </b>"+dataArray[i]['requestDescription'];
+        requestExpectedPrice[i].innerHTML = "<b> Expected Price:  </b> Php "+dataArray[i]['requestExpectedPrice'];
+        isNegotiable[i].innerHTML = dataArray[i]['isNegotiable'];
+        datePosted[i].innerHTML = "<b> Date Posted: </b>"+dataArray[i]['datePosted'];
+        dueDate[i].innerHTML = "<b> Due Date: </b>"+dataArray[i]['dueDate'];
+        requestStatus[i].innerHTML = "<b> Request Status:  </b>"+dataArray[i]['requestStatus'];
+    
+        transactionStartDate[i].innerHTML = "<b>Application Date: </b>"+dataArray[i]['transactionStartDate'];
+        transactionStatus[i].innerHTML = "<b>Application Status: </b>"+dataArray[i]['transactionStatus'];
+         cancelButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'cancelled')");
+    
+    }
+    
+
+}
+
+//create completed service elements

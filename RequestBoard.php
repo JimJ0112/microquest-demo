@@ -84,13 +84,18 @@ session_start();
                 
             }
         }
-    
+        $municipality = $_SESSION["municipality"];
     ?>
 
-
+  
 
 
     <div class="serviceCard-main" onclick="getRequests()"> All requests </div>
+    <?php if($_SESSION['userType']==="Responder"){
+
+        echo "<div class='serviceCard-main' onclick=getNearestRequest('$municipality')> Nearest Requests </div>";
+    }
+    ?>
     <div class="serviceCard-main" onclick="setCategory('Home Service')"> Home Services </div> 
     <div class="serviceCard-main" onclick="setCategory('Pasabuy')"> Pasabuy </div>
     <div class="serviceCard-main" onclick="setCategory('Computer related work')"> Computer Related</div>

@@ -133,6 +133,8 @@ public function firstConversation($myID,$userID){
     $userID = mysqli_real_escape_string($this->dbconnection, $userID);
 
     $query = "SELECT * FROM $tablename WHERE messageSender = $myID AND messageReciever=$userID OR messageSender = $userID AND messageReciever=$myID";
+   
+    //$query = "SELECT messages.*, sender.userName, sender.userPhoto, reciever.userName, reciever.userPhoto FROM messages INNER JOIN userprofile as sender ON(messages.messageSender = sender.userID) INNER JOIN userprofile as reciever ON(messages.messageReciever = reciever.userID) WHERE messages.messageSender = $myID AND messages.messageReciever=$userID OR messages.messageSender = $userID AND messages.messageReciever=$myID ";
     $result = mysqli_query($this->dbconnection, $query);
     $resultCheck = mysqli_num_rows($result);
 
@@ -997,6 +999,53 @@ public function getMyRequests($tablename,$column,$condition,$orderby = null){
   
 }
 
+// getting nearest requests
+function nearestRequests($tablename,$column,$condition,$orderby = null){
+    $tablename = mysqli_real_escape_string($this->dbconnection, $tablename);
+    $column = mysqli_real_escape_string($this->dbconnection, $column);
+    $condition = mysqli_real_escape_string($this->dbconnection, $condition);
+    
+   
+    if(isset($orderby)){
+        $query = "SELECT $tablename.*,userprofile.userName,userprofile.municipality,userprofile.userPhoto FROM $tablename INNER JOIN userprofile ON $tablename.requestorID = userprofile.userID WHERE $column = '$condition' ORDER BY $orderby";
+    }else{
+        $query = "SELECT * FROM $tablename WHERE $column = '$condition'";
+    }
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+    
+  
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+
+                
+                $file = 'data:image/image/png;base64,'.base64_encode($row['userPhoto']);
+                $row['userPhoto'] = $file;
+                
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
+
 
 // getting Messages from messages table
 public function getUserMessages($ID,$groupBy=null){
@@ -1008,12 +1057,26 @@ public function getUserMessages($ID,$groupBy=null){
 
    
    if(isset($groupBy)){
-       $query = "SELECT * FROM $tablename WHERE $column = $ID OR $column1 = $ID AND firstChat = 1 GROUP BY messageSender,messageReciever ORDER BY messageID ";
+       //$query = "SELECT * FROM $tablename WHERE $column = $ID OR $column1 = $ID AND firstChat = 1 GROUP BY messageSender,messageReciever ORDER BY messageID ";
         //$query = "SELECT * FROM $tablename WHERE $column = $ID  GROUP BY $groupBy";
+
+        $query = "select messages.*,sender.userID, sender.userPhoto as senderUserPhoto, sender.userName as senderUserName,reciever.userID, reciever.userPhoto as recieverUserPhoto, reciever.userName 
+        FROM  $tablename
+        INNER JOIN userprofile as sender ON(sender.userID = messages.messageSender)
+        INNER JOIN userprofile as reciever ON(reciever.userID = messages.messageReciever)
+        WHERE (messageSender =  $ID  OR messageReciever =  $ID ) 
+        AND firstchat = 1 GROUP BY messageSender,messageReciever ORDER BY messageID ;";
+
    } else {
 
-        $query = "SELECT * FROM $tablename WHERE ($column = $ID OR $column1 = $ID) AND firstChat = 1";
+        //$query = "SELECT * FROM $tablename WHERE ($column = $ID OR $column1 = $ID) AND firstChat = 1";
        //$query = "SELECT * FROM $tablename WHERE $column = $ID = $ID";
+       $query = "select messages.*,sender.userID, sender.userPhoto as senderUserPhoto, sender.userName as senderUserName,reciever.userID, reciever.userPhoto as recieverUserPhoto, reciever.userName 
+       FROM  $tablename
+       INNER JOIN userprofile as sender ON(sender.userID = messages.messageSender)
+       INNER JOIN userprofile as reciever ON(reciever.userID = messages.messageReciever)
+       WHERE (messageSender =  $ID  OR messageReciever =  $ID ) 
+       AND firstchat = 1 GROUP BY messageSender,messageReciever ORDER BY messageID ;";
    }
 
     $result = mysqli_query($this->dbconnection, $query);
@@ -1039,7 +1102,14 @@ public function getUserMessages($ID,$groupBy=null){
                     
                   } 
                 */
+                  
+                 $file = 'data:image/image/png;base64,'.base64_encode($row["recieverUserPhoto"]);
 
+                 $row['recieverUserPhoto'] = $file;
+
+                 $file = 'data:image/image/png;base64,'.base64_encode($row["senderUserPhoto"]);
+
+                 $row['senderUserPhoto'] = $file;
 
 
 
@@ -1115,6 +1185,7 @@ public function getUserConversation($myID,$ID){
         
   
 }
+
 
 
 
@@ -1223,7 +1294,7 @@ public function requestTransactionExists($requestID,$responderID,$requestorID){
 
    
 
-    $query = "SELECT * FROM $tablename WHERE requestID = $requestID AND responderID = $responderID AND requestorID = $requestorID";
+    $query = "SELECT * FROM $tablename WHERE requestID = $requestID AND responderID = $responderID AND requestorID = $requestorID AND ( transactionStatus = 'pending' OR transactionStatus ='accepted')";
 
     $result = mysqli_query($this->dbconnection, $query);
     $resultCheck = mysqli_num_rows($result);
@@ -1436,7 +1507,7 @@ public function getCompletedTransactions($ID,$column,$transactionType){
 
     if($transactionType === "Request"){
         // added AND transactionStatus = 'pending'
-        $query = "SELECT transactions.*, requestor.userID, responder.userID, requestor.userName as RequestorName, responder.userName as ResponderName, requests.* FROM $tablename INNER JOIN userprofile requestor ON (requestor.userID = transactions.requestorID) INNER JOIN userprofile responder ON (responder.userID = transactions.responderID) INNER JOIN requestsinfo requests ON (requests.requestID = transactions.requestID) WHERE transactions.$column = $ID AND transactionStatus = 'completed';";
+        $query = "SELECT transactions.*, requestor.userID, responder.userID, requestor.userName as RequestorName, responder.userName as ResponderName, requests.* FROM $tablename INNER JOIN userprofile requestor ON (requestor.userID = transactions.requestorID) INNER JOIN userprofile responder ON (responder.userID = transactions.responderID) INNER JOIN requestsinfo requests ON (requests.requestID = transactions.requestID) WHERE transactions.$column = $ID AND transactions.transactionStatus = 'completed';";
 
         $result = mysqli_query($this->dbconnection, $query);
         $resultCheck = mysqli_num_rows($result);
@@ -1636,6 +1707,8 @@ public function registerCategory($serviceCategory,$servicePosition){
     
   
 
+    // requestID	requestCategory	requestTitle	requestDescription	requestExpectedPrice	isNegotiable	datePosted	dueDate	requestorID	requestorMunicipality	requestStatus
+
     //0,'$requestCategory','$requestTitle','$requestDescription','$requestExpectedPrice','$isNegotiable','$datePosted','$dueDate','$requestorID','$requestorMunicipality','$requestStatus'
     $requestorID=mysqli_real_escape_string($this->dbconnection,$requestorID);
     $requestorMunicipality=mysqli_real_escape_string($this->dbconnection,$requestorMunicipality);
@@ -1648,6 +1721,7 @@ public function registerCategory($serviceCategory,$servicePosition){
     $requestDescription=mysqli_real_escape_string($this->dbconnection, $requestDescription);
     $requestStatus ="Active";
  
+
     
 
     $query = "INSERT INTO $tablename() VALUES ( 0,'$requestCategory','$requestTitle','$requestDescription','$requestExpectedPrice','$isNegotiable','$datePosted','$dueDate','$requestorID','$requestorMunicipality','$requestStatus')";

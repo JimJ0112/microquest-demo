@@ -5,6 +5,7 @@ body{
     padding:0;
     z-index: 0;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   /* background-image: url('Images/p.jpg'); */
 
 
 }
@@ -370,7 +371,7 @@ label{
     margin: 0;
     padding: 10px;
     align-content: center;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     width: 98.5%;
     height: 25%;
 
@@ -632,11 +633,12 @@ label{
 
 
 .inboxCard{
-    outline: auto;
+    border-bottom:1px solid black;
     height: 150px;
-    width: 100%;
+    width: auto;
     cursor: pointer;
     text-overflow: ellipsis;
+    padding:5px;
 }
 
 .messageCard{
@@ -657,15 +659,23 @@ label{
 
 
 #searchDiv{
-    height: fit-content;
+    height: 100%;
     grid-area: search;
     display: grid;
     grid-template-areas: "Chats space space space"
                          "searchbox searchbox searchButton createNewMessage";
     align-content: center;
     z-index: 5;
-    outline: auto;
+   
     margin: 0;
+}
+
+.messageUserPhoto{
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    border: 2px solid black;
+    object-fit: cover;
 }
 
 #Chats{
@@ -677,12 +687,12 @@ label{
 #messageSearchButton{
     grid-area: searchButton;
     height: 40px;
-    width: 40px;
+    width: 100%;
 }
 #createNewMessage{
     grid-area: createNewMessage;
     height: 40px;
-    width: 40px;
+    width: 100%;
 }
 
 

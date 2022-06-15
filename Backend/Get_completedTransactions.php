@@ -4,15 +4,22 @@ require("../Classes/DBHandler.php");
 $DBHandler = new DBHandler();
 
 
+
 $transactionType = $_POST['TransactionType'];
 $column =  $_POST['column'];
 $ID = $_POST['userID'];
+
+
 //$condition = 14;
 
 
 //"userID=" + userID +"&TransactionType=Request&column=requestorID"
 
-
+/*
+$transactionType = "Service";
+$column =  "RequestorID";
+$ID = 14;
+*/
 
 $transactions = $DBHandler->getCompletedTransactions($ID,$column,$transactionType);
 

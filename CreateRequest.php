@@ -125,9 +125,11 @@ session_start();
     <input type="hidden" name="formType"> 
 
     <h2 id="selectedCategory"> </h2>
-    <input type="hidden" name="requestorID"> 
-    <input type="hidden" name="requestorMunicipality">
-    <input type="hidden" name="datePosted">
+    <input type="hidden" name="requestorID" value="<?php echo $_SESSION['userID']?>"> 
+    <input type="hidden" name="requestorMunicipality" value="<?php echo $_SESSION['municipality']?>">
+    <input type="hidden" name="datePosted" value="<?php 
+            echo date_default_timezone_set("Asia/Manila");
+            echo date("Y-m-d H:i:s",time());?>">
 
     <label> What category does your request fit in? </label>
     <input type="text" name="requestCategory"> <br/>
@@ -138,8 +140,8 @@ session_start();
 
     <label> Is your offer negotiable?  </label>
     <select name="isNegotiable">
-        <option> Negotiable </option> 
-        <option> Not-negotiable </option> 
+        <option value="Negotiable"> Negotiable </option> 
+        <option value="Not-negotiable"> Not-negotiable </option> 
     </select>   <br/>
 
     <label> Until when is your request available? </label>

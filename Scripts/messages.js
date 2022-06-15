@@ -12,16 +12,20 @@ function createSenderElements(Number){
 
 
     var userName = document.createElement('td');
+    var profilePic = document.createElement('div');
 
 
 
     // set attributes
     card.setAttribute('class','inboxCard');
     userName.setAttribute('class','inboxUserName');
+    profilePic.setAttribute('class','messageProfilePic');
 
 
     // append elements to the row
+    card.appendChild(profilePic);
     card.appendChild(userName);
+    
 
 
     div.append(card);
@@ -43,17 +47,32 @@ function setUsersData(array){
 
     var inboxCard = document.getElementsByClassName("inboxCard");
     var inboxUserName = document.getElementsByClassName("inboxUserName");
+    var messageProfilePic = document.getElementsByClassName('messageProfilePic');
+
     for(var i = 0; i<number;i++){
 
         if (myID === dataArray[i]['messageSender']){
            // inboxCard[i].innerText = dataArray[i]['messageReciever'];
+            
             inboxUserName[i].innerText = dataArray[i]['recieverUserName'];
             inboxCard[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageReciever'] + "','"+dataArray[i]['recieverUserName']+"')");
+
+            var image = new Image();
+            image.src = dataArray[i]['recieverUserPhoto'];
+            image.setAttribute('class','messageUserPhoto');
+            messageProfilePic[i].appendChild(image);
+
         } else if(myID === dataArray[i]['messageReciever']){
             //inboxCard[i].innerText = dataArray[i]['messageSender'];
-            inboxUserName.innerText = dataArray[i]['senderUserName'];
+            //inboxUserName.innerText = dataArray[i]['senderUserName'];
             inboxUserName[i].innerText = dataArray[i]['senderUserName'];
             inboxCard[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageSender']+ "','"+dataArray[i]['senderUserName']+"')");
+
+            var image = new Image();
+            image.src = dataArray[i]['senderUserPhoto'];
+            image.setAttribute('class','messageUserPhoto');
+            messageProfilePic[i].appendChild(image);
+        
         }
  
         //inboxCard[i].innerText = dataArray[i]['messageSender'];
@@ -189,6 +208,7 @@ function setConversation(){
     myID = sessionStorage.getItem('myID');
     //userID = id;
     var query = "userID="+ userID+"&myID="+myID;     
+    console.log(query);
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.open("POST", "Backend/Get_userConversation.php", true);
@@ -245,6 +265,7 @@ function createConversationElements(Number){
     var sender = document.createElement('td');
     var message = document.createElement('td');
     var br= document.createElement('br');
+    var profilePic = document.createElement('div');
 
 
 
@@ -255,6 +276,7 @@ function createConversationElements(Number){
     date.setAttribute('class','messageDate');
     sender.setAttribute('class','messageSender');
     message.setAttribute('class','message');
+    profilePic.setAttribute('class','messagesProfilePic');
 
 
     // append elements to the row

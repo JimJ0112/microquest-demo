@@ -69,7 +69,7 @@ session_start();
                  Accepted Requests
             </div> 
 
-            <div class="orderRequestsButton" onclick='<?php echo"getServiceOrders($userID)"?>'>
+            <div class="orderRequestsButton" onclick='<?php echo"getAcceptedServices($userID)"?>'>
                  Accepted Orders
             </div> 
 
