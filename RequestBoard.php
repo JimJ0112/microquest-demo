@@ -80,7 +80,7 @@ session_start();
             $usertype = $_SESSION['userType'];
             if($usertype === "Responder"){
                 $specialization = $_SESSION['specialization'];
-                echo "<div class='serviceCard-main' onclick= setCategory('$specialization')> Based on your specialization </div>";
+                echo "<div class='requestCat-main' onclick= setCategory('$specialization')> Specialization </div>";
                 
             }
         }
@@ -90,16 +90,39 @@ session_start();
   
 
 
-    <div class="serviceCard-main" onclick="getRequests()"> All requests </div>
+    <div class="requestCat-main" onclick="getRequests()"> 
+    <image src="Images/RequestBanners/AllRequest.jpg" class="bannerImage"> 
+    <center> All requests </center> 
+    </div>
+
     <?php if($_SESSION['userType']==="Responder"){
 
-        echo "<div class='serviceCard-main' onclick=getNearestRequest('$municipality')> Nearest Requests </div>";
+        echo "<div class='requestCat-main' onclick=getNearestRequest('$municipality')>
+                <image src='Images/RequestBanners/Nearest.jpg' class='bannerImage'> <br/>
+                <center> <div class='categoryTitle'>  Nearest Requests </div> </center> 
+              </div>";
     }
     ?>
-    <div class="serviceCard-main" onclick="setCategory('Home Service')"> Home Services </div> 
-    <div class="serviceCard-main" onclick="setCategory('Pasabuy')"> Pasabuy </div>
-    <div class="serviceCard-main" onclick="setCategory('Computer related work')"> Computer Related</div>
-    <div class="serviceCard-main" onclick="getRequests()"> Other</div>
+    <div class="requestCat-main" onclick="setCategory('Home Service')"> 
+        <image src="Images/RequestBanners/HomeServices.jpg" class="bannerImage"> <br/>
+        <center> <div class="categoryTitle"> Home Services </div> </center> 
+    </div> 
+
+    <div class="requestCat-main" onclick="setCategory('Pasabuy')">
+    <image src="Images/RequestBanners/pasabuy.jpg" class="bannerImage"> 
+    <center> <div class="categoryTitle"> Pasabuy </div> </center> 
+    </div>
+
+    <div class="requestCat-main" onclick="setCategory('Computer related work')"> 
+    <image src="Images/RequestBanners/ComputerRelated.jpeg" class="bannerImage"> <br/>
+    <center> <div class="categoryTitle"> Computer Related </div> </center> 
+    </div>
+
+
+    <div class="requestCat-main" onclick="getRequests()"> 
+        <image src="Images/RequestBanners/others.jpg" class="bannerImage"> <br/>
+        <center> <div class="categoryTitle"> Other </div> </center> 
+    </div>
 </div>
 
 </center>

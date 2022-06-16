@@ -83,10 +83,11 @@ session_start();
                 <?php
                             date_default_timezone_set("Asia/Manila");
                             $today = date("Y-m-d");
+                            $nextFiveDays =  date("Y-m-d",strtotime($today . ' +5 day'));
                           
                 ?>
 
-                <input type = "date" name="dueDate" id="dueDate" min="<?php echo $today; ?>" max="" value="<?php echo $today;?>"onchange="availableTimeSlots()"required> <br/>
+                <input type = "date" name="dueDate" id="dueDate" min="<?php echo $today; ?>" max="<?php echo $nextFiveDays; ?>" value="<?php echo $today;?>"onchange="availableTimeSlots()"required> <br/>
 
                 <label> Time Slot </label> <br/>
                 <select id="responderTimeSlots" name="responderTimeSlots" onchange="availableTimeSlots()" required>
@@ -154,16 +155,12 @@ session_start();
 
                 <table>
                 <tr>
-                    <td>Search for Responder </td>
-                    <td><input type="Search" name="q"></td>
-                </tr>
-                <tr>
-                    <td>My Location </td>
-                    <td><input type="text" name="myLocation" id="myLocation"> </td>
+                    <td>My Location </td> <br/>
+                    <td><h5 id="myLocation"> </h5> </td>
                 </tr>
                 </table>
 
-        <h5> Nearest Responders </h5>
+        <h5> Nearest Responders: </h5>
         <div id="SuggestedResponders">
         </div> 
 

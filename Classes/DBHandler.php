@@ -413,10 +413,11 @@ public function getProductsResponders($municipality,$column,$condition,$orderby 
    
     if(isset($orderby)){
         $query = "SELECT 
-         userprofile.userID,
+        userprofile.userID,
         userprofile.userName, 
         userprofile.municipality,
         userprofile.userType,
+        userprofile.userPhoto,
         products.productName,
         products.productDescription,
         products.productPrice,
@@ -437,8 +438,9 @@ public function getProductsResponders($municipality,$column,$condition,$orderby 
 
     }else{
         $query = "SELECT 
-         userprofile.userID,
+        userprofile.userID,
         userprofile.userName, 
+        userprofile.userPhoto,
         userprofile.municipality,
         userprofile.userType,
         products.productName,
@@ -470,7 +472,8 @@ public function getProductsResponders($municipality,$column,$condition,$orderby 
 
             while($row = mysqli_fetch_assoc($result)){
                 
-
+                $file = 'data:image/image/png;base64,'.base64_encode($row['userPhoto']);
+                $row['userPhoto'] = $file;
                 
          
                 
@@ -502,6 +505,7 @@ public function getAllProductsResponders($municipality,$column,$condition,$order
         $query = "SELECT 
         userprofile.userID,
         userprofile.userName, 
+        userprofile.userPhoto,
         userprofile.municipality,
         userprofile.userType,
         products.productName,
@@ -526,6 +530,7 @@ public function getAllProductsResponders($municipality,$column,$condition,$order
         $query = "SELECT 
         userprofile.userID,
         userprofile.userName, 
+        userprofile.userPhoto,
         userprofile.municipality,
         userprofile.userType,
         products.productName,
@@ -556,6 +561,9 @@ public function getAllProductsResponders($municipality,$column,$condition,$order
        
 
             while($row = mysqli_fetch_assoc($result)){
+                                
+                $file = 'data:image/image/png;base64,'.base64_encode($row['userPhoto']);
+                $row['userPhoto'] = $file;
                 
 
                 
@@ -778,12 +786,13 @@ public function getResponders($position,$municipality,$serviceCategory){
 // 29/05/2022 9:51pm nilagyan ko muna ng group by tong query na to para hindi dumoble, need to check out later - jim 
 // 09/06/2022 1:28am nilagyan ko muna ng servicesinfo.serviceStatus = 'Active', not sure if that's a good idea tho
    
-    $query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.municipality, servicesinfo.rate, servicesinfo.serviceCategory, servicesinfo.serviceID FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality = '$municipality' AND userprofile.userType = 'Responder' AND servicesinfo.serviceCategory = '$serviceCategory' AND servicesinfo.serviceStatus = 'Active' GROUP BY userprofile.userID";
+    $query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.municipality,userprofile.userPhoto, servicesinfo.rate, servicesinfo.serviceCategory, servicesinfo.serviceID FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality = '$municipality' AND userprofile.userType = 'Responder' AND servicesinfo.serviceCategory = '$serviceCategory' AND servicesinfo.serviceStatus = 'Active' GROUP BY userprofile.userID";
    
 
     $result = mysqli_query($this->dbconnection, $query);
     $resultCheck = mysqli_num_rows($result);
     $data = array();
+    $file;
   
 
 
@@ -792,7 +801,8 @@ public function getResponders($position,$municipality,$serviceCategory){
 
             while($row = mysqli_fetch_assoc($result)){
                 
-
+                $file = 'data:image/image/png;base64,'.base64_encode($row['userPhoto']);
+                $row['userPhoto'] = $file;
 
                 
 
@@ -825,12 +835,13 @@ public function getAvailableResponders($position,$municipality,$category){
    
 // 29/05/2022 9:51pm nilagyan ko muna ng group by tong query na to para hindi dumoble, need to check out later - jim 
 // 09/06/2022 1:28am nilagyan ko muna ng servicesinfo.serviceStatus = 'Active', not sure if that's a good idea tho
-$query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.municipality, servicesinfo.rate, servicesinfo.serviceID FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality != '$municipality' AND userprofile.userType = 'Responder' AND servicesinfo.serviceCategory = '$category' AND servicesinfo.serviceStatus = 'Active' GROUP BY userprofile.userID";
+$query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.userPhoto,userprofile.municipality, servicesinfo.rate, servicesinfo.serviceID FROM userprofile INNER JOIN servicesinfo ON servicesinfo.responderID = userprofile.userID WHERE servicesinfo.servicePosition = '$position' AND userprofile.municipality != '$municipality' AND userprofile.userType = 'Responder' AND servicesinfo.serviceCategory = '$category' AND servicesinfo.serviceStatus = 'Active' GROUP BY userprofile.userID";
    
 
     $result = mysqli_query($this->dbconnection, $query);
     $resultCheck = mysqli_num_rows($result);
     $data = array();
+    $file;
   
 
 
@@ -838,6 +849,8 @@ $query = "SELECT servicesinfo.responderID, userprofile.userName,userprofile.muni
        
 
             while($row = mysqli_fetch_assoc($result)){
+                $file = 'data:image/image/png;base64,'.base64_encode($row['userPhoto']);
+                $row['userPhoto'] = $file;
                 
 
 

@@ -4,7 +4,7 @@ function setSelectedCategory(){
 
     var selected = document.getElementById("selectedCategory");
     selected.innerText = selectedCategory;
-    document.getElementById('myLocation').value=loc;
+    document.getElementById('myLocation').innerText=loc;
 
     getPositions(selectedCategory);
 }
@@ -106,6 +106,7 @@ function createServiceElements(Number){
     
     // create elements for rows
     var card = document.createElement('div');
+    
 
 
     var data = document.createElement('td');
@@ -227,12 +228,14 @@ function createSuggestedRespondersElements(Number){
     var card = document.createElement('div');
 
 
-    var ID = document.createElement('td');
-    var name = document.createElement('td');
-    var municipality = document.createElement('td');
-    var rate = document.createElement('td');
-    var selectButton = document.createElement('button');
+    var ID = document.createElement('p');
+    var suggestedResponderProfilePic = document.createElement('div');
+    var name = document.createElement('p');
+    var municipality = document.createElement('p');
+    var rate = document.createElement('p');
+    var selectButton = document.createElement('p');
     var viewProfile = document.createElement('a');
+    var br = document.createElement('br');
     
 
 
@@ -247,15 +250,25 @@ function createSuggestedRespondersElements(Number){
     municipality.setAttribute('class','responderMunicipality');
     rate.setAttribute('class','responderRate');
     selectButton.setAttribute('class','selectButton');
+    suggestedResponderProfilePic.setAttribute('class','suggestedResponderPic');
+    
+    
 
 
     // append elements to the row
     card.appendChild(ID);
+    card.appendChild(br);
+    card.appendChild(suggestedResponderProfilePic);
+    card.appendChild(br);
     card.appendChild(name);
+    card.appendChild(br);
     card.appendChild(municipality);
+    card.appendChild(br);
     card.appendChild(rate);
-    card.appendChild(selectButton);
+    card.appendChild(br);
     card.appendChild(viewProfile);
+    card.appendChild(selectButton);
+    
     
 
 
@@ -282,17 +295,25 @@ function setResponderData(array){
     var selectButton = document.getElementsByClassName('selectButton');
     var viewProfile = document.getElementsByClassName('viewProfile');
 
+    var suggestedResponderPic = document.getElementsByClassName('suggestedResponderPic');
+
     for(var i = 0; i<number;i++){
 
 
-        ID[i].innerText = dataArray[i]['responderID'];
-        name[i].innerText = dataArray[i]['userName'];
-        municipality[i].innerText = dataArray[i]['municipality'];
-        rate[i].innerText = dataArray[i]['rate'];
+        
+        ID[i].innerHTML = dataArray[i]['responderID'];
+        name[i].innerHTML  = "<b> Username: </b>"+dataArray[i]['userName'];
+        municipality[i].innerHTML  = "<b> Municipality: </b>"+dataArray[i]['municipality'];
+        rate[i].innerHTML  = "<b> Rate: </b>"+dataArray[i]['rate'];
         viewProfile[i].href= "Public_Profile.php?userID=" +  dataArray[i]['responderID'] + "&userType=Responder";
         selectButton[i].setAttribute('onclick','selectResponder('+ dataArray[i]['serviceID']+','+ dataArray[i]['responderID']+','+dataArray[i]['rate']+')');
         
 
+
+        var image = new Image();
+        image.src = dataArray[i]['userPhoto'];
+        image.setAttribute('class','suggestedUserPhoto');
+        suggestedResponderPic[i].appendChild(image);
     }
 
 }
@@ -315,19 +336,25 @@ function setAvailableResponderData(array){
     var name= document.getElementsByClassName('availableResponderName');
     var municipality= document.getElementsByClassName('availableResponderMunicipality');
     var rate= document.getElementsByClassName('availableResponderRate');
+    var availableResponderProfilePic = document.getElementsByClassName('availableResponderProfilePic');
    // var selectButton.innerText = "Select";
    //var viewProfile.innerText = "View Profile";
 
     for(var i = 0; i<number;i++){
 
 
-        ID[i].innerText = dataArray[i]['responderID'];
-        name[i].innerText = dataArray[i]['userName'];
-        municipality[i].innerText = dataArray[i]['municipality'];
-        rate[i].innerText = dataArray[i]['rate'];
+        ID[i].innerHTML = dataArray[i]['responderID'];
+        name[i].innerHTML = "<b> Username: </b>"+dataArray[i]['userName'];
+        municipality[i].innerHTML = "<b> Municipality: </b>"+dataArray[i]['municipality'];
+        rate[i].innerHTML = "<b> Rate: </b>"+ dataArray[i]['rate'];
+
         availableViewProfile[i].href= "Public_Profile.php?userID=" +  dataArray[i]['responderID'] + "&userType=Responder";
         availableSelectButton[i].setAttribute('onclick','selectResponder('+dataArray[i]['serviceID'] +','+ dataArray[i]['responderID']+','+dataArray[i]['rate']+')');
         
+        var image = new Image();
+        image.src = dataArray[i]['userPhoto'];
+        image.setAttribute('class','availableUserPhoto');
+        availableResponderProfilePic[i].appendChild(image);
 
     }
 
@@ -363,7 +390,7 @@ function getAvailableResponders(position,category){
             console.log(dataArray);
             if(dataArray === "Unable to load other available responders"){
 
-                AllResponders.innerText = dataArray;
+                AllResponders.innerText = "No other available responders";
                 
             } else{
 
@@ -398,12 +425,13 @@ function createAvailableRespondersElements(Number){
     
     // create elements for rows
     var card = document.createElement('div');
+    var availableResponderProfilePic = document.createElement('div');
 
-    var ID = document.createElement('td');
-    var name = document.createElement('td');
-    var municipality = document.createElement('td');
-    var rate = document.createElement('td');
-    var selectButton = document.createElement('button');
+    var ID = document.createElement('p');
+    var name = document.createElement('p');
+    var municipality = document.createElement('p');
+    var rate = document.createElement('p');
+    var selectButton = document.createElement('p');
     var viewProfile = document.createElement('a');
     
 
@@ -419,15 +447,17 @@ function createAvailableRespondersElements(Number){
     name.setAttribute('class','availableResponderName');
     municipality.setAttribute('class','availableResponderMunicipality');
     rate.setAttribute('class','availableResponderRate');
+    availableResponderProfilePic.setAttribute('class','availableResponderProfilePic');
 
 
     // append elements to the row
     card.appendChild(ID);
+    card.appendChild(availableResponderProfilePic);
     card.appendChild(name);
     card.appendChild(municipality);
     card.appendChild(rate);
-    card.appendChild(selectButton);
     card.appendChild(viewProfile);
+    card.appendChild(selectButton);
 
 
     div.append(card);
@@ -603,3 +633,5 @@ for(var i = 0; i<8; i++){
 
 
 }
+
+

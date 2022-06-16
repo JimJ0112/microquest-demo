@@ -55,7 +55,7 @@ session_start();
     <div id="closeButton" onclick="closeConfirmationForm()"> X </div><br/> <br/> <br/>
      <div id="AvailServiceForm"> 
         
-        <form>
+        <form id="transactionForm">
 
             <h3> Confirm Transaction </h3> <br/><br/><br/>
       
@@ -77,23 +77,29 @@ session_start();
 
     
                 <label> Responder ID </label> <br/>
-                <input type="text" name="responderID" id="responderID" readonly> <br/>
+                <input type="text" name="responderID" id="responderID" readonly required> <br/>
   
 
                 <label> Delivery Price  </label> <br/>
-                Php <input type="number" name="deliveryPrice" id="deliveryPrice" readonly> <br/>
+                Php <input type="number" name="deliveryPrice" id="deliveryPrice" readonly required> <br/>
   
 
-         
-                <label> Due Date </label> <br/>
-                <input type = "datetime-local" name="dueDate" required> <br/>
+                         
+                <?php
+                            date_default_timezone_set("Asia/Manila");
+                            $today = date("Y-m-d");
+                            $nextFiveDays =  date("Y-m-d",strtotime($today . ' +5 day'));
+                          
+                ?>
 
+                <label> Delivery Date </label> <br/>
+                <input type = "date" name="dueDate" min="<?php echo $today?>" max="<?php echo $nextFiveDays?>"value="<?php echo $today?>" required> <br/>
+                <input type = "time" name="timeSlot" required> <br/>
 
 
                 <label> Additional Notes </label> <br/>
 
-                        <textarea name="additionalNotes">
-                        </textarea> <br/><br/>
+                        <textarea name="additionalNotes"></textarea> <br/><br/>
 
                 <input type="button" onclick="getsuggestedResponders(' ')" value="Select Responder">
  
@@ -113,18 +119,11 @@ session_start();
 
 
 <div id="pasabuyResponders">
+<h3 id="myLocation">My Location:  <?php echo $_SESSION['municipality']?>  </h3>
     <div id="closeButton" onclick="closeForms()"> X </div>
 
-                <table>
-                    <tr>
-                        <td>Search for Responder </td>
-                        <td><input type="Search" name="q"></td>
-                    </tr>
-                    <tr>
-                        <td>My Location </td>
-                        <td><input type="text" name="myLocation" id="myLocation"> </td>
-                    </tr>
-                </table>
+ 
+
 
         <h5> Nearest Responders  </h5>
         <div id="productSuggestedResponders">

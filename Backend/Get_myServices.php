@@ -8,11 +8,13 @@ $DBHandler = new DBHandler();
 $tablename = "servicesinfo";
 $column = "responderID";
 $condition = $_POST['userID'];
-$categories = $DBHandler->getMyServices($tablename,$column,$condition);
+$services = $DBHandler->getMyServices($tablename,$column,$condition);
 
-
-    echo json_encode($categories);
- 
+if($services === "failed to fetch"){
+    echo $services;
+} else {
+    echo json_encode($services);
+}
 
    
     //echo json_last_error_msg();

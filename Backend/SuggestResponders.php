@@ -15,6 +15,7 @@ $position = "Tatoo";
 $municipality = "Hermosa";
 $category = "Art";
 */
+
 $responders = $DBHandler-> getResponders($position,$municipality,$category);
 
 

@@ -262,10 +262,27 @@ session_start();
 
 <div id="createServiceMain"> 
 
-<div class="serviceCard-main" onclick="setCategory('Home Service')"> Home Services </div> 
-<div class="serviceCard-main" onclick="setCategory('Pasabuy')"> Pasabuy </div>
-<div class="serviceCard-main" onclick="setCategory('Computer related work')"> Computer Related</div>
-<div class="serviceCard-main" onclick="setCategory('Other')"> Other</div>
+<div class="serviceCard-main" onclick="setCategory('Home Service')"> 
+        <image src="Images/RequestBanners/HomeServices.jpg" class="bannerImage"> <br/>
+        <center> <div class="categoryTitle"> Home Services </div> </center> 
+</div> 
+
+
+<div class="serviceCard-main" onclick="setCategory('Pasabuy')"> 
+        <image src="Images/RequestBanners/pasabuy.jpg" class="bannerImage"> 
+        <center> <div class="categoryTitle"> Pasabuy </div> </center> 
+</div>
+
+
+<div class="serviceCard-main" onclick="setCategory('Computer related work')">
+    <image src="Images/RequestBanners/ComputerRelated.jpeg" class="bannerImage"> <br/>
+    <center> <div class="categoryTitle"> Computer Related </div> </center> 
+</div>
+
+<div class="serviceCard-main" onclick="setCategory('Other')"> 
+        <image src="Images/RequestBanners/others.jpg" class="bannerImage"> <br/>
+        <center> <div class="categoryTitle"> Other </div> </center> 
+</div>
 
 </div>
 

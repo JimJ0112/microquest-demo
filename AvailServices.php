@@ -42,7 +42,7 @@ session_start();
 
 
 <center>
-<h2> Avail Services </h2>
+<h2> Available Services </h2>
     <br/>
         <div>
             <form method="GET" action="Backend/Get_products.php"> 
@@ -69,9 +69,19 @@ session_start();
 
 <div id="AvailServiceNav"> 
 
-<div class="serviceCard-main" onclick="selectCategory('Home Service')"> Home Services </div> 
-<div class="serviceCard-main" onclick="selectCategory('Pasabuy')"> Pasabuy </div>
-<div class="serviceCard-main" onclick="selectCategory('Computer related work')"> Computer Related</div>
+<div class="serviceCard-main" onclick="selectCategory('Home Service')">
+
+<image src="Images/RequestBanners/HomeServices.jpg" class="bannerImage"> <br/>
+        <center> <div class="categoryTitle"> Home Services </div> </center>
+</div> 
+<div class="serviceCard-main" onclick="selectCategory('Pasabuy')">
+<image src="Images/RequestBanners/pasabuy.jpg" class="bannerImage"> 
+    <center> <div class="categoryTitle"> Pasabuy </div> </center> 
+</div>
+<div class="serviceCard-main" onclick="selectCategory('Computer related work')">
+<image src="Images/RequestBanners/ComputerRelated.jpeg" class="bannerImage"> <br/>
+    <center> <div class="categoryTitle"> Computer Related </div> </center> 
+</div>
 
 </div>
 

@@ -129,7 +129,7 @@ function getMyServices(userID){
             if(dataArray === "failed to fetch"){
                 var content = document.getElementById("requestInfoContent");
                 var h2 = document.createElement('h2');
-                h2.innerText = "Request does not exist, entered link might be broken";
+                h2.innerHTML = "<center> No Services </center>";
                 div.innerHTML = "";
                 div.style.textAlign = "center";
                 div.appendChild(h2);

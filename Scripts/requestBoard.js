@@ -23,6 +23,7 @@ function createServiceElements(Number){
     var requestorUserName = document.createElement('a');
     var requestorLocation = document.createElement('td');
     var viewRequest = document.createElement('a');
+    var userPhotoDiv = document.createElement('div');
 
 
 
@@ -42,6 +43,7 @@ function createServiceElements(Number){
     requestorLocation.setAttribute('class','requestorLocation');
     viewRequest.setAttribute('class','viewRequest');
     viewRequest.innerText = "View More";
+    userPhotoDiv.setAttribute('class','userPhotoDiv');
 
 
 
@@ -55,6 +57,8 @@ function createServiceElements(Number){
     card.appendChild(isNegotiable);
     card.appendChild(dueDate);
     card.appendChild(requestorID);
+
+    card.appendChild(userPhotoDiv);
     card.appendChild(requestorUserName);
     card.appendChild(requestorLocation);
     card.appendChild(viewRequest)
@@ -86,6 +90,7 @@ function setData(array){
     var requestorUserName= document.getElementsByClassName('requestorUserName');
     var requestorLocation= document.getElementsByClassName('requestorLocation');
     var viewRequest = document.getElementsByClassName('viewRequest');
+    var userPhotoDiv = document.getElementsByClassName('userPhotoDiv');
 
 
 
@@ -105,6 +110,13 @@ function setData(array){
          requestorUserName[i].href = "Public_Profile.php?userID=" +  dataArray[i]['requestorID'] + "&userType=Requestor";
 
          viewRequest[i].href = "RequestInfo.php?requestID=" + dataArray[i]['requestID'];
+         var image = new Image();
+         image.src = dataArray[i]['userPhoto'];
+         image.setAttribute('class','userPhotoPic');
+         userPhotoDiv[i].appendChild(image);
+
+
+
     }
 
 }

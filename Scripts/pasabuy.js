@@ -5,7 +5,8 @@ function setSelectedCategory(){
 
     var selected = document.getElementById("selectedCategory");
     selected.innerText = selectedCategory;
-    document.getElementById('myLocation').value=loc;
+    loc = sessionStorage.getItem("municipality");
+    document.getElementById('myLocation').innerText = loc;
 
     getPositions(selectedCategory);
 }
@@ -137,37 +138,45 @@ function createSuggestedRespondersElements(Number){
     var card = document.createElement('div');
 
 
-    var ID = document.createElement('td');
-    var name = document.createElement('td');
-    var municipality = document.createElement('td');
-    var deliveryRate = document.createElement('td');
-
-    var selectButton = document.createElement('button');
+    var ID = document.createElement('p');
+    var suggestedResponderProfilePic = document.createElement('div');
+    var name = document.createElement('p');
+    var municipality = document.createElement('p');
+    var rate = document.createElement('p');
+    var selectButton = document.createElement('p');
     var viewProfile = document.createElement('a');
+    var br = document.createElement('br');
     
-
 
 
 
     // set attributes
     selectButton.innerText = "Select";
     viewProfile.innerText = "View Profile";
+    viewProfile.setAttribute('class','viewProfile');
     card.setAttribute('class','responderCard');
     ID.setAttribute('class','responderID');
     name.setAttribute('class','responderName');
     municipality.setAttribute('class','responderMunicipality');
-    deliveryRate.setAttribute('class','deliveryRate');
-    viewProfile.setAttribute('class','viewProfile');
+    rate.setAttribute('class','deliveryRate');
     selectButton.setAttribute('class','selectButton');
+    suggestedResponderProfilePic.setAttribute('class','suggestedResponderPic');
+    
 
 
     // append elements to the row
     card.appendChild(ID);
+  
+    card.appendChild(suggestedResponderProfilePic);
+  
     card.appendChild(name);
+   
     card.appendChild(municipality);
-    card.appendChild(deliveryRate);
-    card.appendChild(selectButton);
+   
+    card.appendChild(rate);
+    
     card.appendChild(viewProfile);
+    card.appendChild(selectButton);
 
 
     div.append(card);
@@ -185,7 +194,7 @@ function setResponderData(array){
     var number = dataArray.length;
 
     var responderCard = document.getElementsByClassName("responderCard");
-
+    var suggestedResponderPic = document.getElementsByClassName('suggestedResponderPic');
     var ID= document.getElementsByClassName('responderID');
     var name= document.getElementsByClassName('responderName');
     var municipality= document.getElementsByClassName('responderMunicipality');
@@ -198,14 +207,18 @@ function setResponderData(array){
         //serviceCard[i].innerText = dataArray[i];
         //serviceCard[i].setAttribute("onclick","getsuggestedResponders('" + dataArray[i] + "')");
 
-        ID[i].innerText = dataArray[i]['userID'];
-        name[i].innerText = dataArray[i]['userName'];
-        municipality[i].innerText = dataArray[i]['municipality'];
-        deliveryRate[i].innerText = dataArray[i]['deliveryRate'];
+        ID[i].innerHTML = dataArray[i]['userID'];
+        name[i].innerHTML = "<b> Username: </b>"+dataArray[i]['userName'];
+        municipality[i].innerHTML = "<b> Municipality: </b>"+dataArray[i]['municipality'];
+        deliveryRate[i].innerHTML ="<b> Delivery rate: </b>"+ dataArray[i]['deliveryRate'];
         viewProfile[i].href = "Public_Profile.php?userID=" +  dataArray[i]['userID'] + "&userType=Responder";
         selectButton[i].setAttribute("onclick","setResponderForm("+ dataArray[i]['userID']+","+dataArray[i]['deliveryRate']+")");
         
 
+        var image = new Image();
+        image.src = dataArray[i]['userPhoto'];
+        image.setAttribute('class','suggestedUserPhoto');
+        suggestedResponderPic[i].appendChild(image);
     }
 
 }
@@ -280,12 +293,14 @@ function createProductElements(Number){
     card.setAttribute('class','productCard');
     
     productID.setAttribute('class','productID');
+    productID.style.display = "none";
     productImage.setAttribute('class','productImage');
     productName.setAttribute('class','productName');
     productBrand.setAttribute('class','productBrand');
     productPrice.setAttribute('class','productPrice');
     moreInfoButton.setAttribute('class','moreInfoButton');
     quantity.setAttribute('class','quantity');
+    quantity.setAttribute('min',0);
     quantity.setAttribute('type','number');
     selectResponder.setAttribute('class','selectResponderButton');
     select.setAttribute('class','selectButton');
@@ -352,7 +367,7 @@ function setProductData(array){
         productName[i].innerText = dataArray[i]['productName'];
         productBrand[i].innerText = "Brand name: "+dataArray[i]['productBrand'];
         productPrice[i].innerText = "Price: "+dataArray[i]['productPrice'];
-      //  moreInfoButton[i].innerText = "More Info"
+        //  moreInfoButton[i].innerText = "More Info"
 
         //category,id,price,qtyNumber)
         select[i].setAttribute("onclick","setProductForm('"+dataArray[i]['productCategory']+"',"+ dataArray[i]['productID']+","+ dataArray[i]['productPrice']+","+ i + ")");
@@ -528,15 +543,15 @@ function createAllRespondersElements(Number){
     var card = document.createElement('div');
 
 
-    var ID = document.createElement('td');
-    var name = document.createElement('td');
-    var municipality = document.createElement('td');
-    var deliveryRate = document.createElement('td');
+    var ID = document.createElement('p');
+    var allRespondersProfilePic= document.createElement('div');
+    var name = document.createElement('p');
+    var municipality = document.createElement('p');
+    var deliveryRate = document.createElement('p');
 
-    var selectButton = document.createElement('button');
+    var selectButton = document.createElement('p');
     var viewProfile = document.createElement('a');
     
-
 
 
 
@@ -550,15 +565,18 @@ function createAllRespondersElements(Number){
     deliveryRate.setAttribute('class','allDeliveryRate');
     viewProfile.setAttribute('class','allViewProfile');
     selectButton.setAttribute('class','availableSelectButton');
+    allRespondersProfilePic.setAttribute('class','allRespondersProfilePic');
 
 
     // append elements to the row
     card.appendChild(ID);
+    card.appendChild(allRespondersProfilePic);
     card.appendChild(name);
     card.appendChild(municipality);
     card.appendChild(deliveryRate);
-    card.appendChild(selectButton);
     card.appendChild(viewProfile);
+    card.appendChild(selectButton);
+    
 
 
     div.append(card);
@@ -576,6 +594,7 @@ function setAllResponderData(array){
     var number = dataArray.length;
 
     var responderCard = document.getElementsByClassName("allResponderCard");
+    var allRespondersProfilePic = document.getElementsByClassName("allRespondersProfilePic");
 
     var ID= document.getElementsByClassName('allResponderID');
     var name= document.getElementsByClassName('allResponderName');
@@ -591,13 +610,17 @@ function setAllResponderData(array){
         //serviceCard[i].setAttribute("onclick","getsuggestedResponders('" + dataArray[i] + "')");
 
         ID[i].innerText = dataArray[i]['userID'];
-        name[i].innerText = dataArray[i]['userName'];
-        municipality[i].innerText = dataArray[i]['municipality'];
-        deliveryRate[i].innerText = dataArray[i]['deliveryRate'];
+        name[i].innerHTML ="<b>Username: </b>"+ dataArray[i]['userName'];
+        municipality[i].innerHTML ="<b>Municipality: </b>"+  dataArray[i]['municipality'];
+        deliveryRate[i].innerHTML ="<b>Delivery rate: </b>"+  dataArray[i]['deliveryRate'];
         viewProfile[i].href = "Public_Profile.php?userID=" +  dataArray[i]['userID'] + "&userType=Responder";
         selectButton[i].setAttribute('onclick','setResponderForm('+dataArray[i]['userID']+","+dataArray[i]['deliveryRate']+")");
         
 
+        var image = new Image();
+        image.src = dataArray[i]['userPhoto'];
+        image.setAttribute('class','availableUserPhoto');
+        allRespondersProfilePic[i].appendChild(image);
     }
 
 }
@@ -608,10 +631,10 @@ function setAllResponderData(array){
 
 function closeForms(){
     var pasabuyResponders = document.getElementById("pasabuyResponders");
-
-
-
     pasabuyResponders.style.display = "none";
+
+    //AvailServiceForm = document.getElementById("transactionForm");
+    //AvailServiceForm.reset();
 
 }
 
@@ -685,6 +708,6 @@ function closeConfirmationForm(){
     pasabuyFormContainer = document.getElementById("pasabuyFormContainer");
     pasabuyFormContainer.style.display = "none";
     //console.log("hey");
-    AvailServiceForm = document.getElementById("AvailServiceForm");
+    AvailServiceForm = document.getElementById("transactionForm");
     AvailServiceForm.reset();
 }
