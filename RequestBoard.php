@@ -109,8 +109,8 @@ session_start();
     </div> 
 
     <div class="requestCat-main" onclick="setCategory('Pasabuy')">
-    <image src="Images/RequestBanners/pasabuy.jpg" class="bannerImage"> 
-    <center> <div class="categoryTitle"> Pasabuy </div> </center> 
+        <image src="Images/RequestBanners/pasabuy.jpg" class="bannerImage"> 
+        <center> <div class="categoryTitle"> Pasabuy </div> </center> 
     </div>
 
     <div class="requestCat-main" onclick="setCategory('Computer related work')"> 

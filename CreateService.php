@@ -222,6 +222,11 @@ session_start();
                 <td>Training/Certificate File </td>
                 <td> <input type="file" name="certificateFile"> </td>
             </tr>
+
+            <tr>
+                <td>Banner Image </td>
+                <td> <input type="file" name="bannerImage" accept="image/*"> </td>
+            </tr>
         
         </table>
 

@@ -183,10 +183,11 @@ label{
 
 .serviceCard{
     border: 1px solid black;
-    height: 150px;
+    height: fit-content;
     width: 70%;
     cursor: pointer;
     text-overflow: ellipsis;
+
 }
 
 
@@ -522,7 +523,16 @@ label{
     height: 150px;
     width: 100%;
     object-fit: cover;
+    background-image: url('Images/RequestBanners/others.jpg');
 }
+
+.serviceCard .bannerImage{
+    height: 130px;
+    width: 100%;
+    object-fit: contain;
+    
+}
+
 
 .requestCat-main{
     border:1px solid black;
@@ -1047,12 +1057,12 @@ label{
 
 
     overflow: scroll;
-    padding-left: 10%;
+
 }
 
 .myServiceCard{
     border:1px solid black;
-    height: 200px;
+    height: 300px;
     margin: 5px;
     cursor: pointer;
     overflow-wrap: break-word;

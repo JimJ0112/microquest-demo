@@ -23,14 +23,14 @@ if(isset($_POST["formType"])){
             
            
         $servicePosition = $_POST['otherServicePosition'];
+        $bannerImage = file_get_contents($_FILES['bannerImage']["tmp_name"]);
         
         //echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
         
     }else{
 
         $servicePosition=$_POST["servicePosition"];
-        
-        
+        $bannerImage = "";
         //echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
     }
 
@@ -53,9 +53,17 @@ if(isset($_POST["formType"])){
             echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
         }
         */
+        $serviceCategory= $_POST["serviceCategory"]; 
+        $servicePosition=$_POST["servicePosition"];
+        $imageFile = $DBHandler->getServicesBannerImage($serviceCategory,$servicePosition);
 
-    
-        echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
+        if($imageFile === "Null" || $imageFile === null){
+            $imageFile = file_get_contents("../Images/RequestBanners/others.jpg");
+            $bannerImage = $imageFile;
+        } else{
+            echo $bannerImage = $imageFile; 
+        }
+        echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile,$bannerImage);
 
         //echo $serviceCategory,$servicePosition,$rate,$responderID,$certification;
 
@@ -79,18 +87,19 @@ if(isset($_POST["formType"])){
          $productStore=" ";
          $storeLocation=" ";
 
-        echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
+        echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile,$bannerImage);
         echo $serviceInfoID = $DBHandler ->getData('servicesinfo','responderID',$responderID,'serviceID');
         echo $DBHandler-> registerProduct($serviceInfoID,$itemCategory,$productName,$productBrand,$productDescription,$productPrice,$productImage,$responderID,$productStore,$storeLocation,$rate);      
 
 
     } else if($formType === "otherCategories"){
-        echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile);
+        $bannerImage = file_get_contents($_FILES['bannerImage']["tmp_name"]);
+        echo $DBHandler-> registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile,$bannerImage);
         echo $DBHandler-> registerCategory($serviceCategory,$servicePosition);
 
     }
 
-        header("location:../Responder_Home.php");
+        header("location:../MyServices.php");
 
 
 }

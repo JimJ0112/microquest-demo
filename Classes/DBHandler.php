@@ -616,6 +616,9 @@ public function getServices($tablename,$column,$condition,$orderby = null){
                 $row['certificateFile'] = $file;
                 
 
+                $file = 'data:image/image/png;base64,'.base64_encode($row['bannerImage']);
+                $row['bannerImage'] = $file;
+
                 $data[] = $row;
                 
              
@@ -663,6 +666,9 @@ public function getServicesForSpecialization($tablename,$column,$condition,$orde
                 $row['certificateFile'] = $file;
                 
 
+                $file = 'data:image/image/png;base64,'.base64_encode($row['bannerImage']);
+                $row['bannerImage'] = $file;
+
                 $data[] = $row;
                 
              
@@ -706,6 +712,8 @@ public function getOtherServices(){
                 $file = 'data:image/image/png;base64,'.base64_encode($row['certificateFile']);
                 $row['certificateFile'] = $file;
                 
+                $file = 'data:image/image/png;base64,'.base64_encode($row['bannerImage']);
+                $row['bannerImage'] = $file;
 
                 $data[] = $row;
                 
@@ -753,6 +761,8 @@ public function getMyServices($tablename,$column,$condition,$orderby = null){
                 $file = 'data:image/image/png;base64,'.base64_encode($row['certificateFile']);
                 $row['certificateFile'] = $file;
                 
+                $file = 'data:image/image/png;base64,'.base64_encode($row['bannerImage']);
+                $row['bannerImage'] = $file;
 
                 $data[] = $row;
                 
@@ -1648,6 +1658,40 @@ public function getMyTimeSlots($responderID,$date){
 }// end of function
 
 
+// get banner images
+// get Services row 
+public function getServicesBannerImage($ServiceCategory,$ServicePosition){
+    $tablename = "servicesinfo";
+    $ServiceCategory = mysqli_real_escape_string($this->dbconnection, $ServiceCategory);
+    $ServicePosition = mysqli_real_escape_string($this->dbconnection, $ServicePosition);
+
+    $query = "SELECT bannerImage FROM $tablename WHERE serviceCategory = '$ServiceCategory' AND servicePosition = '$ServicePosition'";
+  
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+   
+  
+
+
+    if($resultCheck > 0){
+       
+
+            $row = mysqli_fetch_array($result);
+            $data = $row['bannerImage'];
+                
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
+
 /*---------------------------------UPDATE FUNCTIONS----------------------------------------------------- */
 
 // update columns 
@@ -1692,7 +1736,7 @@ public function deleteColumn($tablename,$column,$name,$condition,$conditionvalue
 
 
 // insert services
-public function registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile){
+public function registerService($serviceCategory,$servicePosition,$rate,$responderID,$certification,$certificateFile,$bannerImage){
   
     $tablename = "servicesinfo";
 
@@ -1702,11 +1746,12 @@ public function registerService($serviceCategory,$servicePosition,$rate,$respond
     $responderID= mysqli_real_escape_string($this->dbconnection,$responderID);
     $certification= mysqli_real_escape_string($this->dbconnection,$certification);
     $certificateFile= mysqli_real_escape_string($this->dbconnection,$certificateFile);
+    $bannerImage =  mysqli_real_escape_string($this->dbconnection,$bannerImage);
     $serviceStatus = "Active";
 
     
 
-    $query = "INSERT INTO $tablename() VALUES (0,'$serviceCategory','$servicePosition','$rate','$responderID','$certification','$certificateFile','$serviceStatus')";
+    $query = "INSERT INTO $tablename() VALUES (0,'$serviceCategory','$servicePosition','$rate','$responderID','$certification','$certificateFile','$serviceStatus','$bannerImage')";
     return mysqli_query($this->dbconnection, $query);
 
 }

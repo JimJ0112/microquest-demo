@@ -52,21 +52,28 @@ function createServiceElements(Number){
    
     
     for(var i = 0;i<DataNumber;i++){
-    
-    // create elements for rows
-    var card = document.createElement('div');
+   // create elements for rows
+   var card = document.createElement('div');
+   var BannerContainer = document.createElement('div');
+   var br = document.createElement('br');
+   
 
 
-    var data = document.createElement('td');
+   var data = document.createElement('p');
 
 
 
-    // set attributes
-    card.setAttribute('class','serviceCard');
+   // set attributes
+   card.setAttribute('class','serviceCard');
+   BannerContainer.setAttribute('class','BannerContainer');
+   data.setAttribute('class','serviceTitle');
 
 
-    // append elements to the row
-    card.appendChild(data);
+   // append elements to the row
+   card.appendChild(BannerContainer);
+   card.appendChild(br);
+   card.appendChild(br);
+   card.appendChild(data);
 
 
     div.append(card);
@@ -83,11 +90,24 @@ function setData(array){
     var dataArray = array;
     var number = dataArray.length;
 
+    
+    var selectedCategory = sessionStorage.getItem("selectedCategory");
+    var BannerContainer = document.getElementsByClassName('BannerContainer');
+    var serviceTitle = document.getElementsByClassName('serviceTitle');
     var serviceCard = document.getElementsByClassName("serviceCard");
+
     for(var i = 0; i<number;i++){
         
-        serviceCard[i].innerText = dataArray[i];
-        serviceCard[i].setAttribute("onclick","setCategory('" + dataArray[i] + "')");
+        serviceTitle[i].innerHTML = "<center> <b>"+ dataArray[i]['servicePosition'] +"</b> </center>";
+
+        serviceCard[i].setAttribute("onclick","setCategory('" + dataArray[i]['serviceCategory'] + "')");
+
+
+        var image = new Image();
+        image.src = dataArray[i]['bannerImage'];
+        image.setAttribute('class','bannerImage');
+        image.setAttribute('onerror',"this.src='Images/RequestBanners/others.jpg'");
+        BannerContainer[i].appendChild(image);
 
     }
 
@@ -173,7 +193,7 @@ function getServices(){
 
             var number = dataArray.length;
             createServiceElements(number);
-            dataArray = categories(dataArray);
+            //dataArray = categories(dataArray);
             setData(dataArray);
      
         }else{
