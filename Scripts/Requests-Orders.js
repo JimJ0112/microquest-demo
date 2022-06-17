@@ -388,6 +388,7 @@ function setRequestsApplicationData(array){
     infoCol= document.getElementsByClassName('infoCol');
     buttonsCol= document.getElementsByClassName('buttonsCol');
     cancelButton = document.getElementsByClassName('cancelButton');
+
     
     
 
@@ -406,8 +407,56 @@ function setRequestsApplicationData(array){
     
         transactionStartDate[i].innerHTML = "<b>Application Date: </b>"+dataArray[i]['transactionStartDate'];
         transactionStatus[i].innerHTML = "<b>Application Status: </b>"+dataArray[i]['transactionStatus'];
-        cancelButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'cancelled')");
+        cancelButton[i].setAttribute('onclick','cancelRequestApplication('+dataArray[i]['transactionID']+",'cancelled',"+dataArray[i]['requestID']+")");
     
+    }
+    
+
+}
+
+// set requests data
+function setAcceptedRequestsApplicationData(array){
+    var dataArray = array;
+    var number = dataArray.length;
+
+    RequestorName = document.getElementsByClassName('RequestorName');
+    requestTitle= document.getElementsByClassName('requestTitle');
+    requestCategory= document.getElementsByClassName('requestCategory');
+    requestDescription= document.getElementsByClassName('requestDescription');
+    requestExpectedPrice= document.getElementsByClassName('requestExpectedPrice');
+    isNegotiable= document.getElementsByClassName('isNegotiable');
+    datePosted= document.getElementsByClassName('datePosted');
+    dueDate= document.getElementsByClassName('dueDate');
+    requestStatus= document.getElementsByClassName('requestStatus');
+
+    transactionStartDate= document.getElementsByClassName('transactionStartDate');
+    transactionStatus= document.getElementsByClassName('transactionStatus');
+
+    infoCol= document.getElementsByClassName('infoCol');
+    buttonsCol= document.getElementsByClassName('buttonsCol');
+    cancelButton = document.getElementsByClassName('cancelButton');
+    completeButton = document.getElementsByClassName('completeButton');
+    
+    
+    
+
+
+    for(var i=0; i<number;i++){
+
+        RequestorName[i].innerHTML = "<b> Requestor Name: </b>"+dataArray[i]['RequestorName'];
+        requestTitle[i].innerHTML = "<b> Title: </b>"+dataArray[i]['requestTitle'];
+        requestCategory[i].innerHTML = "<b> Category:  </b>"+dataArray[i]['requestCategory'];
+        requestDescription[i].innerHTML = "<b> Description: </b>"+dataArray[i]['requestDescription'];
+        requestExpectedPrice[i].innerHTML = "<b> Expected Price:  </b> Php "+dataArray[i]['requestExpectedPrice'];
+        isNegotiable[i].innerHTML = dataArray[i]['isNegotiable'];
+        datePosted[i].innerHTML = "<b> Date Posted: </b>"+dataArray[i]['datePosted'];
+        dueDate[i].innerHTML = "<b> Due Date: </b>"+dataArray[i]['dueDate'];
+        requestStatus[i].innerHTML = "<b> Request Status:  </b>"+dataArray[i]['requestStatus'];
+    
+        transactionStartDate[i].innerHTML = "<b>Application Date: </b>"+dataArray[i]['transactionStartDate'];
+        transactionStatus[i].innerHTML = "<b>Application Status: </b>"+dataArray[i]['transactionStatus'];
+        cancelButton[i].setAttribute('onclick','cancelRequestApplication('+dataArray[i]['transactionID']+",'cancelled',"+dataArray[i]['requestID']+")");
+        completeButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'completed',"+dataArray[i]['requestID']+")");
     }
     
 
@@ -442,6 +491,36 @@ function updateRequestApplication(transactionID,update){
     getRequestApplications(myID);
     
 }// end of function
+
+
+// cancel requests 
+function cancelRequestApplication(transactionID,update,requestID){
+    var transactionID = transactionID;
+    var update = update;
+    var requestID  = requestID ;
+    var query = "transactionID=" + transactionID+"&update="+update+"&requestID="+requestID+"&cancelled=true";
+    console.log(query);
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open("POST", "Backend/UpdateTransaction.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onload = function() {
+        if (this.readyState === 4 || this.status === 200){ 
+           
+            var dataArray = this.response;
+            console.log(dataArray);
+ 
+            
+
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send(query);
+    
+}// end of function
+
 
 // --------------------- For cancelled transactions --------------------------------------------------------------
 function getCancelledRequests(userID){
@@ -561,7 +640,7 @@ function getAcceptedRequestApplications(userID){
                 console.log(dataArray);
                 number = dataArray.length;
                 createAcceptedRequestElements(number);
-                setRequestsApplicationData(dataArray);  
+                setAcceptedRequestsApplicationData(dataArray);  
             }
 
         }else{

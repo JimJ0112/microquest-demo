@@ -15,11 +15,9 @@ $ID = $_POST['userID'];
 
 //"userID=" + userID +"&TransactionType=Request&column=requestorID"
 
-/*
-$transactionType = "Service";
-$column =  "RequestorID";
-$ID = 14;
-*/
+
+
+
 
 $transactions = $DBHandler->getCompletedTransactions($ID,$column,$transactionType);
 

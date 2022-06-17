@@ -190,6 +190,10 @@ label{
 
 }
 
+#AvailServiceContent .serviceCard{
+    width: 300px;
+}
+
 
 /*Select service*/
 #AvailServiceForm{

@@ -15,6 +15,7 @@ $price= $_POST["price"];
 $transactionStartDate= $_POST["transactionStartDate"];
 $requestDueDate = $_POST['requestDueDate'];
 
+echo $requestID,$responderID,$requestorID,$price,$transactionStartDate,$requestDueDate;
 $result = $DBHandler->registerRequestTransaction($requestID,$responderID,$requestorID,$price,$transactionStartDate,$requestDueDate);
 echo $result;
 

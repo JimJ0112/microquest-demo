@@ -644,7 +644,7 @@ public function getServicesForSpecialization($tablename,$column,$condition,$orde
     
    
     if(isset($orderby)){
-        $query = "SELECT * FROM $tablename WHERE $column = '$condition'  GROUP BY $orderby";
+        $query = "SELECT * FROM $tablename WHERE $column = '$condition' GROUP BY $orderby";
     }else{
         $query = "SELECT * FROM $tablename WHERE $column = '$condition'";
     }
@@ -937,7 +937,7 @@ public function getRequests($tablename,$column,$condition,$orderby = null){
     
    
     if(isset($orderby)){
-        $query = "SELECT $tablename.*,userprofile.userName,userprofile.municipality,userprofile.userPhoto FROM $tablename INNER JOIN userprofile ON $tablename.requestorID = userprofile.userID WHERE $column = '$condition' ORDER BY $orderby";
+        $query = "SELECT $tablename.*,userprofile.userName,userprofile.municipality,userprofile.userPhoto FROM $tablename INNER JOIN userprofile ON $tablename.requestorID = userprofile.userID WHERE $column = '$condition' AND requestStatus = 'active' ORDER BY $orderby";
     }else{
         $query = "SELECT * FROM $tablename WHERE $column = '$condition'";
     }
@@ -1240,7 +1240,7 @@ public function getMyTransactions($ID,$column,$transactionType){
                 while($row = mysqli_fetch_assoc($result)){
                     
     
-    
+  
     
                     $data[] = $row;
                     
@@ -1275,6 +1275,9 @@ public function getMyTransactions($ID,$column,$transactionType){
                     $file = 'data:image/image/png;base64,'.base64_encode($row['certificateFile']);
                     $row['certificateFile'] = $file;
     
+                    $file = 'data:image/image/png;base64,'.base64_encode($row['bannerImage']);
+                    $row['bannerImage'] = $file;
+
                     $data[] = $row;
                     
                  
@@ -1395,6 +1398,9 @@ public function getCancelledTransactions($ID,$column,$transactionType){
     
                     $file = 'data:image/image/png;base64,'.base64_encode($row['certificateFile']);
                     $row['certificateFile'] = $file;
+                    
+                    $file = 'data:image/image/png;base64,'.base64_encode($row['bannerImage']);
+                    $row['bannerImage'] = $file;
     
                     $data[] = $row;
                     
@@ -1487,6 +1493,9 @@ public function getAcceptedTransactions($ID,$column,$transactionType){
                     $file = 'data:image/image/png;base64,'.base64_encode($row['certificateFile']);
                     $row['certificateFile'] = $file;
     
+                    $file = 'data:image/image/png;base64,'.base64_encode($row['bannerImage']);
+                    $row['bannerImage'] = $file;
+
                     $data[] = $row;
                     
                  
@@ -1577,7 +1586,10 @@ public function getCompletedTransactions($ID,$column,$transactionType){
     
                     $file = 'data:image/image/png;base64,'.base64_encode($row['certificateFile']);
                     $row['certificateFile'] = $file;
-    
+
+                    $file = 'data:image/image/png;base64,'.base64_encode($row['bannerImage']);
+                    $row['bannerImage'] = $file;
+
                     $data[] = $row;
                     
                  
@@ -1884,6 +1896,7 @@ public function registerRequestTransaction($requestID,$responderID,$requestorID,
     $price = mysqli_real_escape_string($this->dbconnection, $price);
     $transactionStartDate = mysqli_real_escape_string($this->dbconnection, $transactionStartDate);
     $requestDueDate = mysqli_real_escape_string($this->dbconnection, $requestDueDate);
+    $timeslot = '';
     $additionalNotes = '';
     $transactionsStatus = "pending";
 
@@ -1894,7 +1907,7 @@ public function registerRequestTransaction($requestID,$responderID,$requestorID,
    //	transactionID	requestID	serviceID	requestorID	responderID	price	transactionStatus	transactionStartDate	transactionEndDate	
 
 
-    $query = "INSERT INTO $tablename VALUES(0,$requestID,null,$requestorID,$responderID,$price,'$transactionsStatus','$transactionStartDate',null,'$requestDueDate','$additionalNotes')";
+    $query = "INSERT INTO $tablename VALUES(0,$requestID,null,$requestorID,$responderID,$price,'$transactionsStatus','$transactionStartDate',null,'$requestDueDate','$timeslot','$additionalNotes')";
 
     $result = mysqli_query($this->dbconnection, $query);
  

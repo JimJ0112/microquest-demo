@@ -80,7 +80,7 @@ session_start();
             $usertype = $_SESSION['userType'];
             if($usertype === "Responder"){
                 $specialization = $_SESSION['specialization'];
-                echo "<div class='requestCat-main' onclick= setCategory('$specialization')> Specialization </div>";
+                echo "<div class='requestCat-main' onclick=\"setCategory('$specialization')\"> Specialization </div>";
                 
             }
         }
