@@ -22,8 +22,13 @@ echo $result = $DBHandler -> updateColumn($tablename,$column,$name,$condition,$c
 
 // $query = "UPDATE $tablename SET $column = '$name' WHERE $condition = '$conditionvalue' ";
 
+date_default_timezone_set("Asia/Manila");
+$today = date("Y-m-d");
+
+
 if(isset($_POST['requestID']) && !isset($_POST['cancelled'])){
 
+    // update transaction status
     $tablename = "transactions";
 
     $column = "transactionStatus";
@@ -38,6 +43,7 @@ if(isset($_POST['requestID']) && !isset($_POST['cancelled'])){
 
 
 
+    // update request status
 
     $tablename = "requestsinfo";
 
@@ -49,10 +55,26 @@ if(isset($_POST['requestID']) && !isset($_POST['cancelled'])){
 
 
     echo $result = $DBHandler -> updateColumn($tablename,$column,$name,$condition,$conditionvalue);
+    
+
+
+    // set end date
+    $tablename = "transactions";
+
+    $column = "transactionEndDate";
+    $condition = "transactionID";
+
+
+    $name = $today;
+    $conditionvalue = $_POST['transactionID'];
+
+
+    echo $result = $DBHandler -> updateColumn($tablename,$column,$name,$condition,$conditionvalue);
     echo $conditionvalue;
 
 } else if(isset($_POST['cancelled']) && isset($_POST['requestID'])){
 
+    // set transaction status
     $tablename = "transactions";
 
     $column = "transactionStatus";
@@ -66,7 +88,7 @@ if(isset($_POST['requestID']) && !isset($_POST['cancelled'])){
 
 
 
-
+    // set request status
 
     $tablename = "requestsinfo";
 
@@ -76,23 +98,53 @@ if(isset($_POST['requestID']) && !isset($_POST['cancelled'])){
     $name = "Active";
     $conditionvalue = $_POST['requestID'];
 
-    $query = "UPDATE $tablename SET $column = '$name' WHERE $condition = '$conditionvalue' ";
+  
 
     echo $result = $DBHandler -> updateColumn($tablename,$column,$name,$condition,$conditionvalue);
-    echo $query;
+   
+
+        // set end date
+        $tablename = "transactions";
+
+        $column = "transactionEndDate";
+        $condition = "transactionID";
+    
+    
+        $name = $today;
+        $conditionvalue = $_POST['transactionID'];
+    
+    
+        echo $result = $DBHandler -> updateColumn($tablename,$column,$name,$condition,$conditionvalue);
+        echo $conditionvalue;
 
 } else {
 
-    $tablename = "transactions";
+    // set transaction status
+        $tablename = "transactions";
 
-    $column = "transactionStatus";
-    $condition = "transactionID";
+        $column = "transactionStatus";
+        $condition = "transactionID";
 
-    $name = $_POST['update'];
-    $conditionvalue = $_POST['transactionID'];
+        $name = $_POST['update'];
+        $conditionvalue = $_POST['transactionID'];
 
 
-    echo $result = $DBHandler -> updateColumn($tablename,$column,$name,$condition,$conditionvalue);
+        echo $result = $DBHandler -> updateColumn($tablename,$column,$name,$condition,$conditionvalue);
+
+
+        // set end date
+        $tablename = "transactions";
+
+        $column = "transactionEndDate";
+        $condition = "transactionID";
+    
+    
+        $name = $today;
+        $conditionvalue = $_POST['transactionID'];
+    
+    
+        echo $result = $DBHandler -> updateColumn($tablename,$column,$name,$condition,$conditionvalue);
+        echo $conditionvalue;
 }
 
 

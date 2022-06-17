@@ -1252,10 +1252,15 @@ function setCompletedRequestsApplicationData(array){
        if(dataArray[i]['transactionStatus'] === 'completed'){
         paybutton[i].innerText = "Pay";
         paybutton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'paid')");
-       } else if(dataArray[i]['transactionStatus'] === 'confirmed paid'){
-        paybutton[i].innerText = "paid";
+       } else if(dataArray[i]['transactionStatus'] === 'payment confirmed'){
+        paybutton[i].innerText = "payment confirmed";
+        paybutton[i].style.display = "none";
        } else if (dataArray[i]['transactionStatus'] === 'paid'){
         paybutton[i].innerText = "waiting for payment confirmation";
+        paybutton[i].style.display = "none";
+        var text = document.createElement('b');
+        text.innerText = "waiting for payment confirmation";
+        buttonsCol[i].appendChild(text);
        }
     }
     
@@ -1323,10 +1328,16 @@ function setCompletedServiceOrdersData(array){
                     paybutton[i].innerText = "Pay";
                     paybutton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'paid')");
 
-                } else if(dataArray[i][transactionStatus] === "paid"){
+                } else if(dataArray[i]['transactionStatus'] === "paid"){
                     paybutton[i].innerText = "Waiting for payment confirmation";
-                } else if(dataArray[i][transactionStatus] === "confirmed paid"){
+                    paybutton[i].style.display = "none";
+                    var text = document.createElement('b');
+                    text.innerHTML = "Waiting for payment confirmation";
+                    buttonsCol[i].appendChild(text);
+
+                } else if(dataArray[i]['transactionStatus'] === "payment confirmed"){
                     paybutton[i].innerText = "confirm paid";
+                    paybutton[i].style.display = "none";
                 }
             
             }
