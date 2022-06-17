@@ -30,7 +30,7 @@
             </li>
             
             <li><a href="Requestor_Home.php">Home</a></li>
-            <li><a href="Messages.php">Message</a></li>    
+            <li><a href="Conversations.php">Message</a></li>    
             
           </ul>
           <hr style="border: 1px solid rgb(230, 200, 178)" />

@@ -18,34 +18,56 @@ if($senderID != $recieverID){
     $messageTime = time();
     $firstChat =  $DBHandler->firstConversation($senderID,$recieverID);
 
-   if($firstChat === 1){
-       $firstChat = 0;
-   } else{
-       $firstChat = 1;
-   }
+    if($firstChat === 1){
 
-   echo $firstChat;
+        
 
-   $senderUserName = $_POST['senderUserName'];
-   $recieverUserName = $_POST['recieverUserName'];
+        $senderUserName = $_POST['senderUserName'];
+        $recieverUserName = $_POST['recieverUserName'];
 
-    if(isset($_FILES['messageFile'])){
-        $messageFile = $_FILES['messageFile']['tmp_name'];
-        $messageFiletype = $_FILES['messageFile']['type'];
-        $result = $DBHandler->sendMessage($senderID,$recieverID,$messageBody,$messageDate,$messageTime,$firstChat,$senderUserName,$recieverUserName,$messageFileType,$messageFile);
+    
+        
+ 
+        if(isset($_FILES['messageFile'])){
+            $messageFile = $_FILES['messageFile']['tmp_name'];
+            $messageFiletype = $_FILES['messageFile']['type'];
+            $result = $DBHandler->sendMessage($senderID,$recieverID,$messageBody,$messageDate,$messageTime,$firstChat,$senderUserName,$recieverUserName,$messageFileType,$messageFile);
+         }else{
+     
+             $result = $DBHandler->sendMessage($senderID,$recieverID,$messageBody,$messageDate,$messageTime,$firstChat,$senderUserName,$recieverUserName);
+     
+        }
+
+        $DBHandler-> updateConversation($recieverID,$senderID,$messageBody,$messageDate);
+ 
+         echo $result;
+         header("location:../Messages.php");
+
+
+    } else{
+
+            $firstChat = 0;
+            echo $DBHandler -> newConversation($senderID,$recieverID,$messageBody,$messageDate,"New Message");
+
+
+         
+
+            $senderUserName = $_POST['senderUserName'];
+            $recieverUserName = $_POST['recieverUserName'];
+ 
+            if(isset($_FILES['messageFile'])){
+                $messageFile = $_FILES['messageFile']['tmp_name'];
+                $messageFiletype = $_FILES['messageFile']['type'];
+                $result = $DBHandler->sendMessage($senderID,$recieverID,$messageBody,$messageDate,$messageTime,$firstChat,$senderUserName,$recieverUserName,$messageFileType,$messageFile);
+            }else{
+                $result = $DBHandler->sendMessage($senderID,$recieverID,$messageBody,$messageDate,$messageTime,$firstChat,$senderUserName,$recieverUserName);
+            }
+ 
+            echo $result;
+            header("location:../Messages.php");
+
     }
     
-        $result = $DBHandler->sendMessage($senderID,$recieverID,$messageBody,$messageDate,$messageTime,$firstChat,$senderUserName,$recieverUserName);
-    
-    
-
-        echo $result;
-        header("location:../Messages.php");
-
- 
-    
-    
-
 } else{
     echo "failed";
     header("location:../Messages.php?msg=message to self coming soon..");

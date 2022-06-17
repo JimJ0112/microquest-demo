@@ -127,6 +127,8 @@ public function verifyuser($email,$password){
 
 }
 
+// tatry ko irevamp to
+/*
 public function firstConversation($myID,$userID){
     $tablename = "messages";
     $myID = mysqli_real_escape_string($this->dbconnection, $myID);
@@ -147,6 +149,46 @@ public function firstConversation($myID,$userID){
   
 
 }
+*/
+
+public function firstConversation($myID,$userID){
+    $tablename = "conversations";
+    $myID = mysqli_real_escape_string($this->dbconnection, $myID);
+    $userID = mysqli_real_escape_string($this->dbconnection, $userID);
+
+    $query = "SELECT * FROM $tablename WHERE senderID = $myID AND recieverID=$userID OR senderID = $userID AND recieverID=$myID";
+   
+    //$query = "SELECT messages.*, sender.userName, sender.userPhoto, reciever.userName, reciever.userPhoto FROM messages INNER JOIN userprofile as sender ON(messages.messageSender = sender.userID) INNER JOIN userprofile as reciever ON(messages.messageReciever = reciever.userID) WHERE messages.messageSender = $myID AND messages.messageReciever=$userID OR messages.messageSender = $userID AND messages.messageReciever=$myID ";
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+
+
+    if($resultCheck > 0){
+        return 1;
+    } else {
+        return 0;
+    }
+  
+
+}
+
+
+public function newConversation($senderID,$recieverID,$latestMessage,$date,$conversationStatus){
+    //	conversationID	senderID	recieverID	latestMessage	latestMessageDate	conversationStatus	
+
+    $senderID = mysqli_real_escape_string($this->dbconnection, $senderID);
+    $recieverID = mysqli_real_escape_string($this->dbconnection, $recieverID);
+    $latestMessage = mysqli_real_escape_string($this->dbconnection, $latestMessage);
+    $date = mysqli_real_escape_string($this->dbconnection, $date);
+    $conversationStatus = mysqli_real_escape_string($this->dbconnection,$conversationStatus);    
+
+    $query = "INSERT INTO conversations VALUES(0,'$senderID','$recieverID','$latestMessage','$date','$conversationStatus');";
+    $result = mysqli_query($this->dbconnection, $query);
+
+    return $result;
+}
+
+
 
 // for admin login
 public function verifyadmin($email,$password){
@@ -1071,6 +1113,8 @@ function nearestRequests($tablename,$column,$condition,$orderby = null){
 
 
 // getting Messages from messages table
+/*
+
 public function getUserMessages($ID,$groupBy=null){
     $ID = mysqli_real_escape_string($this->dbconnection, $ID);
     $tablename = "messages";
@@ -1080,8 +1124,7 @@ public function getUserMessages($ID,$groupBy=null){
 
    
    if(isset($groupBy)){
-       //$query = "SELECT * FROM $tablename WHERE $column = $ID OR $column1 = $ID AND firstChat = 1 GROUP BY messageSender,messageReciever ORDER BY messageID ";
-        //$query = "SELECT * FROM $tablename WHERE $column = $ID  GROUP BY $groupBy";
+
 
         $query = "select messages.*,sender.userID, sender.userPhoto as senderUserPhoto, sender.userName as senderUserName,reciever.userID, reciever.userPhoto as recieverUserPhoto, reciever.userName 
         FROM  $tablename
@@ -1092,8 +1135,7 @@ public function getUserMessages($ID,$groupBy=null){
 
    } else {
 
-        //$query = "SELECT * FROM $tablename WHERE ($column = $ID OR $column1 = $ID) AND firstChat = 1";
-       //$query = "SELECT * FROM $tablename WHERE $column = $ID = $ID";
+
        $query = "select messages.*,sender.userID, sender.userPhoto as senderUserPhoto, sender.userName as senderUserName,reciever.userID, reciever.userPhoto as recieverUserPhoto, reciever.userName 
        FROM  $tablename
        INNER JOIN userprofile as sender ON(sender.userID = messages.messageSender)
@@ -1119,12 +1161,7 @@ public function getUserMessages($ID,$groupBy=null){
                     $file = 'data:image/image/png;base64,'.base64_encode($row['messageFile']);
                     $row['messageFile'] = $file;
                     }
-                /*} else {
-                    $file = 'data:application/pdf;base64,'.base64_encode($row['IDCARD']);
-                    $row['IDCARD'] = $file;
-                    
-                  } 
-                */
+  
                   
                  $file = 'data:image/image/png;base64,'.base64_encode($row["recieverUserPhoto"]);
 
@@ -1133,6 +1170,81 @@ public function getUserMessages($ID,$groupBy=null){
                  $file = 'data:image/image/png;base64,'.base64_encode($row["senderUserPhoto"]);
 
                  $row['senderUserPhoto'] = $file;
+
+
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
+*/
+
+
+
+public function getUserMessages($ID,$groupBy=null){
+    $ID = mysqli_real_escape_string($this->dbconnection, $ID);
+    $tablename = "conversations";
+
+   
+
+   
+   if(isset($groupBy)){
+
+
+        $query = "select $tablename.*,sender.userID, sender.userPhoto as senderUserPhoto, sender.userName as senderUserName,reciever.userID, reciever.userPhoto as recieverUserPhoto, reciever.userName as recieverUserName 
+        FROM $tablename
+        INNER JOIN userprofile as sender ON(sender.userID = conversations.senderID) 
+        INNER JOIN userprofile as reciever ON(reciever.userID = conversations.recieverID) 
+        WHERE (senderID = $ID OR recieverID = $ID ) ORDER BY latestMessageDate;";
+
+   } else {
+
+
+        $query = "select $tablename.*,sender.userID, sender.userPhoto as senderUserPhoto, sender.userName as senderUserName,reciever.userID, reciever.userPhoto as recieverUserPhoto, reciever.userName as recieverUserName 
+        FROM $tablename
+        INNER JOIN userprofile as sender ON(sender.userID = conversations.senderID) 
+        INNER JOIN userprofile as reciever ON(reciever.userID = conversations.recieverID) 
+        WHERE (senderID = $ID OR recieverID = $ID ) ORDER BY latestMessageDate;";
+        
+   }
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+    $file;
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+                //if(strpos($row['ID_FILETYPE'],"image")){
+
+                    if(isset($row['messageFile'])){
+                    $file = 'data:image/image/png;base64,'.base64_encode($row['messageFile']);
+                    $row['messageFile'] = $file;
+                    }
+  
+                  
+                    $file = 'data:image/image/png;base64,'.base64_encode($row["recieverUserPhoto"]);
+
+                     $row['recieverUserPhoto'] = $file;
+
+                    $file = 'data:image/image/png;base64,'.base64_encode($row["senderUserPhoto"]);
+
+                    $row['senderUserPhoto'] = $file;
 
 
 
@@ -1715,6 +1827,24 @@ public function updateColumn($tablename,$column,$name,$condition,$conditionvalue
     $conditionvalue = mysqli_real_escape_string($this->dbconnection, $conditionvalue);
 
     $query = "UPDATE $tablename SET $column = '$name' WHERE $condition = '$conditionvalue' ";
+
+    $result = mysqli_query($this->dbconnection, $query);
+
+
+        
+  
+}
+
+// update columns 
+public function updateConversation($userID,$myID,$messageBody,$date){
+    $tablename = "conversations";
+    $column = "latestMessage";
+    $messageBody = mysqli_real_escape_string($this->dbconnection, $messageBody);
+    $userID = mysqli_real_escape_string($this->dbconnection, $userID);
+    $myID = mysqli_real_escape_string($this->dbconnection, $myID);
+    $date = mysqli_real_escape_string($this->dbconnection, $date);
+
+    $query = "UPDATE $tablename SET latestMessage = '$messageBody', latestMessageDate = '$date', conversationStatus = 'New Message' WHERE (senderID = $myID AND recieverID = $userID OR senderID= $userID AND recieverID = $myID); ";
 
     $result = mysqli_query($this->dbconnection, $query);
 

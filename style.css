@@ -11,7 +11,10 @@ body{
 
 }
 
-
+li{
+    text-decoration: none;
+    list-style-type: none;
+}
 
 
 *{
@@ -756,50 +759,40 @@ label{
 
 
 /* Messages */
+
+/* Messages */
 #messagesContent{   
     display: grid;
-    outline: auto;
-    width: 99.9%;
+    width: 500px;
+    margin: auto;
     background-color: white;
     padding: 0;
-    height: 900px;
+    height: 600px;
     grid-row-gap: 0;
-    grid-template-areas: "search messagemain messagemain"
-                         "inbox messagemain messagemain"
-                         "inbox messagemain messagemain"
-                         "inbox messagemain messagemain";
-}
-#inbox{
-    outline: auto;
-    grid-area: inbox;
-    overflow: scroll;
-}
-#messagesMain{
-    overflow: scroll;
-    outline: auto;
-    grid-area: messagemain; 
-    
-    display: grid;
-    grid-template-areas: "conversation conversation"
-                         "conversation conversation"
-                         "conversation conversation"
-                         "conversation conversation"
-                         "messageform messageform";
+  
 
 }
+
+#messagesMain{
+padding: 0;
+
+
+}
+
 #conversation{
  
-    grid-area: conversation;
     display: block;
     overflow: scroll;
-    z-index: 0;
+    z-index: -3;
+    height: 500px;
+    border: 1px solid black;
     
 }
 
 #conversationHeader{
     outline: auto;
-    grid-area: conversation;
-    background-color: rgb(61, 36, 7);
+    grid-area: header;
+    background-color: rgb(148, 92, 29);
     color: white;
     font-weight: bolder;
     font-size: large;
@@ -807,38 +800,34 @@ label{
     text-align: center;
     z-index: 5;
 }
+
 #messageForm{
     
     display: grid;
     padding: 0;
-    
-    grid-area: messageform;
-    align-content: center;
-    /*
-    grid-template-areas: "fill messagebody messagebody filler none"
-                         "fill messagebody messagebody filler send"
-                         "fill messagebody messagebody filler file";
-                         
-    grid-template-areas: "messagebody messagebody messagebody messagebody send";
-    */
+    margin: 0;
+    height: fit-content;
 
+    
+    align-content: center;
     grid-template-columns: 1fr 5fr 1fr;
+
     
     
 }
 #messageBody{
     width: 100%;
-    height: 40px;
+    height: 20px;
     border:5px solid rgb(54, 33, 9);
    
 }
 
 #send{
    
-    width: 100px;
     background-image: url("Images/send.png");
-    background-color: rgb(54, 33, 9);
+    background-color: rgb(126, 80, 28);
     color: white;
+    cursor: pointer;
     
 }
 
@@ -903,30 +892,8 @@ label{
     margin: 0;
 }
 
-.messageUserPhoto{
-    height: 50px;
-    width: 50px;
-    border-radius: 50px;
-    border: 2px solid black;
-    object-fit: cover;
-}
 
-#Chats{
-    grid-area: Chats;
-}
-#messageSearch{
-    grid-area: searchbox;
-}
-#messageSearchButton{
-    grid-area: searchButton;
-    height: 40px;
-    width: 100%;
-}
-#createNewMessage{
-    grid-area: createNewMessage;
-    height: 40px;
-    width: 100%;
-}
+
 
 
 /*verify email address*/
@@ -1223,4 +1190,113 @@ label{
     word-wrap: break-word;
     
     width: 100%;
+}
+
+/*Conversations */
+
+
+#conversationsContent{
+    border: 1px solid black;
+
+    width: 350px;
+    box-shadow: 5px 5px 20px 0px black;
+    margin: auto;
+    padding:10px;
+    height: 500px;
+    overflow:hidden;
+
+    
+}
+
+#conversationsList{
+   
+    height: 500px;
+    overflow:auto;
+   
+   
+}
+
+
+
+#conversationSearch{
+    border: 3px solid rgb(70, 28, 9);
+    height: 40px;
+    width: 250px;
+    margin: 0;
+   
+}
+#conversationSearch:focus{
+    width: 250px;
+
+}
+
+
+
+#conversationSearchButton{
+    border: 3px solid rgb(70, 28, 9);
+    height: 40px;
+    margin:0;
+    cursor: pointer;
+}
+
+#conversationCreateNewMessage{
+    border: 3px solid rgb(70, 28, 9);
+    height: 40px;
+    margin:0;
+    cursor: pointer;
+}
+
+.inboxCard td{
+    
+  
+    padding: 2px;
+}
+
+.lastMessageDiv{
+    
+    width: 100px;
+    padding:0;
+
+}
+
+.lastMessageP{
+    border-radius: 0px 40px 40px 40px;
+    padding: 5px;
+    overflow: hidden;
+    text-align: justify;
+    background-color: rgba(214, 230, 248, 0.884);
+    width: 200px;
+    height: 70px;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+}
+
+.inboxCard{
+    border-bottom:1px solid black;
+    height: 150px;
+    width: auto;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    padding:5px;
+    
+}
+
+.newMessageTag{
+    background-color: blue;
+    color: white;
+}
+
+.messageUserPhoto{
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    border: 2px solid black;
+    object-fit: cover;
+    margin-top: 0;
+    
+}
+
+.setConversation{
+    text-decoration: none;
+    color:black;
 }
