@@ -29,11 +29,25 @@ session_start();
     <?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
+
+            /*
             if($usertype === "Responder"){
                 require("Includes/Responder_Navbar.inc.php");
             }else if($usertype === "Requestor"){
                 require("Includes/Requestor_Navbar.inc.php");
             }
+            */
+
+            
+            if($usertype === "Responder"){
+
+                require("Includes/responderNav.inc.php");
+            }else if($usertype === "Requestor"){
+
+                require("Includes/requestorNav.inc.php");
+            }
+            
+
         }
 
             echo $_SESSION["userEmail"]."<br/>";

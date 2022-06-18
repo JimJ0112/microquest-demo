@@ -41,7 +41,7 @@ session_start();
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
                 if($usertype === "Requestor"){
-                    require("Includes/Requestor_Navbar.inc.php");
+                    require("Includes/requestorNav.inc.php");
                 }
         }
         

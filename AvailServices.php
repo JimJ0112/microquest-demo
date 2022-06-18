@@ -43,7 +43,7 @@ session_start();
             
             if($usertype === "Responder"){
 
-                require("Includes/responderNav.inc.php");
+                header('location: Responder_Home.php');
             }else if($usertype === "Requestor"){
 
                 require("Includes/requestorNav.inc.php");

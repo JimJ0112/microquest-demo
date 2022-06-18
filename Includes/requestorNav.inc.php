@@ -7,12 +7,16 @@
     <link rel="stylesheet" href="Includes/nav.css">
     
     
+<style> 
 
+</style>
 
 </head>
-<body style=" background-image: url('Images/p.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
+
+<!--<body style=" background-image: url('Images/p.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">-->
+<body>
         <!-- NAV -->
-        <div style="color: white">
+        <div style="color: white; background-image: url('Images/p.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; background-attachment: fixed;font-family: 'Courier New', Courier, monospace;padding:10px;">
     <h1 style="float: left; font-size: 37px; margin-right: 9px" class="a">micro</h1>
     <h1  style="float: left; font-size: 44px; margin-right: 9px" class="b">Quest</h1>
 
@@ -34,7 +38,7 @@
             
             <li><a href="Requestor_Home.php">Home</a></li>
             <li><a href="Conversations.php">Message</a></li>    
-            
+            <p style="color:white; font-weight:bold; background-color:brown; border-radius:10px; width:fit-content; padding:10px;"> Requestor </p>
           </ul>
           <hr style="border: 1px solid rgb(230, 200, 178)" />
 

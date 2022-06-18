@@ -1018,6 +1018,52 @@ public function getRequests($tablename,$column,$condition,$orderby = null){
 }
 
 
+// get other Requests
+public function getOtherRequests(){
+    $tablename = "requestsinfo";
+
+    
+   
+    
+    $query = "SELECT $tablename.*,userprofile.userName,userprofile.municipality,userprofile.userPhoto FROM $tablename INNER JOIN userprofile ON $tablename.requestorID = userprofile.userID WHERE( requestCategory != 'Home Service' AND  requestCategory != 'Computer related work' AND  requestCategory != 'Pasabuy')AND requestStatus = 'active'";
+   
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+    
+  
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+
+                
+                $file = 'data:image/image/png;base64,'.base64_encode($row['userPhoto']);
+                $row['userPhoto'] = $file;
+                
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
+
+
+
 // get My Requests
 public function getMyRequests($tablename,$column,$condition,$orderby = null){
     $tablename = mysqli_real_escape_string($this->dbconnection, $tablename);

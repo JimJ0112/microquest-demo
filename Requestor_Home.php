@@ -34,7 +34,7 @@ session_start();
     <title>Homepage - <?php echo $_SESSION["userEmail"]; ?></title>
 </head>
 
-<body style="background-image: url('Images/p.jpg');">
+<body style="background-image: url('Images/p.jpg'); zoom:70%;">
     <!-- NAV -->
     <?php
 
@@ -51,7 +51,7 @@ session_start();
     ?>
 
 <br/>
-    <center> <h1 id="RequestOrdersTitle"> Requestor </h1> </center>
+    
 
 <center>
   <div class="HomeContainer">

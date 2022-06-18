@@ -39,14 +39,28 @@ session_start();
 
 <!-- end of body -->
 
-    <?php
+<?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
+
+            /*
             if($usertype === "Responder"){
                 require("Includes/Responder_Navbar.inc.php");
             }else if($usertype === "Requestor"){
                 require("Includes/Requestor_Navbar.inc.php");
             }
+            */
+
+            
+            if($usertype === "Responder"){
+
+                require("Includes/responderNav.inc.php");
+            }else if($usertype === "Requestor"){
+
+                require("Includes/requestorNav.inc.php");
+            }
+            
+
         }
 
     ?>
@@ -123,7 +137,7 @@ session_start();
     </div>
 
 
-    <div class="requestCat-main" onclick="getRequests()"> 
+    <div class="requestCat-main" onclick="getOtherRequests()"> 
         <image src="Images/RequestBanners/others.jpg" class="bannerImage"> <br/>
         <center> <div class="categoryTitle"> Other </div> </center> 
     </div>

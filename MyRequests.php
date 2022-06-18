@@ -36,7 +36,7 @@ session_start();
             $usertype = $_SESSION["userType"];
 
             if($usertype === "Requestor"){
-                require("Includes/Requestor_Navbar.inc.php");
+                require("Includes/requestorNav.inc.php");
             }else if($usertype === "Responder"){
                 header("location:Responder_Home.php?Msg= Not a Responder");
             }

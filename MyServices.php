@@ -49,7 +49,7 @@ session_start();
                 require("Includes/responderNav.inc.php");
             }else if($usertype === "Requestor"){
 
-                require("Includes/requestorNav.inc.php");
+                header("location:Requestor_Home.php?msg=not a responder");
             }
             
 

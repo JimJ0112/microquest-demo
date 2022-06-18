@@ -29,18 +29,31 @@ session_start();
     <title> My Services </title>
 </head>
 
-<body style="background-image: url('Images/p.jpg');">
+<body>
 
-    <?php
+<?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
 
-            if($usertype === "Requestor"){
-                require("Includes/requestorNav.inc.php");
-            }else if($usertype === "Responder"){
-                header("location:Responder_Home.php?Msg= Not a Requestor");
+            /*
+            if($usertype === "Responder"){
+                require("Includes/Responder_Navbar.inc.php");
+            }else if($usertype === "Requestor"){
+                require("Includes/Requestor_Navbar.inc.php");
             }
+            */
+
+            
+            if($usertype === "Requestor"){
+
+                require("Includes/requestorNav.inc.php");
+            } else{
+                header("location:Responder_Home.php");
+            }
+            
+
         }
+
     ?>
 
     <?php

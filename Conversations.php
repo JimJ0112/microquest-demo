@@ -39,14 +39,15 @@ if(isset($_SESSION['userID'])){
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
 
+            /*
             if($usertype === "Responder"){
                 require("Includes/Responder_Navbar.inc.php");
             }else if($usertype === "Requestor"){
                 require("Includes/Requestor_Navbar.inc.php");
             }
+            */
 
-
-            /*
+            
             if($usertype === "Responder"){
 
                 require("Includes/responderNav.inc.php");
@@ -54,11 +55,11 @@ if(isset($_SESSION['userID'])){
 
                 require("Includes/requestorNav.inc.php");
             }
-            */
+            
 
         }
 
-    ?>
+    ?>  
 
 <audio controls id="messageNotification" autoplay>
   <source src="../Sfx/NewMessage.mp3" type="audio/ogg">
