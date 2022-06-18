@@ -48,14 +48,15 @@ if(isset($_GET['conversationID'])){
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
 
+            /*
             if($usertype === "Responder"){
                 require("Includes/Responder_Navbar.inc.php");
             }else if($usertype === "Requestor"){
                 require("Includes/Requestor_Navbar.inc.php");
             }
+            */
 
-
-            /*
+            
             if($usertype === "Responder"){
 
                 require("Includes/responderNav.inc.php");
@@ -63,7 +64,7 @@ if(isset($_GET['conversationID'])){
 
                 require("Includes/requestorNav.inc.php");
             }
-            */
+            
 
         }
 
@@ -85,9 +86,11 @@ if(isset($_GET['conversationID'])){
 
 
 
- 
+
+
 <div id="messagesContent">
-<br/>
+<div> <a href="Conversations.php">  Back to Contacts </a> </div>
+
     <div id="messagesMain"> 
         <div id="conversationHeader">
             <image id="conversationImage"/>
@@ -96,6 +99,8 @@ if(isset($_GET['conversationID'])){
         </div>
 
         <div id="conversation"> </div>
+    
+        <br/>
         <div id="messageForm">
                 <input type="hidden" name="senderID" id="senderID">
                 <input type="hidden" name="recieverID" id="recieverID">
@@ -105,16 +110,17 @@ if(isset($_GET['conversationID'])){
 
                 
                 
-                <input type="button" id="file" value="📎">
-
-
-
-                <input type="text" id="messageBody" oninput="checkText()" placeholder="Send Message.."> 
-                <input type="button" id="send" value="SEND" onclick="sendMessage()" disabled> 
-                
+               
+               <tr>
+                    <td> <input type="button" id="file" value="📎"> </td>
+                    <td> <input type="text" id="messageBody" oninput="checkText()" placeholder="Send Message.."> </td>
+                    <td> <input type="button" id="send" value="SEND" onclick="sendMessage()" disabled> </td>
+               <tr>
+          
                 
         </div>
 
+    
 
 
     </div>

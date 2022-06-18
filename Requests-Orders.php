@@ -53,7 +53,9 @@ session_start();
 
 
 
-
+<br/> <br/>
+<center> <h1 id="RequestOrdersTitle"> Responder's Transactions</h1> </center>
+<br/> <br/>
 
      <div id="orderRequestsNav">
         <center>
@@ -84,8 +86,6 @@ session_start();
                  Accepted Services
             </div> 
 
-
-
             <div class="orderRequestsButton" onclick='<?php echo"getCompletedService($userID)"?>'>
                  Completed Services
             </div> 
@@ -105,10 +105,8 @@ session_start();
 
 
 
-  
+    <br/> <br/>
     <center>
-
-
     <Table> 
 
         <tbody id="requestsOrdersContent">

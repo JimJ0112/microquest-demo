@@ -29,14 +29,14 @@ session_start();
     <title> My Services </title>
 </head>
 
-<body>
+<body style="background-image: url('Images/p.jpg');">
 
     <?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
 
             if($usertype === "Requestor"){
-                require("Includes/Requestor_Navbar.inc.php");
+                require("Includes/requestorNav.inc.php");
             }else if($usertype === "Responder"){
                 header("location:Responder_Home.php?Msg= Not a Requestor");
             }
@@ -53,7 +53,9 @@ session_start();
 
 
 
-
+<br/> <br/>
+<center> <h1 id="RequestOrdersTitle"> Requestor's Transactions </h1> </center>
+<br/> <br/>
 
      <div id="orderRequestsNav">
         <center>

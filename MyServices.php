@@ -31,16 +31,30 @@ session_start();
 
 <body>
 
-    <?php
+<?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
 
+            /*
             if($usertype === "Responder"){
                 require("Includes/Responder_Navbar.inc.php");
             }else if($usertype === "Requestor"){
-                header("location:Requestor_Home.php?Msg= Not a Responder");
+                require("Includes/Requestor_Navbar.inc.php");
             }
+            */
+
+            
+            if($usertype === "Responder"){
+
+                require("Includes/responderNav.inc.php");
+            }else if($usertype === "Requestor"){
+
+                require("Includes/requestorNav.inc.php");
+            }
+            
+
         }
+
     ?>
 
     <?php
@@ -69,12 +83,38 @@ session_start();
     </div>
 
 
+    <div id="activateDelistFormBackground">
+        <center>
+        <div id="closeButton" onclick="hideActivateDelist()" ><span style="color:red;"> X </span></div>
+            <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> 
+            <div id="activateDelistForm">
+                
+                <h3> Are you sure you want to continue with this change?</h3> 
+                <input type="Button" value="Yes" id="activateDelistYes"/>
+                <input type="Button" value="No" onclick="hideActivateDelist()"/>
+            </div>
+        
+        </center>
+    </div>
+
+    <div id="certificateViewBackground">
+        <center>
+        <div id="closeButton" onclick="hideImageView()"> X </div>
+            <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> 
+           
+                <image id="certificateView"/> 
+           
+        
+        </center>
+    </div>
+
+
+
+    <br/><br/><br/>
+    <center> <h1 id="RequestOrdersTitle"> Responder's Services </h1> </center>
+
      <div id="myServicesNav">
         <center>
-            <div id="MyServicesButton">
-                My Services
-            </div> 
-
             <div id="MyProducts">
             </div> 
         </center>

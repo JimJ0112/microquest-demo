@@ -119,6 +119,8 @@ if(isset($_POST['requestID']) && !isset($_POST['cancelled'])){
 
 } else {
 
+
+        $update = $_POST['update'];
     // set transaction status
         $tablename = "transactions";
 
@@ -145,6 +147,9 @@ if(isset($_POST['requestID']) && !isset($_POST['cancelled'])){
     
         echo $result = $DBHandler -> updateColumn($tablename,$column,$name,$condition,$conditionvalue);
         echo $conditionvalue;
+
+
+        
 }
 
 

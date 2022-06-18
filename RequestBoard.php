@@ -53,7 +53,9 @@ session_start();
 
 
 <center>
-<h2> Request Board </h2>
+<br/><br/><br/>
+    <center> <h1 id="RequestOrdersTitle"> Request Board </h1> </center>
+    <br/><br/><br/>
     <?php
             if(isset($_SESSION["userType"])){
                 $usertype = $_SESSION["userType"];
@@ -80,7 +82,9 @@ session_start();
             $usertype = $_SESSION['userType'];
             if($usertype === "Responder"){
                 $specialization = $_SESSION['specialization'];
-                echo "<div class='requestCat-main' onclick=\"setCategory('$specialization')\"> Specialization </div>";
+                echo "<div class='requestCat-main' onclick=\"setCategory('$specialization')\">
+                <image src='Images/RequestBanners/Specialization.png' class='bannerImage'> 
+                Specialization </div>";
                 
             }
         }

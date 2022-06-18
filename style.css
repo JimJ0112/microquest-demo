@@ -7,11 +7,12 @@ body{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
    /* background-image: url('Images/p.jpg'); */
 
-   /*background-color: rgb(61, 36, 7);*/
+  /*background-color: rgb(61, 36, 7);*/
 
 
     transform: scale(1.0);
     transform-origin: 0 0;
+    zoom: 70%;
 
 
 }
@@ -21,6 +22,18 @@ li{
     list-style-type: none;
 }
 
+input[type="button"]{
+
+    width: 100px;
+    height: 50px;
+    cursor: pointer;
+}
+
+button{
+    width: 100px;
+    height: 50px;
+    cursor: pointer;
+}
 
 *{
     margin: 0;
@@ -682,16 +695,32 @@ label{
     white-space: nowrap;
     display: grid;
     border-radius: 10px 10px 0px 0px;
+    padding: 2px;
 
 
     
 }
 
 .viewRequest{
+    
     border: 1px solid black;
     text-align: center;
+    width: 100px;
+    margin: auto;
+    margin-top: 10px;
+    padding: 5px;
+    font-weight: bold;
+    background-color: rgb(66, 37, 12);
+    color: white;
     
 }
+
+.viewRequest:hover{
+    background-color: rgb(148, 82, 24);
+    color: white;
+    
+}
+
 
 .requestorID{
     display: none;
@@ -764,19 +793,23 @@ label{
 
 /* Messages */
 #messagesContent{   
-    display: grid;
-    width: 500px;
+    
+    width: 750px;
     margin: auto;
     background-color: white;
     padding: 0;
-    height: 600px;
-    grid-row-gap: 0;
+    height: 700px;
+
+    zoom:120%;
+  
   
 
 }
 
 #messagesMain{
 padding: 0;
+
+
 
 
 }
@@ -786,7 +819,7 @@ padding: 0;
     display: block;
     overflow: scroll;
     z-index: -3;
-    height: 500px;
+    height: 600px;
     border: 1px solid black;
     
 }
@@ -814,29 +847,52 @@ padding: 0;
     align-content: center;
     grid-template-columns: 1fr 5fr 1fr;
 
+
     
     
 }
 #messageBody{
-    width: 100%;
-    height: 20px;
-    border:5px solid rgb(54, 33, 9);
+    width: 95%;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(210, 222, 233);
    
+}
+
+#messagesContent #send{
+   
+    background-image: url("Images/send.png");
+    background-color: rgb(54, 33, 9);
+    color: white;
+    cursor: pointer;
+
+    width: fit-content;
+    border-radius: 10px;
+    width: 80%;
+    height: 100%;
 }
 
 #send{
    
     background-image: url("Images/send.png");
-    background-color: rgb(126, 80, 28);
+    background-color: rgb(54, 33, 9);
     color: white;
     cursor: pointer;
-    
+
+    width: fit-content;
+    border-radius: 10px;
+
+    height: 100%;
+    padding: 10px;
 }
+
 
 #file{
     
-    width: 50px;
-    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+    border:none;
     cursor: pointer;
 }
 
@@ -1001,7 +1057,7 @@ padding: 0;
 #myServicesNav{
     display: grid;
     width: 100%;
-    outline: auto;
+
     height: 100px;
     align-content: center;
     padding: auto;
@@ -1022,24 +1078,26 @@ padding: 0;
 #myServicesContent{
     display: grid;
    
-    outline: auto;
+    
     height: 100%;
     padding: 10px;
     grid-template-columns: 1fr 1fr 1fr;
     grid-row-gap: 10px;
 
 
-    overflow: scroll;
+    
 
 }
 
 .myServiceCard{
     border:1px solid black;
-    height: 300px;
+    height: 200px;
     margin: 5px;
     cursor: pointer;
     overflow-wrap: break-word;
     overflow: hidden;
+    width: 500px;
+    padding: 5px;
 
 
 }
@@ -1053,6 +1111,8 @@ padding: 0;
 .delist{
     width: 100%;
     height: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
    
 
 }
@@ -1118,18 +1178,38 @@ padding: 0;
 
 /*Requests-Orders page */
 #orderRequestsNav{
-   border: 1px solid black;
+   
    display: grid;
   
    height: fit-content;
+   
 }
 
 .orderRequestsButton{
     display: inline-block;
-    outline: auto;
+    border: 1px solid black;
     padding: 20px;
-    
+    margin:10px;
     cursor: pointer;
+    font-weight: bold;
+    background-color: rgb(65, 32, 13);
+    color:white;
+}
+
+.orderRequestsButton:hover{
+    background-color: rgb(167, 92, 49);
+    color:white;
+}
+
+#RequestOrdersTitle{
+    font-family:'Times New Roman', Times, serif;
+    font-weight: bolder;
+    background-color: brown;
+    color: white;
+
+    padding:10px;
+    width: 500px;
+    font-size:50px;
 }
 
 #orderServiceButton{
@@ -1206,6 +1286,8 @@ padding: 0;
     height: 700px;
     overflow:scroll;
 
+    zoom:120%;
+
     
 }
 
@@ -1223,19 +1305,17 @@ padding: 0;
     border: 3px solid rgb(70, 28, 9);
     height: 40px;
     width: 250px;
-    margin: 0;
+    margin: auto;
    
 }
-#conversationSearch:focus{
-    width: 250px;
 
-}
 
 
 
 #conversationSearchButton{
     border: 3px solid rgb(70, 28, 9);
     height: 40px;
+    width: 40px;
     margin:0;
     cursor: pointer;
 }
@@ -1243,6 +1323,7 @@ padding: 0;
 #conversationCreateNewMessage{
     border: 3px solid rgb(70, 28, 9);
     height: 40px;
+    width: 40px;
     margin:0;
     cursor: pointer;
 }
@@ -1308,3 +1389,30 @@ padding: 0;
     top:0;
     background-color: white;
 }
+
+
+/*my services modal */
+#activateDelistFormBackground{
+    width:100%;
+    height: 100%;
+    position: fixed;
+    backdrop-filter: blur(2px);
+    display: none;
+   
+}
+
+#activateDelistForm{
+    background-color: rgb(129, 70, 30);
+    height: 200px;
+    width: 500px;
+    padding: 5px;
+}
+
+#certificateViewBackground{
+    width:100%;
+    height: 100%;
+    position: fixed;
+    backdrop-filter: blur(2px);
+    display: none;
+    background-color: rgb(68, 66, 66);
+} 

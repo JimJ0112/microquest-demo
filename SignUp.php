@@ -1,3 +1,20 @@
+<?php
+
+session_start();
+
+if(isset($_SESSION['userID'])){
+  if(isset($_SESSION['userType'])){
+    $userType = $_SESSION['userType'];
+      if($userType === "Responder"){
+        header("location:Responder_Home.php");
+      }else{
+        header("location:Requestor_Home.php");
+      }
+  }
+}
+
+
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,8 +36,8 @@
   ?>
 
 
-
-    <div class="card" style="margin-left: -200px;">
+<center>
+    <div class="card" style="margin-left: auto;">
         <div class="container">
             <img src="images/requestor.png" alt="John" style="width:100%">
             <h1 class="h_request">Do you want to hire someone for your request?</h1>
@@ -36,7 +53,7 @@
             <p > Sign in as <a href="Responder_SignUp.php" class="resp">  Responder</a></p>
         </div>   
       </div>
-
+</center>
 
 </body>
 </html> 

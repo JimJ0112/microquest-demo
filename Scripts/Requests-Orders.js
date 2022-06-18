@@ -456,7 +456,7 @@ function setAcceptedRequestsApplicationData(array){
         transactionStartDate[i].innerHTML = "<b>Application Date: </b>"+dataArray[i]['transactionStartDate'];
         transactionStatus[i].innerHTML = "<b>Application Status: </b>"+dataArray[i]['transactionStatus'];
         cancelButton[i].setAttribute('onclick','cancelRequestApplication('+dataArray[i]['transactionID']+",'cancelled',"+dataArray[i]['requestID']+")");
-        completeButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'completed',"+dataArray[i]['requestID']+")");
+        completeButton[i].setAttribute('onclick','completeRequestApplication('+dataArray[i]['transactionID']+",'completed',"+dataArray[i]['requestID']+")");
     }
     
 
@@ -518,6 +518,36 @@ function cancelRequestApplication(transactionID,update,requestID){
     };
     
     xmlhttp.send(query);
+    
+}// end of function
+
+
+function completeRequestApplication(transactionID,update,requestID){
+    var transactionID = transactionID;
+    var update = update;
+    var requestID = requestID;
+    var query = "transactionID=" + transactionID+"&update="+update+"&requestID="+requestID;
+    console.log(query);
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open("POST", "Backend/CompleteRequest.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onload = function() {
+        if (this.readyState === 4 || this.status === 200){ 
+           
+            var dataArray = this.response;
+            console.log(dataArray);
+ 
+            
+
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send(query);
+    var myID = sessionStorage.getItem('myID');
+    getRequestApplications(myID);
     
 }// end of function
 
@@ -1304,10 +1334,13 @@ function setCompletedServiceOrdersData(array){
                 
                 if(dataArray[i]['transactionStatus'] === "completed"){
                     paybutton[i].style.display = "none";
+
                    }else if(dataArray[i]['transactionStatus'] === "paid"){
                     paybutton[i].innerText = "Confirm Payment";
                     paybutton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'payment confirmed')");
+
                    }else if(dataArray[i]['transactionStatus'] === "payment confirmed"){
+
                     paybutton[i].style.display = "none";
                 }
             

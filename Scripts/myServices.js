@@ -3,19 +3,21 @@ function createElements(number){
     var number = number;
 
     var div = document.getElementById('myServicesContent');
+
     for(var i=0; i<number; i++){
-        var myServiceCard = document.createElement('div');
-        var serviceCategory = document.createElement('h4');
-        var servicePosition = document.createElement('h4');
+        var myServiceCard = document.createElement('table');
+        var serviceCategory = document.createElement('p');
+        var servicePosition = document.createElement('p');
         var serviceID = document.createElement('p');
         var serviceRate = document.createElement('p');
         var serviceCertification = document.createElement('p');
-        var serviceCertificateFile = document.createElement('p');
+        var serviceCertificateFile = document.createElement('a');
         var serviceStatus = document.createElement('p');
         var delist = document.createElement('button');
         var update = document.createElement('button');
         var br = document.createElement('br');
-
+        var informationCol = document.createElement('td');
+        var CertificateCol = document.createElement('td');
 
          myServiceCard.setAttribute('class','myServiceCard');
          serviceCategory.setAttribute('class','serviceCategory');
@@ -31,20 +33,25 @@ function createElements(number){
          delist.setAttribute('class','delist');
          update.setAttribute('class','update');
 
-         myServiceCard.appendChild(serviceID);
-         myServiceCard.append(br);
-         myServiceCard.appendChild(serviceCategory);
-         myServiceCard.appendChild(br);
-         myServiceCard.appendChild(servicePosition);
-         myServiceCard.appendChild(br);
-         myServiceCard.appendChild(serviceRate);
-         myServiceCard.appendChild(br);
-         myServiceCard.appendChild(serviceStatus);
-         myServiceCard.appendChild(br);
-         myServiceCard.appendChild(serviceCertification);
-         myServiceCard.appendChild(br);
-         myServiceCard.appendChild(serviceCertificateFile);
-         myServiceCard.appendChild(br);
+         informationCol.appendChild(serviceID);
+         informationCol.append(br);
+         informationCol.appendChild(serviceCategory);
+         informationCol.appendChild(br);
+         informationCol.appendChild(servicePosition);
+         informationCol.appendChild(br);
+         informationCol.appendChild(serviceRate);
+         informationCol .appendChild(br);
+         informationCol.appendChild(serviceStatus);
+         informationCol.appendChild(br);
+         CertificateCol.appendChild(serviceCertification);
+         CertificateCol.appendChild(br);
+         CertificateCol.appendChild(serviceCertificateFile);
+         CertificateCol.appendChild(br);
+
+
+         myServiceCard.appendChild(informationCol);
+         myServiceCard.appendChild(CertificateCol);
+
          myServiceCard.appendChild(delist);
          myServiceCard.appendChild(br);
          myServiceCard.appendChild(update);
@@ -81,31 +88,46 @@ update= document.getElementsByClassName('update');
 
 
 for(var i = 0; i< number; i++){
-    serviceCategory[i].innerText  = "Category: "+dataArray[i]['serviceCategory'];
-    servicePosition[i].innerText  = "Position: "+dataArray[i]['servicePosition'];
-    serviceID[i].innerText  = dataArray[i]['serviceID'];
-    serviceRate[i].innerText  = "Rate: Php"+ dataArray[i]['rate'];
-    serviceCertification [i].innerText =  "Certification: "+ dataArray[i]['certification'];
-    serviceStatus[i].innerText  = "Status: "+ dataArray[i]['serviceStatus'];
+    serviceCategory[i].innerHTML = "<b> Category: </b>"+dataArray[i]['serviceCategory'];
+    servicePosition[i].innerHTML  = "<b> Position: </b> "+dataArray[i]['servicePosition'];
+    serviceID[i].innerHTML  = "<b> Service ID: </b>"+dataArray[i]['serviceID'];
+    serviceRate[i].innerHTML  = "<b> Rate: </b> Php "+ dataArray[i]['rate'];
+    serviceCertification [i].innerHTML=  " <b>Certification:</b> "+ dataArray[i]['certification'];
+    
     update[i].setAttribute('onclick','updateForm(' + dataArray[i]['serviceID'] +')');
 
     if(dataArray[i]['serviceStatus'] === "Active"){
-        delist[i].setAttribute('onclick','delistService('+dataArray[i]['serviceID'] +')');
+    serviceStatus[i].innerHTML = "<b> Status:</b>  <span style='color:green; font-weight:bolder;'> "+ dataArray[i]['serviceStatus'] +"</span>";
+
+    } else{
+        serviceStatus[i].innerHTML = "<b> Status:</b>  <span style='color:red;font-weight:bolder;'> "+ dataArray[i]['serviceStatus'] +"</span>";
+    }
+
+    if(dataArray[i]['serviceStatus'] === "Active"){
+        delist[i].setAttribute('onclick','showActivateDelist('+dataArray[i]['serviceID'] +",'Delist'"+')');
         delist[i].innerText = "Delist";
+        delist[i].style.backgroundColor = "red";
 
     } else if(dataArray[i]['serviceStatus'] === "" || dataArray[i]['serviceStatus'] === " "){
-        delist[i].setAttribute('onclick','activeService('+dataArray[i]['serviceID'] +')');
+        delist[i].setAttribute('onclick','showActivateDelist('+dataArray[i]['serviceID'] +",'Active'"+')');
         delist[i].innerText = "Activate";
+        delist[i].style.backgroundColor = "Green";
 
     } else if(dataArray[i]['serviceStatus'] === "Delisted" ){
-        delist[i].setAttribute('onclick','activeService('+dataArray[i]['serviceID'] +')');
+        delist[i].setAttribute('onclick','showActivateDelist('+dataArray[i]['serviceID']+",'Active'"+')');
         delist[i].innerText = "Activate";
+        delist[i].style.backgroundColor = "limegreen";
     }
   
+    
     var image = new Image();
     image.src = dataArray[i]['certificateFile'];
     image.setAttribute('class','certificateImage');
+    image.setAttribute('onerror',"this.src='Images/PreviewNotAvailable.png'");
+    image.setAttribute('onclick',"showImage('"+dataArray[i]['certificateFile'] +"')");
     serviceCertificateFile[i].appendChild(image);
+    
+ 
 
 }
 
@@ -203,6 +225,7 @@ function delistService(serviceID){
             
             var userID = sessionStorage.getItem('myID');
             getMyServices(userID)
+            hideActivateDelist();
 
         }else{
             console.log(err);
@@ -229,6 +252,7 @@ function activeService(serviceID){
 
             var userID = sessionStorage.getItem('myID');
             getMyServices(userID)
+            hideActivateDelist();
 
         }else{
             console.log(err);
@@ -238,3 +262,47 @@ function activeService(serviceID){
     xmlhttp.send(query);
     
 }// end of function
+
+
+function showActivateDelist(id,delistActive){
+
+    var id = id;
+    var delistActive = delistActive;
+
+    var activateDelistYes = document.getElementById('activateDelistYes');
+    var activateDelistFormBackground = document.getElementById('activateDelistFormBackground');
+
+    if(activateDelistFormBackground.style.display === "block"){
+        activateDelistFormBackground.style.display = "none";
+    } else {
+        activateDelistFormBackground.style.display = "block";
+    }
+
+    if(delistActive ==="Delist"){
+        activateDelistYes.setAttribute('onclick','delistService(' + id + ')');
+    } else if(delistActive === "Active"){
+        activateDelistYes.setAttribute('onclick','activeService(' + id + ')');
+    }
+    
+
+}
+
+function hideActivateDelist(){
+    var activateDelistFormBackground = document.getElementById('activateDelistFormBackground');
+    activateDelistFormBackground.style.display = "none";
+}
+
+
+function showImage(image){
+    var certificateViewBackground = document.getElementById('certificateViewBackground');
+
+    var certificateView = document.getElementById('certificateView');
+    certificateViewBackground.style.display="block";
+    certificateView.src = image;
+    certificateView.setAttribute('onerror',"this.src='Images/PreviewNotAvailable.png'");
+}
+
+function hideImageView(){
+    var certificateViewBackground = document.getElementById('certificateViewBackground');
+    certificateViewBackground.style.display="none";
+}

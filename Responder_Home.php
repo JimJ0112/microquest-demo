@@ -33,7 +33,7 @@ session_start();
     <title>Homepage - <?php echo $_SESSION["userEmail"]; ?> </title>
 </head>
 
-<body>
+<body style="background-image: url('Images/p.jpg');">
     <!-- NAV -->
     <?php
         if(isset($_SESSION["userType"])){
@@ -47,11 +47,15 @@ session_start();
 
 
     ?>
+<br/>
+    <center> <h1 id="RequestOrdersTitle"> Responder </h1> </center>
+
 
 <center>
 
 <div class="HomeContainer">
         
+
 
     <!-- ROW -->
     <div class="row">

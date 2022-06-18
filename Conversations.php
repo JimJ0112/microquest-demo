@@ -75,7 +75,7 @@ Your browser does not support the audio element.
     <h1 id="Chats"> Chats</h1>
         <input type="search" name="search" id="conversationSearch" placeholder="Search Conversation..."/> 
         <input type="button" value="🔍" id="conversationSearchButton"/>
-        <input type="button" value="📝" id="conversationCreateNewMessage"/>
+        <!--<input type="button" value="📝" id="conversationCreateNewMessage"/> -->
         <br/>
         <br/>
         <hr/>

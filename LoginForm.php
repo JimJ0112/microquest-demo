@@ -31,12 +31,20 @@ session_start();
     <link rel="manifest" href="manifest.json">
     <meta content='yes' name='apple-mobile-web-app-capable'/>
     <meta content='yes' name='mobile-web-app-capable'/>
+    
 
 
 
 
 
     <style> 
+
+body{
+    transform: scale(1.0);
+    transform-origin: 0 0;
+    zoom: 80%;
+}
+
 .a{
     color: white;
     text-shadow: 2px 2px 4px #000000;

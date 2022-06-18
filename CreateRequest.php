@@ -62,7 +62,7 @@ session_start();
     <input type="hidden" name="requestorMunicipality" value="<?php echo $_SESSION['municipality']?>">
     <input type="hidden" name="requestCategory" id="requestCategory">
     <input type="hidden" name="datePosted" value="<?php 
-            echo date_default_timezone_set("Asia/Manila");
+            date_default_timezone_set("Asia/Manila");
             echo date("Y-m-d H:i:s",time());?>">
 
     <label> Title of your request </label>
@@ -97,7 +97,7 @@ session_start();
     <input type="hidden" name="requestorMunicipality" value="<?php echo $_SESSION['municipality']?>">
     <input type="hidden" name="requestCategory" value="pasabuy">
     <input type="hidden" name="datePosted" value="<?php 
-            echo date_default_timezone_set("Asia/Manila");
+            date_default_timezone_set("Asia/Manila");
             echo date("Y-m-d H:i:s",time());?>">
 
     <label> Sample picture of your requested product </label>
@@ -136,7 +136,7 @@ session_start();
     <input type="hidden" name="requestorID" value="<?php echo $_SESSION['userID']?>"> 
     <input type="hidden" name="requestorMunicipality" value="<?php echo $_SESSION['municipality']?>">
     <input type="hidden" name="datePosted" value="<?php 
-            echo date_default_timezone_set("Asia/Manila");
+            date_default_timezone_set("Asia/Manila");
             echo date("Y-m-d H:i:s",time());?>">
 
     <label> What category does your request fit in? </label>
@@ -166,7 +166,9 @@ session_start();
 
 <!-- display contents  -->
 <center>
-<h2> Create Request </h2>
+<br/><br/><br/>
+    <center> <h1 id="RequestOrdersTitle"> Create a Request</h1> </center>
+<br/><br/><br/>
     <br/>
         <div>
             <form method="GET" action="Backend/Get_products.php"> 
@@ -183,10 +185,30 @@ session_start();
 
 <div id="requestBoardNav"> 
 
-<div class="serviceCard-main" onclick="createRequest('Home Service')"> Home Services </div> 
-<div class="serviceCard-main" onclick="createRequest('Pasabuy')"> Pasabuy </div>
-<div class="serviceCard-main" onclick="createRequest('Computer related work')"> Computer Related</div>
-<div class="serviceCard-main" onclick="createRequest('Other')"> Other </div>
+<div class="requestCat-main" onclick="createRequest('Home Service')"> 
+
+        <image src="Images/RequestBanners/HomeServices.jpg" class="bannerImage"> <br/>
+        <center> <div class="categoryTitle"> Home Services </div> </center>
+
+</div> 
+
+<div class="requestCat-main" onclick="createRequest('Pasabuy')">
+    <image src="Images/RequestBanners/pasabuy.jpg" class="bannerImage"> 
+    <center> <div class="categoryTitle"> Pasabuy </div> </center> 
+
+</div>
+<div class="requestCat-main" onclick="createRequest('Computer related work')"> 
+
+    <image src="Images/RequestBanners/ComputerRelated.jpeg" class="bannerImage"> <br/>
+    <center> <div class="categoryTitle"> Computer Related </div> </center> 
+
+</div>
+
+<div class="requestCat-main" onclick="createRequest('Other')"> 
+        <image src="Images/RequestBanners/others.jpg" class="bannerImage"> <br/>
+        <center> <div class="categoryTitle"> Other </div> </center> 
+
+</div>
 
 </div>
 
@@ -203,6 +225,6 @@ session_start();
 
 
 
-
+    <script src="Scripts/createRequest.js"> </script>
 </body>
 </html>

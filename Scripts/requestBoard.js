@@ -24,7 +24,7 @@ function createServiceElements(Number){
     var requestorLocation = document.createElement('td');
     var viewRequest = document.createElement('a');
     var userPhotoDiv = document.createElement('div');
-
+    var requestBannerDiv = document.createElement('div');
 
 
     // set attributes
@@ -44,12 +44,13 @@ function createServiceElements(Number){
     viewRequest.setAttribute('class','viewRequest');
     viewRequest.innerText = "View More";
     userPhotoDiv.setAttribute('class','userPhotoDiv');
-
+    requestBannerDiv.setAttribute('class','requestBannerDiv');
 
 
 
     // append elements to the row
     card.appendChild(requestID);
+    card.appendChild(requestBannerDiv);
     card.appendChild(requestCategory);
     card.appendChild(requestTitle);
     card.appendChild(requestDescription);
@@ -91,30 +92,50 @@ function setData(array){
     var requestorLocation= document.getElementsByClassName('requestorLocation');
     var viewRequest = document.getElementsByClassName('viewRequest');
     var userPhotoDiv = document.getElementsByClassName('userPhotoDiv');
+    var requestBannerDiv = document.getElementsByClassName('requestBannerDiv');
 
 
 
 
     for(var i = 0; i<number;i++){
         
-         dueDate[i].innerText= dataArray[i]['dueDate'];
-         isNegotiable[i].innerText = dataArray[i]['isNegotiable'];
-         requestCategory[i].innerText = dataArray[i]['requestCategory'];
-         requestDescription[i].innerText = dataArray[i]['requestDescription'];
-         requestExpectedPrice[i].innerText = dataArray[i]['requestExpectedPrice'];
-         requestID[i].innerText = dataArray[i]['requestID'];
-         requestTitle[i].innerText = dataArray[i]['requestTitle'];
-         requestorID[i].innerText = dataArray[i]['requestorID'];
-         requestorUserName[i].innerText =dataArray[i]['userName'];
-         requestorLocation[i].innerText = dataArray[i]['requestorMunicipality'];
-         requestorUserName[i].href = "Public_Profile.php?userID=" +  dataArray[i]['requestorID'] + "&userType=Requestor";
+        dueDate[i].innerHTML= "<b>Due date: </b>"+dataArray[i]['dueDate'];
+        isNegotiable[i].innerHTML = "<b>Negotiable: </b>"+dataArray[i]['isNegotiable'];
+        requestCategory[i].innerHTML = "<b>Category: </b>"+dataArray[i]['requestCategory'];
+        requestDescription[i].innerHTML = "<b>Description: </b>"+dataArray[i]['requestDescription'];
+        requestExpectedPrice[i].innerHTML = "<b>Expected Price: </b>"+dataArray[i]['requestExpectedPrice'];
+        requestID[i].innerHTML ="<b>Request ID: </b>"+ dataArray[i]['requestID'];
+        requestTitle[i].innerHTML = "<b>Title: </b>"+dataArray[i]['requestTitle'];
+        requestorID[i].innerHTML = "<b>Requestor ID: </b>"+dataArray[i]['requestorID'];
+        requestorUserName[i].innerHTML = "<b style='color:black;'>Requestor: </b>"+dataArray[i]['userName'];
+        requestorLocation[i].innerHTML = "<b>Location: </b>"+dataArray[i]['requestorMunicipality'];
+        requestorUserName[i].href = "Public_Profile.php?userID=" +  dataArray[i]['requestorID'] + "&userType=Requestor";
 
-         viewRequest[i].href = "RequestInfo.php?requestID=" + dataArray[i]['requestID'];
-         var image = new Image();
-         image.src = dataArray[i]['userPhoto'];
-         image.setAttribute('class','userPhotoPic');
-         userPhotoDiv[i].appendChild(image);
+        viewRequest[i].href = "RequestInfo.php?requestID=" + dataArray[i]['requestID'];
+        var image = new Image();
+        image.src = dataArray[i]['userPhoto'];
+        image.setAttribute('class','userPhotoPic');
+        userPhotoDiv[i].appendChild(image);
 
+        var requestBannerImage = new Image();
+
+        if(dataArray[i]['requestCategory'] === "Computer related work"){
+            requestBannerImage.src = "Images/RequestBanners/ComputerRelated.jpeg";
+            requestBannerImage.setAttribute('class','bannerImage');
+            requestBannerDiv[i].appendChild(requestBannerImage);
+
+        }else if(dataArray[i]['requestCategory'] === "Home Service"){
+            requestBannerImage.src = "Images/RequestBanners/HomeServices.jpg";
+            requestBannerImage.setAttribute('class','bannerImage');
+            requestBannerDiv[i].appendChild(requestBannerImage);
+            
+        }else{
+
+            requestBannerImage.src = "Images/RequestBanners/others.jpg";
+            requestBannerImage.setAttribute('class','bannerImage');
+            requestBannerDiv[i].appendChild(requestBannerImage);
+        }
+        
 
 
     }

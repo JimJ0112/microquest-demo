@@ -27,22 +27,39 @@ session_start();
     <title> Avail Service </title>
 </head>
 <body onload="getServices()">
-    <?php
+
+<?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
+
+            /*
             if($usertype === "Responder"){
                 require("Includes/Responder_Navbar.inc.php");
             }else if($usertype === "Requestor"){
                 require("Includes/Requestor_Navbar.inc.php");
             }
+            */
+
+            
+            if($usertype === "Responder"){
+
+                require("Includes/responderNav.inc.php");
+            }else if($usertype === "Requestor"){
+
+                require("Includes/requestorNav.inc.php");
+            }
+            
+
         }
-        
+
     ?>
 
+<br/><br/><br/>
+    <center> <h1 id="RequestOrdersTitle"> Available Services </h1> </center>
+<br/><br/><br/>
 
 
 <center>
-<h2> Available Services </h2>
     <br/>
         <div>
             <form method="GET" action="Backend/Get_products.php"> 

@@ -34,7 +34,7 @@ session_start();
     <title>Homepage - <?php echo $_SESSION["userEmail"]; ?></title>
 </head>
 
-<body>
+<body style="background-image: url('Images/p.jpg');">
     <!-- NAV -->
     <?php
 
@@ -49,6 +49,9 @@ session_start();
 
 
     ?>
+
+<br/>
+    <center> <h1 id="RequestOrdersTitle"> Requestor </h1> </center>
 
 <center>
   <div class="HomeContainer">

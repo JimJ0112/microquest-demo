@@ -19,9 +19,10 @@
     <h1  style="float: left; font-size: 44px; margin-right: 9px" class="b">Quest</h1>
 
           <ul id="myUl"> 
+            <li id="myLi"><a href="LoginForm.php">Log in</a></li> 
             <li id="myLi"><a href="#" style="margin-right: 450px;">About</a></li>
             <li id="myLi"><a href="index.php">Home</a></li>
-            <li id="myLi"><a href="LoginForm.php">Log in</a></li>    
+    
           </ul>
           <hr style="border: 1px solid rgb(230, 200, 178)" />
 

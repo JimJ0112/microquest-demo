@@ -236,11 +236,10 @@ session_start();
 
 <!-- Main -->
 <center>
-<br/>
-<br/>
-<br/>
-<br/>
-<h2> Offer a Service </h2>
+<br/><br/><br/>
+    <center> <h1 id="RequestOrdersTitle"> Offer a Service</h1> </center>
+<br/><br/><br/>
+
 <?php
     if(isset($_GET['newUser'])){
          echo" <a href='Responder_Home.php'> <div class='createRequestButton'> Skip for now </div> <a/>";
@@ -262,7 +261,7 @@ session_start();
     
 
     <br/>
-    <h3 id="selectedCategory"> What service do you need? </h3>
+    <h3 id="selectedCategory"> Main Services  </h3>
 
 
 <div id="createServiceMain"> 

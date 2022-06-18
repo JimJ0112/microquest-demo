@@ -88,12 +88,10 @@ session_start();
 
 
      <div id="myRequestsNav">
-        <center>
-            <div id="MyRequestsButton">
-                My Requests
-            </div> 
+     <br/><br/><br/>
+    <center> <h1 id="RequestOrdersTitle"> My Requests </h1> </center>
+    <br/><br/><br/>
 
-        </center>
     </div>
 
 
