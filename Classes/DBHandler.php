@@ -1206,7 +1206,7 @@ public function getUserMessages($ID,$groupBy=null){
         FROM $tablename
         INNER JOIN userprofile as sender ON(sender.userID = conversations.senderID) 
         INNER JOIN userprofile as reciever ON(reciever.userID = conversations.recieverID) 
-        WHERE (senderID = $ID OR recieverID = $ID ) ORDER BY latestMessageDate;";
+        WHERE (senderID = $ID OR recieverID = $ID ) ORDER BY latestMessageDate DESC;";
 
    } else {
 
@@ -1215,7 +1215,7 @@ public function getUserMessages($ID,$groupBy=null){
         FROM $tablename
         INNER JOIN userprofile as sender ON(sender.userID = conversations.senderID) 
         INNER JOIN userprofile as reciever ON(reciever.userID = conversations.recieverID) 
-        WHERE (senderID = $ID OR recieverID = $ID ) ORDER BY latestMessageDate;";
+        WHERE (senderID = $ID OR recieverID = $ID ) ORDER BY latestMessageDate DESC;";
         
    }
 
@@ -1853,6 +1853,32 @@ public function updateConversation($userID,$myID,$messageBody,$date){
   
 }
 
+// seenMessage
+public function updateConversationStatus($userID,$myID){
+    $tablename = "conversations";
+    $column = "conversationStatus";
+    $userID = mysqli_real_escape_string($this->dbconnection, $userID);
+    $myID = mysqli_real_escape_string($this->dbconnection, $myID);
+
+    $query = "UPDATE $tablename SET conversationStatus = 'Seen' WHERE (senderID = $myID AND recieverID = $userID OR senderID= $userID AND recieverID = $myID); ";
+
+    $result = mysqli_query($this->dbconnection, $query);    
+  
+}
+
+
+public function updateSenderReciever($userID,$myID){
+    $tablename = "conversations";
+    $column = "conversationStatus";
+    $userID = mysqli_real_escape_string($this->dbconnection, $userID);
+    $myID = mysqli_real_escape_string($this->dbconnection, $myID);
+
+    $query = "UPDATE $tablename SET senderID = $myID, recieverID = $userID WHERE (senderID = $myID AND recieverID = $userID OR senderID= $userID AND recieverID = $myID); ";
+
+    $result = mysqli_query($this->dbconnection, $query);    
+  
+    return $result;
+}
 
 /*---------------------------------DELETE FUNCTIONS----------------------------------------------------- */
 

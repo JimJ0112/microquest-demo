@@ -76,7 +76,7 @@ function setUsersData(array){
            // inboxCard[i].innerText = dataArray[i]['messageReciever'];
             
             inboxUserName[i].innerText = dataArray[i]['recieverUserName'];
-            inboxCard[i].setAttribute("onclick","selectConversation('" + dataArray[i]['recieverID'] + "','"+dataArray[i]['recieverUserName']+"')");
+           // inboxCard[i].setAttribute("onclick","seenMessage()");
 
             lastMessageP[i].innerText = dataArray[i]['latestMessage'];
             var image = new Image();
@@ -86,11 +86,15 @@ function setUsersData(array){
 
             setConversation[i].href= "MessagesV2.php?selectedConversationID="+dataArray[i]['recieverID']+"&selectedConversationUsername="+dataArray[i]['recieverUserName'];
 
+        
+
         } else if(myID === dataArray[i]['recieverID']){
-            //inboxCard[i].innerText = dataArray[i]['messageSender'];
-            //inboxUserName.innerText = dataArray[i]['senderUserName'];
+
+
             inboxUserName[i].innerText = dataArray[i]['senderUserName'];
-            inboxCard[i].setAttribute("onclick","selectConversation('" + dataArray[i]['senderID']+ "','"+dataArray[i]['senderUserName']+"')");
+            
+            inboxCard[i].setAttribute("onclick","seenMessage()");
+
 
             lastMessageP[i].innerText = dataArray[i]['latestMessage'];
             var image = new Image();
@@ -99,16 +103,21 @@ function setUsersData(array){
             messageProfilePic[i].appendChild(image);
 
             setConversation[i].href= "MessagesV2.php?selectedConversationID="+dataArray[i]['senderID']+"&selectedConversationUsername="+dataArray[i]['senderUserName'];
+            
 
+            if(dataArray[i]['conversationStatus'] === "New Message"){
+                var newMessageTag = document.createElement('p');
+                newMessageTag.innerText = "New Message";
+                newMessageTag.setAttribute('class','newMessageTag');
+                lastMessageDiv[i].appendChild(newMessageTag);
+
+                var messageNotification = document.getElementById('messageNotification');
+                messageNotification.play();
+            }
         
         }
 
-        if(dataArray[i]['conversationStatus'] === "New Message"){
-            var newMessageTag = document.createElement('p');
-            newMessageTag.innerText = "New Message";
-            newMessageTag.setAttribute('class','newMessageTag');
-            lastMessageDiv[i].appendChild(newMessageTag);
-        }
+
  
         //inboxCard[i].innerText = dataArray[i]['messageSender'];
         //inboxCard[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageSender'] + "')");
@@ -177,6 +186,7 @@ function selectConversation(id,username){
     sessionStorage.setItem("bottomMessage",0);
 
     setConversation();
+    
 
 }
 
@@ -198,6 +208,7 @@ function sendMessage(){
     headerID = document.getElementById('conversationUserID').innerText;
     recieverID = headerID;
     sender = sessionStorage.getItem('myID');
+    conversationID = sessionStorage.getItem('conversationID');
     messageBody = document.getElementById('messageBody').value;
     senderUserName = sessionStorage.getItem('myUserName');
     recieverUserName = sessionStorage.getItem('selectedUserName');
@@ -303,3 +314,42 @@ function scrollToBottom(){
 
 
 
+function seenMessage(){
+    userID = sessionStorage.getItem("selectedConversation");
+    myID = sessionStorage.getItem('myID');
+    //userID = id;
+    var query = "userID="+ userID+"&myID="+myID;     
+    console.log(query);
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open("POST", "Backend/seenMessage.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onload= function() {
+        if (this.readyState === 4 || this.status === 200){ 
+           
+  
+            
+
+            var dataArray = this.response;
+
+            if(dataArray != "failed to fetch"){
+            
+                console.log(dataArray);
+
+
+            } else {
+                console.log(dataArray);
+            }
+
+
+     
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send(query);
+
+    
+
+}

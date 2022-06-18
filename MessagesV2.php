@@ -37,6 +37,11 @@ if(isset($_GET['selectedConversationID']) && isset($_GET['selectedConversationUs
     echo"<script> selectConversation($selectedID,'$selectedUsername') </script>";
 }
 
+if(isset($_GET['conversationID'])){
+    $conversationID = $_GET['conversationID'];
+    echo"<script> sessionStorage.setItem('conversationID',$conversationID)</script>";
+}
+
 ?>
 
 <?php
@@ -63,6 +68,8 @@ if(isset($_GET['selectedConversationID']) && isset($_GET['selectedConversationUs
         }
 
     ?>
+
+
 
 <form action="Backend/" method="post" enctype="multipart/form-data" id="fileForm">
             <div id="closeButton" onclick="closeForms()"> X </div>
@@ -114,7 +121,7 @@ if(isset($_GET['selectedConversationID']) && isset($_GET['selectedConversationUs
 
 </div>
 
-
+<script src="Scripts/getMessages.js">  </script>
 
 
 

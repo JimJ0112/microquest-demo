@@ -16,7 +16,7 @@ function selectConversation(id,username){
 
     // refreshing this session variable to be used in auto scrolling 
     sessionStorage.setItem("bottomMessage",0);
-
+    
     setConversation();
 
 }
@@ -104,7 +104,7 @@ function setConversation(){
             var number = dataArray.length;
             createConversationElements(number);
             setMessagesData(dataArray);
-
+           
 
             } else {
                 console.log(dataArray);
@@ -196,12 +196,17 @@ function setMessagesData(array){
         //message[i].setAttribute("onclick","selectConversation('" + dataArray[i]['messageBody'] + "')");
 
         if(dataArray[i]['messageSender'] === myID ){
+            
             div[i].setAttribute('style','float:right; background-color:skyblue; border-radius: 20px 20px 0px 20px; ');
-            ;
-        } else{
+            
+        } else if(dataArray[i]['messageReciever'] === myID){
+            
             div[i].setAttribute('style','float:left; background-color:lightgray; border-radius: 20px 20px 20px 0px; text-align:center;');
+            //seenMessage();
         }
 
+        
+        
     }
 
     var lastmessagecount = sessionStorage.getItem('bottomMessage');
@@ -209,11 +214,12 @@ function setMessagesData(array){
 
      scrollToBottom();
      sessionStorage.setItem('bottomMessage',number);
+     
 
     }
     
 
-    
+  
 
 }
 
@@ -280,3 +286,43 @@ messageBody.addEventListener('keypress',function(e){
    
 });
 
+
+function seenMessage(){
+    userID = sessionStorage.getItem("selectedConversation");
+    myID = sessionStorage.getItem('myID');
+    //userID = id;
+    var query = "userID="+ userID+"&myID="+myID;     
+    console.log(query);
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open("POST", "Backend/seenMessage.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onload= function() {
+        if (this.readyState === 4 || this.status === 200){ 
+           
+  
+            
+
+            var dataArray = this.response;
+
+            if(dataArray != "failed to fetch"){
+            
+                console.log(dataArray);
+
+
+            } else {
+                console.log(dataArray);
+            }
+
+
+     
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send(query);
+
+    
+
+}

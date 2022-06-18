@@ -39,8 +39,12 @@ if($senderID != $recieverID){
         }
 
         $DBHandler-> updateConversation($recieverID,$senderID,$messageBody,$messageDate);
- 
-         echo $result;
+
+        
+       
+        $updateSender = $DBHandler-> updateSenderReciever($recieverID,$senderID);
+        
+         echo $updateSender;
          header("location:../Messages.php");
 
 
@@ -64,7 +68,7 @@ if($senderID != $recieverID){
             }
  
             echo $result;
-            header("location:../Messages.php");
+            header("location:../MessagesV2.php");
 
     }
     

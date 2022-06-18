@@ -9,13 +9,14 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
 
     <link rel="manifest" href="manifest.json">
     <meta content='yes' name='apple-mobile-web-app-capable'/>
     <meta content='yes' name='mobile-web-app-capable'/>
     
     <link rel="stylesheet" href="style.css">
+    
     <script src="Scripts/conversations.js">  </script>
 
     <title> Messages  </title>
@@ -58,6 +59,13 @@ if(isset($_SESSION['userID'])){
         }
 
     ?>
+
+<audio controls id="messageNotification" autoplay>
+  <source src="../Sfx/NewMessage.mp3" type="audio/ogg">
+  <source src="../Sfx/NewMessage.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
 
 <br/> <br/>
 
