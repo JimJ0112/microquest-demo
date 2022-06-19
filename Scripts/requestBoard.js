@@ -298,3 +298,173 @@ function getNearestRequest(municipality){
     
     xmlhttp.send(query);
 }
+
+
+
+function getPasabuyRequests(){
+   
+    
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open("POST", "Backend/Get_pasabuyRequests.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState === 4 || this.status === 200){ 
+           
+            var RequestsContainer = document.getElementById('RequestsContainer');
+            RequestsContainer.innerHTML = "";
+
+            var dataArray = this.response;
+
+            if(dataArray != "failed to fetch"){
+                
+            dataArray = JSON.parse(dataArray);
+            console.log(dataArray);
+
+            var number = dataArray.length;
+            createPasabuyElements(number);
+            setPasabuyData(dataArray);
+
+            } else{
+                RequestsContainer.innerText = "No Requests";
+            }
+
+     
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send();
+}
+
+
+function createPasabuyElements(number){
+    var number = number;
+    var RequestsContainer = document.getElementById('RequestsContainer');
+
+    for(var i = 0; i<number; i++){
+
+        var pasabuyCard = document.createElement('div');
+        var datePosted = document.createElement('p');
+        var expectedPrice = document.createElement('p');
+        var municipality = document.createElement('p');
+        var negotiable = document.createElement('p');
+        var pasabuyrequestID = document.createElement('p');
+        var productBrand = document.createElement('p');
+        var productImageDIV = document.createElement('div');
+        var productName = document.createElement('p');
+        var requestDescription = document.createElement('p');
+        var requestDueDate = document.createElement('p');
+        var requestStatus = document.createElement('p');
+        var requestorID = document.createElement('p');
+        var userName = document.createElement('p');
+        var userPhotoDIV = document.createElement('div');
+        var viewMore = document.createElement('a');
+
+         pasabuyCard.setAttribute('class','requestCard');
+         datePosted.setAttribute('class','datePosted');
+         expectedPrice.setAttribute('class','expectedPrice'); 
+         municipality.setAttribute('class','municipality'); 
+         negotiable.setAttribute('class','negotiable'); 
+         pasabuyrequestID.setAttribute('class','pasabuyrequestID'); 
+         productBrand.setAttribute('class','productBrand'); 
+         productImageDIV.setAttribute('class','productImageDIV'); 
+         productName.setAttribute('class','productName'); 
+         requestDescription.setAttribute('class','requestDescription'); 
+         requestDueDate.setAttribute('class','requestDueDate'); 
+         requestStatus.setAttribute('class','requestStatus'); 
+         requestorID.setAttribute('class','requestorID'); 
+         userName.setAttribute('class','userName'); 
+         userPhotoDIV.setAttribute('class','userPhotoDIV'); 
+         viewMore.setAttribute('class','viewMore'); 
+
+
+         pasabuyCard.appendChild(pasabuyrequestID);
+         pasabuyCard.appendChild(productImageDIV);
+         pasabuyCard.appendChild(productName);
+         pasabuyCard.appendChild(productBrand);
+         pasabuyCard.appendChild(requestDescription);
+         pasabuyCard.appendChild(expectedPrice);
+         pasabuyCard.appendChild(negotiable);
+         pasabuyCard.appendChild(datePosted);
+         pasabuyCard.appendChild(requestDueDate);
+         pasabuyCard.appendChild(requestStatus);
+         pasabuyCard.appendChild(userPhotoDIV);
+         pasabuyCard.appendChild(requestorID);
+         pasabuyCard.appendChild(userName);
+         pasabuyCard.appendChild(municipality);
+         pasabuyCard.appendChild(viewMore);
+        
+
+         RequestsContainer.appendChild(pasabuyCard);
+
+    }
+
+}
+
+
+function setPasabuyData(array){
+
+    var dataArray = array;
+    var number = dataArray.length;
+
+    pasabuyCard= document.getElementsByClassName('requestCard');
+    datePosted= document.getElementsByClassName('datePosted');
+    expectedPrice= document.getElementsByClassName('expectedPrice'); 
+    municipality= document.getElementsByClassName('municipality'); 
+    negotiable= document.getElementsByClassName('negotiable'); 
+    pasabuyrequestID= document.getElementsByClassName('pasabuyrequestID'); 
+    productBrand= document.getElementsByClassName('productBrand'); 
+    productImageDIV= document.getElementsByClassName('productImageDIV'); 
+    productName= document.getElementsByClassName('productName'); 
+    requestDescription= document.getElementsByClassName('requestDescription'); 
+    requestDueDate= document.getElementsByClassName('requestDueDate'); 
+    requestStatus= document.getElementsByClassName('requestStatus'); 
+    requestorID= document.getElementsByClassName('requestorID'); 
+    userName= document.getElementsByClassName('userName'); 
+    userPhotoDIV= document.getElementsByClassName('userPhotoDIV'); 
+    viewMore= document.getElementsByClassName('viewMore'); 
+
+
+
+
+    for(var i = 0; i<number;i++){
+        
+        datePosted[i].innerHTML= "<b>Date Posted: </b>"+dataArray[i]['datePosted'];
+        expectedPrice[i].innerHTML= "<b>Expected Price: </b>"+dataArray[i]['expectedPrice'];
+        municipality[i].innerHTML= "<b>Location: </b>"+dataArray[i]['municipality'];
+        negotiable[i].innerHTML= "<b>Negotiable: </b>"+dataArray[i]['negotiable'];
+        pasabuyrequestID[i].innerHTML= "Pasabuy Request ID: "+dataArray[i]['pasabuyrequestID'];
+        productBrand[i].innerHTML= "<b>Brand: </b>"+dataArray[i]['productBrand'];
+        productName[i].innerHTML= "<b>Product: </b>"+dataArray[i]['productName'];
+        requestDescription[i].innerHTML= "<b>Description: </b>"+dataArray[i]['requestDescription'];
+        requestDueDate[i].innerHTML= "<b>Due date: </b>"+dataArray[i]['requestDueDate'];
+        requestStatus[i].innerHTML= "<b>Status: </b>"+dataArray[i]['requestStatus'];
+        userName[i].innerHTML= "<b>Username: </b>"+dataArray[i]['userName'];
+ 
+        viewMore[i].innerText= "View More";
+      
+
+        viewMore[i].href = "RequestInfo.php?requestID=" + dataArray[i]['pasabuyrequestID'];
+
+        //productImageDIV[i].innerHTML= "<b>Due date: </b>"+dataArray[i]['productImageDIV'];
+        //userPhotoDIV[i]
+        var image = new Image();
+        image.src = dataArray[i]['userPhoto'];
+        image.setAttribute('class','userPhotoPic');
+        userPhotoDIV[i].appendChild(image);
+
+        var image = new Image();
+        image.src = dataArray[i]['productImage'];
+        image.setAttribute('class','bannerimage');
+        productImageDIV[i].appendChild(image);
+       
+
+
+        
+
+
+    }
+
+}

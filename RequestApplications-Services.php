@@ -64,6 +64,56 @@ session_start();
         }
     ?>
 
+<div id="requestFeedBackFormBackground"> 
+<div id="closeButton" onclick="closeFeedbackForm()"> X </div>
+        <br/> <br/>
+        <br/> <br/>
+        <br/> <br/>
+        <br/> <br/>
+    <form id="requestFeedBackForm" name="requestFeedBackForm" action="Backend/requestFeedBackBackend.php" method="POST"> 
+        <input type="hidden" name="myID" value="<?php echo $_SESSION['userID']?>"/>
+        <input type="hidden" name="revieweeID" id="revieweeID"/>
+        <input type="hidden" name="userType" value="<?php echo $_SESSION['userType']?>"/>
+        <input type="hidden" name="requestID" id="requestID"/>
+        <input type="hidden" name="transactionID" id="transactionID"/>
+
+
+        <center>
+        <label> Submit your feedback</label><br/> <br/>
+        <textarea name="feedback" rows="10" cols="200"></textarea> <br/> <br/>
+        <input type="submit"/>
+        </center>
+    </form>
+
+</div>
+
+
+
+
+<div id="serviceFeedBackFormBackground"> 
+<div id="closeButton" onclick="closeFeedbackForm()"> X </div>
+        <br/> <br/>
+        <br/> <br/>
+        <br/> <br/>
+        <br/> <br/>
+    <form id="serviceFeedBackForm" name="serviceFeedBackForm" action="Backend/serviceFeedBackBackend.php" method="POST"> 
+        <input type="hidden" name="myID" value="<?php echo $_SESSION['userID']?>"/>
+        <input type="hidden" name="serviceRevieweeID" id="serviceRevieweeID"/>
+        <input type="hidden" name="userType" value="<?php echo $_SESSION['userType']?>"/>
+        <input type="hidden" name="serviceID" id="serviceID"/>
+        <input type="hidden" name="serviceTransactionID" id="serviceTransactionID"/>
+
+
+        <center>
+        <label> Submit your feedback</label><br/> <br/>
+        <textarea name="feedback" rows="10" cols="200"></textarea> <br/> <br/>
+        <input type="submit"/>
+        </center>
+    </form>
+
+</div>
+
+
 
 
 <br/> <br/>

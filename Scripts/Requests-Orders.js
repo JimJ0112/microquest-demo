@@ -1306,6 +1306,7 @@ function setCompletedServiceOrdersData(array){
             serviceCategory= document.getElementsByClassName('serviceCategory');
             servicePosition= document.getElementsByClassName('servicePosition');
             serviceStatus = document.getElementsByClassName('serviceStatus');
+            
 
             for(var i=0; i<number;i++){
                 transactionID[i].innerHTML = "<b>Transaction ID: </b>"+ dataArray[i]['transactionID'];
@@ -1339,10 +1340,14 @@ function setCompletedServiceOrdersData(array){
                     paybutton[i].innerText = "Confirm Payment";
                     paybutton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'payment confirmed')");
 
-                   }else if(dataArray[i]['transactionStatus'] === "payment confirmed"){
-
+                   }else if(dataArray[i]['transactionStatus'] === "payment confirmed" || dataArray[i]['transactionStatus'] === "requestor feedback"){
+                    //paidbutton[i].style.display = "none";
+                    paybutton[i].innerText = "Give Feedback";
+                    //showServiceFeedbackForm(serviceID,userID,transactionID)
+                    paybutton[i].setAttribute('onclick','showServiceFeedbackForm('+dataArray[i]['serviceID']+','+dataArray[i]['requestorID']+','+dataArray[i]['transactionID']+')');
+                   }else{
                     paybutton[i].style.display = "none";
-                }
+                   }
             
             }
     
@@ -1443,7 +1448,12 @@ function setCompletedRequestsApplicationData(array){
        }else if(dataArray[i]['transactionStatus'] === "paid"){
         paidbutton[i].innerText = "Confirm Payment";
         paidbutton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'payment confirmed')");
-       }else if(dataArray[i]['transactionStatus'] === "payment confirmed"){
+       }else if(dataArray[i]['transactionStatus'] === "payment confirmed" || dataArray[i]['transactionStatus'] === "requestor feedback"){
+        //paidbutton[i].style.display = "none";
+        paidbutton[i].innerText = "Give Feedback";
+        //showFeedbackForm(requestID,userID,transactionID)
+        paidbutton[i].setAttribute('onclick','showFeedbackForm('+dataArray[i]['requestID']+','+dataArray[i]['requestorID']+','+dataArray[i]['transactionID']+')');
+       }else{
         paidbutton[i].style.display = "none";
        }
 
@@ -1718,3 +1728,45 @@ function setAcceptedServiceOrdersData(array){
     
 
 }
+
+// for giving feedbacks ----------------------------------------------------------------------------------------
+function showFeedbackForm(requestID,userID,transactionID){
+    var requestID = requestID;
+    var userID = userID;
+    var transactionID = transactionID;
+
+    document.getElementById('requestFeedBackFormBackground').style.display="block";
+    var revieweeID = document.getElementById('revieweeID');
+    var requestIDInput= document.getElementById('requestID');
+    var transaction= document.getElementById('transactionID');
+
+    revieweeID.value= userID; 
+    requestIDInput.value = requestID;
+    transaction.value = transactionID;
+
+}
+
+
+function showServiceFeedbackForm(serviceID,userID,transactionID){
+    var serviceID = serviceID;
+    var userID = userID;
+    var transactionID = transactionID;
+
+    document.getElementById('serviceFeedBackFormBackground').style.display="block";
+    var revieweeID = document.getElementById('serviceRevieweeID');
+    var serviceIDInput= document.getElementById('serviceID');
+    var transaction= document.getElementById('serviceTransactionID');
+
+    revieweeID.value= userID; 
+    serviceIDInput.value = serviceID;
+    transaction.value = transactionID;
+
+}
+
+function closeFeedbackForm(){
+    document.getElementById('requestFeedBackFormBackground').style.display="none";
+    document.getElementById('serviceFeedBackFormBackground').style.display="none";
+}
+
+
+

@@ -75,7 +75,7 @@ function setData(array){
 
     for(var i = 0; i<number;i++){
         
-        serviceTitle[i].innerHTML = "<center> <b>"+ dataArray[i]['servicePosition'] +"</b> </center>";
+        serviceTitle[i].innerHTML = "<center> <b>"+ dataArray[i]['serviceCategory'] +"</b> </center>";
 
         serviceCard[i].setAttribute("onclick","createRequest('" + dataArray[i]['serviceCategory'] + "')");
 

@@ -126,7 +126,7 @@ session_start();
         <center> <div class="categoryTitle"> Home Services </div> </center> 
     </div> 
 
-    <div class="requestCat-main" onclick="setCategory('Pasabuy')">
+    <div class="requestCat-main" onclick="getPasabuyRequests()">
         <image src="Images/RequestBanners/pasabuy.jpg" class="bannerImage"> 
         <center> <div class="categoryTitle"> Pasabuy </div> </center> 
     </div>

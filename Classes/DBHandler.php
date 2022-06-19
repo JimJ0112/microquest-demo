@@ -1062,6 +1062,51 @@ public function getOtherRequests(){
 }
 
 
+// get other Requests
+public function getPasabuyRequests(){
+    $tablename = "pasabuyrequests";
+
+    
+   
+    
+    $query = "SELECT $tablename.*,userprofile.userName,userprofile.municipality,userprofile.userPhoto FROM $tablename INNER JOIN userprofile ON $tablename.requestorID = userprofile.userID WHERE requestStatus = 'Active';";
+   
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+    
+  
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+
+                
+                $file = 'data:image/image/png;base64,'.base64_encode($row['userPhoto']);
+                $row['userPhoto'] = $file;
+                
+                $file = 'data:image/image/png;base64,'.base64_encode($row['productImage']);
+                $row['productImage'] = $file;
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
+
 
 
 // get My Requests
@@ -1697,7 +1742,7 @@ public function getCompletedTransactions($ID,$column,$transactionType){
 
     if($transactionType === "Request"){
         // added AND transactionStatus = 'pending'
-        $query = "SELECT transactions.*, requestor.userID, responder.userID, requestor.userName as RequestorName, responder.userName as ResponderName, requests.* FROM $tablename INNER JOIN userprofile requestor ON (requestor.userID = transactions.requestorID) INNER JOIN userprofile responder ON (responder.userID = transactions.responderID) INNER JOIN requestsinfo requests ON (requests.requestID = transactions.requestID) WHERE transactions.$column = $ID AND (transactions.transactionStatus = 'completed' OR transactions.transactionStatus = 'paid' OR transactions.transactionStatus = 'payment confirmed') ORDER BY transactions.transactionID DESC";
+        $query = "SELECT transactions.*, requestor.userID, responder.userID, requestor.userName as RequestorName, responder.userName as ResponderName, requests.* FROM $tablename INNER JOIN userprofile requestor ON (requestor.userID = transactions.requestorID) INNER JOIN userprofile responder ON (responder.userID = transactions.responderID) INNER JOIN requestsinfo requests ON (requests.requestID = transactions.requestID) WHERE transactions.$column = $ID AND (transactions.transactionStatus = 'completed' OR transactions.transactionStatus = 'paid' OR transactions.transactionStatus = 'payment confirmed' OR transactions.transactionStatus = 'responder feedback' OR transactions.transactionStatus = 'requestor feedback') ORDER BY transactions.transactionID DESC";
 
         $result = mysqli_query($this->dbconnection, $query);
         $resultCheck = mysqli_num_rows($result);
@@ -1861,6 +1906,57 @@ public function getServicesBannerImage($ServiceCategory,$ServicePosition){
   
 }
 
+
+
+// get user reviews 
+// get Services row 
+public function getUserReviews($userID){
+    $tablename = "feedbacks";
+    $userID = mysqli_real_escape_string($this->dbconnection, $userID);
+
+   
+  
+    $query = "SELECT feedbacks.*, reviewer.userName as reviewerUserName,reviewer.userPhoto as reviewerUserPhoto, reviewee.userName as revieweeUserName, reviewee.userPhoto as revieweeUserPhoto
+    FROM $tablename
+    INNER JOIN userprofile as reviewer ON($tablename.reviewerID = reviewer.userID)
+    INNER JOIN userprofile as reviewee ON($tablename.revieweeID = reviewee.userID)
+    WHERE $tablename.revieweeID = $userID";
+
+
+    $result = mysqli_query($this->dbconnection, $query);
+    $resultCheck = mysqli_num_rows($result);
+    $data = array();
+  
+
+
+    if($resultCheck > 0){
+       
+
+            while($row = mysqli_fetch_assoc($result)){
+                
+
+                
+                $file = 'data:image/image/png;base64,'.base64_encode($row['reviewerUserPhoto']);
+                $row['reviewerUserPhoto'] = $file;
+                
+
+                $file = 'data:image/image/png;base64,'.base64_encode($row['revieweeUserPhoto']);
+                $row['revieweeUserPhoto'] = $file;
+
+                $data[] = $row;
+                
+             
+            }
+            return $data;
+        
+        
+        
+
+    } else {return "failed to fetch";}
+
+        
+  
+}
 
 /*---------------------------------UPDATE FUNCTIONS----------------------------------------------------- */
 
@@ -2145,6 +2241,82 @@ public function registerServiceTransaction($formServiceID,$responderID,$requesto
     $result = mysqli_query($this->dbconnection, $query);
  
   
+}// end of function
+
+
+
+// register pasabuy request
+public function registerPasabuyRequest($requestorID,$datePosted,$productImage,$productName,$productBrand,$requestExpectedPrice,$isNegotiable,$dueDate,$requestDescription){
+
+    $requestorID = mysqli_real_escape_string($this->dbconnection, $requestorID);
+    $datePosted = mysqli_real_escape_string($this->dbconnection, $datePosted);
+    $productImage = mysqli_real_escape_string($this->dbconnection, $productImage);
+    $productName = mysqli_real_escape_string($this->dbconnection, $productName);
+    $productBrand = mysqli_real_escape_string($this->dbconnection, $productBrand);
+    $requestExpectedPrice = mysqli_real_escape_string($this->dbconnection, $requestExpectedPrice);
+    $isNegotiable = mysqli_real_escape_string($this->dbconnection, $isNegotiable);
+    $dueDate = mysqli_real_escape_string($this->dbconnection, $dueDate);
+    $requestDescription = mysqli_real_escape_string($this->dbconnection,$requestDescription);
+    $requestStatus = "Active";
+
+   
+    //pasabuyrequestID	requestorID	productName	productBrand	requestDescription	expectedPrice	
+    //negotiable	datePosted	requestDueDate	requestStatus	productImage	
+
+
+    $tablename = "pasabuyrequests";
+
+    $query = "INSERT INTO $tablename VALUES(0,$requestorID,'$productName','$productBrand','$requestDescription','$requestExpectedPrice','$isNegotiable','$datePosted','$dueDate','$requestStatus','$productImage')";
+
+    $result = mysqli_query($this->dbconnection, $query);
+ 
+  return $result;
+}// end of function
+
+
+// register pasabuy request
+public function registerRequestFeedback($myID,$revieweeID,$requestID,$transactionID,$feedback,$today){
+
+
+    $myID= mysqli_real_escape_string($this->dbconnection, $myID);
+    $revieweeID= mysqli_real_escape_string($this->dbconnection, $revieweeID);
+    $requestID= mysqli_real_escape_string($this->dbconnection, $requestID);
+    $transactionID= mysqli_real_escape_string($this->dbconnection,$transactionID);
+    $feedback = mysqli_real_escape_string($this->dbconnection, $feedback);
+    $today= mysqli_real_escape_string($this->dbconnection, $today);
+	//	feedbackID	reviewerID	revieweeID	transactionID	serviceID	requestID	pasabuyRequestID	feedback	feedbackDate	
+
+
+    $tablename = "feedbacks";
+
+    $query = "INSERT INTO $tablename VALUES(0,$myID,$revieweeID,$transactionID,null,$requestID,null,'$feedback','$today')";
+
+    $result = mysqli_query($this->dbconnection, $query);
+ 
+  return $result;
+}// end of function
+
+
+// register SERVICE FEEDBACKS
+public function registerServiceFeedback($myID,$revieweeID,$serviceID,$transactionID,$feedback,$today){
+
+
+    $myID= mysqli_real_escape_string($this->dbconnection, $myID);
+    $revieweeID= mysqli_real_escape_string($this->dbconnection, $revieweeID);
+    $serviceID= mysqli_real_escape_string($this->dbconnection, $serviceID);
+    $transactionID= mysqli_real_escape_string($this->dbconnection,$transactionID);
+    $feedback = mysqli_real_escape_string($this->dbconnection, $feedback);
+    $today= mysqli_real_escape_string($this->dbconnection, $today);
+	//	feedbackID	reviewerID	revieweeID	transactionID	serviceID	requestID	pasabuyRequestID	feedback	feedbackDate	
+
+
+    $tablename = "feedbacks";
+
+    $query = "INSERT INTO $tablename VALUES(0,$myID,$revieweeID,$transactionID,$serviceID,null,null,'$feedback','$today')";
+
+    $result = mysqli_query($this->dbconnection, $query);
+ 
+  return $result;
 }// end of function
 
 

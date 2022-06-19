@@ -88,11 +88,11 @@ session_start();
 
 <!-- pasabuy requests --> 
 
-<form method="post" action="Backend/CreateRequestBackend.php" id="pasabuyRequestForm" class="requestForm">
+<form method="post" action="Backend/CreatePasabuyRequestBackend.php" id="pasabuyRequestForm" class="requestForm" enctype="multipart/form-data">
 <div id="closeButton" onclick="closeForms()"> X </div>
     <input type="hidden" name="formType" value="Pasabuy"> 
 
-    <h2 id="selectedCategory"> </h2>
+    <h2 id="selectedCategory"> Pasabuy Request </h2>
     <input type="hidden" name="requestorID" value="<?php echo $_SESSION['userID']?>">
     <input type="hidden" name="requestorMunicipality" value="<?php echo $_SESSION['municipality']?>">
     <input type="hidden" name="requestCategory" value="pasabuy">
@@ -101,12 +101,12 @@ session_start();
             echo date("Y-m-d H:i:s",time());?>">
 
     <label> Sample picture of your requested product </label>
-    <input type="file" name="productImage"> <br/>
+    <input type="file" name="productImage"required> <br/>
 
     <label> Product name </label>
-    <input type="text" name="productName"><br/>
+    <input type="text" name="productName"required><br/>
     <label> Product Brand </label>
-    <input type="text" name="productBrand"><br/>
+    <input type="text" name="productBrand"required><br/>
 
     <label> How much do you offer for your request </label>
     <input type="number" name="requestExpectedPrice"><br/>
@@ -118,7 +118,10 @@ session_start();
     </select>  <br/>
 
     <label> Until when is your request available? </label>
-    <input type="date" name="dueDate" min="<?php echo $today; ?>" max="" value="<?php echo $today;?>"> <br/>
+    <input type="date" name="dueDate" min="<?php echo $today; ?>" max="" value="<?php echo $today;?>" required> <br/>
+
+    <label> Additional Notes </label> 
+    <textarea name="requestDescription"></textarea> <br/>
 
   <input type="submit"> <br/>
 

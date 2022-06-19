@@ -1252,15 +1252,18 @@ function setCompletedRequestsApplicationData(array){
        if(dataArray[i]['transactionStatus'] === 'completed'){
         paybutton[i].innerText = "Pay";
         paybutton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'paid')");
-       } else if(dataArray[i]['transactionStatus'] === 'payment confirmed'){
-        paybutton[i].innerText = "payment confirmed";
-        paybutton[i].style.display = "none";
        } else if (dataArray[i]['transactionStatus'] === 'paid'){
         paybutton[i].innerText = "waiting for payment confirmation";
         paybutton[i].style.display = "none";
         var text = document.createElement('b');
         text.innerText = "waiting for payment confirmation";
         buttonsCol[i].appendChild(text);
+       }else if(dataArray[i]['transactionStatus'] === "payment confirmed" || dataArray[i]['transactionStatus'] === "responder feedback"){
+        paybutton[i].innerText = "Give Feedback";
+        paybutton[i].setAttribute('onclick','showFeedbackForm('+dataArray[i]['requestID']+','+dataArray[i]['responderID']+','+dataArray[i]['transactionID']+')');
+       }else{
+        paybutton[i].style.display = "none";
+
        }
     }
     
@@ -1335,9 +1338,12 @@ function setCompletedServiceOrdersData(array){
                     text.innerHTML = "Waiting for payment confirmation";
                     buttonsCol[i].appendChild(text);
 
-                } else if(dataArray[i]['transactionStatus'] === "payment confirmed"){
-                    paybutton[i].innerText = "confirm paid";
+                } else if(dataArray[i]['transactionStatus'] === "payment confirmed" || dataArray[i]['transactionStatus'] === "responder feedback"){
+                    paybutton[i].innerText = "Give Feedback";
+                    paybutton[i].setAttribute('onclick','showServiceFeedbackForm('+dataArray[i]['serviceID']+','+dataArray[i]['responderID']+','+dataArray[i]['transactionID']+')');
+                }else{
                     paybutton[i].style.display = "none";
+            
                 }
             
             }
@@ -1558,7 +1564,7 @@ function setAcceptedApplicationData(array){
     
         transactionStartDate[i].innerHTML = "<b>Application Date: </b>"+dataArray[i]['transactionStartDate'];
         transactionStatus[i].innerHTML = "<b>Application Status: </b>"+dataArray[i]['transactionStatus'];
-         cancelButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'cancelled')");
+        cancelButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'cancelled')");
     
     }
     
@@ -1566,3 +1572,43 @@ function setAcceptedApplicationData(array){
 }
 
 //create completed service elements
+
+
+// for giving feedbacks ----------------------------------------------------------------------------------------
+function showFeedbackForm(requestID,userID,transactionID){
+    var requestID = requestID;
+    var userID = userID;
+    var transactionID = transactionID;
+
+    document.getElementById('requestFeedBackFormBackground').style.display="block";
+    var revieweeID = document.getElementById('revieweeID');
+    var requestIDInput= document.getElementById('requestID');
+    var transaction= document.getElementById('transactionID');
+
+    revieweeID.value= userID; 
+    requestIDInput.value = requestID;
+    transaction.value = transactionID;
+
+}
+
+
+function showServiceFeedbackForm(serviceID,userID,transactionID){
+    var serviceID = serviceID;
+    var userID = userID;
+    var transactionID = transactionID;
+
+    document.getElementById('serviceFeedBackFormBackground').style.display="block";
+    var revieweeID = document.getElementById('serviceRevieweeID');
+    var serviceIDInput= document.getElementById('serviceID');
+    var transaction= document.getElementById('serviceTransactionID');
+
+    revieweeID.value= userID; 
+    serviceIDInput.value = serviceID;
+    transaction.value = transactionID;
+
+}
+
+function closeFeedbackForm(){
+    document.getElementById('requestFeedBackFormBackground').style.display="none";
+    document.getElementById('serviceFeedBackFormBackground').style.display="none";
+}
