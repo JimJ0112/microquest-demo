@@ -51,6 +51,16 @@ session_start();
         }
     ?>
 
+<div id="showcontractBackGround"> 
+    <div id="closeButton" onclick="hideContract()"> X </div>
+        <br/> <br/>
+        <br/> <br/>
+    <div id="showcontractDiv"> 
+    </div>
+
+</div>
+
+
 
 <div id="requestFeedBackFormBackground"> 
 <div id="closeButton" onclick="closeFeedbackForm()"> X </div>

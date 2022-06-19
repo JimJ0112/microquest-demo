@@ -32,6 +32,6 @@ echo $contract;
 $result = $DBHandler->registerServiceTransaction($formServiceID,$responderID,$requestorID,$servicePrice,$dueDate,$responderTimeSlots,$additionalNotes,$transactionStartDate,$contract);
 //echo $result;
 
-//header("location:../RequestApplications-Services.php");
+header("location:../RequestApplications-Services.php");
 
 

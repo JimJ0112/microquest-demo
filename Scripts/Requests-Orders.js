@@ -96,6 +96,7 @@ function createServiceOrderElements(number){
     for(var i = 0; i<number; i++){
         var serviceOrderRow = document.createElement('tr');
         var serviceInfoRow = document.createElement('tr');
+        var contractRow = document.createElement('tr');
         var serviceOrderContainer = document.createElement('div')
 
         // about the transactions 
@@ -149,6 +150,7 @@ function createServiceOrderElements(number){
         transactionStatus.setAttribute('class','transactionStatus');
         viewService.setAttribute('class','viewService');
         viewService.innerText = "View Service";
+        contractRow.setAttribute('class','contractRow');
 
 
         buttonsCol.setAttribute('class','buttonsCol');
@@ -190,6 +192,7 @@ function createServiceOrderElements(number){
         serviceOrderRow.appendChild(buttonsCol);
         
         serviceOrderContainer.appendChild(serviceOrderRow);
+        serviceOrderContainer.appendChild(contractRow);
         serviceOrderContainer.appendChild(serviceInfoRow);
         
         div.appendChild(serviceOrderContainer);
@@ -228,6 +231,7 @@ function setServiceOrdersData(array){
             AcceptButton= document.getElementsByClassName('AcceptButton');
             viewService = document.getElementsByClassName('viewService');
 
+            contractRow = document.getElementsByClassName('contractRow');
     
             // about the service 
             serviceID= document.getElementsByClassName('serviceID');
@@ -261,6 +265,20 @@ function setServiceOrdersData(array){
                 serviceStatus[i].innerHTML = "<b> Service Status: </b>"+ dataArray[i]['serviceStatus'];
 
                 cancelButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'cancelled')");
+                if(dataArray[i]['contractAgreement'] != null){
+
+                    
+                    var viewContract = document.createElement('button');
+                    viewContract.innerText = "View Agreement";
+                    viewContract.setAttribute('onclick',"showContractAgreement('"+dataArray[i]['contractAgreement']+"')");
+                    buttonsCol[i].appendChild(viewContract);
+                    
+                    //contractRow[i].innerHTML = "<center> <b> Service Agreement </b> </center>" + dataArray[i]['contractAgreement'];
+
+                    
+                }
+            
+            
             }
     
 
@@ -1802,4 +1820,19 @@ function closeFeedbackForm(){
 }
 
 
+function showContractAgreement(contractString){
+    var contractcontent = contractString;
 
+    console.log(contractcontent);
+    var contractBackGround = document.getElementById('showcontractBackGround');
+    contractBackGround.style.display = "block";
+    
+    var contractDiv = document.getElementById('showcontractDiv');
+
+   // contractDiv.innerText = contractcontent;
+    contractDiv.style.display = "block";
+
+    
+ 
+    
+}
