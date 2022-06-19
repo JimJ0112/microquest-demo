@@ -104,6 +104,7 @@ function createServiceOrderElements(number){
         responderName = document.createElement('p');
         price= document.createElement('p');
         rate= document.createElement('p');
+        additionalNotes = document.createElement('p');
         transactionInfoCol = document.createElement('td');
 
         // about the service 
@@ -136,6 +137,7 @@ function createServiceOrderElements(number){
         responderName.setAttribute('class','responderName');
         price.setAttribute('class','price');
         rate.setAttribute('class','rate');
+        additionalNotes.setAttribute('class','additionalNotes');
 
         // about the service 
         serviceID.setAttribute('class','serviceID');
@@ -169,6 +171,7 @@ function createServiceOrderElements(number){
         transactionInfoCol.appendChild(transactionEndDate);
         transactionInfoCol.appendChild(transactionStatus);
         transactionInfoCol.appendChild(rate);
+        transactionInfoCol.appendChild(additionalNotes);
         transactionInfoCol.appendChild(viewService);
 
       
@@ -218,6 +221,7 @@ function setServiceOrdersData(array){
             transactionStartDate= document.getElementsByClassName('transactionStartDate');
             transactionEndDate= document.getElementsByClassName('transactionEndDate');
             transactionStatus= document.getElementsByClassName('transactionStatus');
+            additionalNotes = document.getElementsByClassName('additionalNotes');
     
             buttonsCol= document.getElementsByClassName('buttonsCol');
             cancelButton= document.getElementsByClassName('cancelButton');
@@ -245,6 +249,7 @@ function setServiceOrdersData(array){
                 viewService[i].setAttribute('onclick','callService('+i+')');
                 //cancelButton[i].innerText = dataArray[i][''];
                 //AcceptButton[i].innerText = dataArray[i][''];
+                additionalNotes[i].innerHTML = "<b>Additional Notes: </b>"+dataArray[i]['additionalNotes'];
     
         
                 // about the service 
@@ -303,6 +308,7 @@ function createAppliedRequestsElements(number){
 
         transactionStartDate= document.createElement('p');
         transactionStatus= document.createElement('p');
+        transactionPrice = document.createElement('p');
 
         var infoCol = document.createElement('td');
         var buttonsCol = document.createElement('td');
@@ -324,6 +330,7 @@ function createAppliedRequestsElements(number){
         datePosted.setAttribute('class','datePosted');
         dueDate.setAttribute('class','dueDate');
         requestStatus.setAttribute('class','requestStatus');
+        transactionPrice.setAttribute('class','transactionPrice');
 
         transactionStartDate.setAttribute('class','transactionStartDate');
         transactionStatus.setAttribute('class','transactionStatus');
@@ -341,6 +348,7 @@ function createAppliedRequestsElements(number){
         infoCol.appendChild(requestCategory);
         infoCol.appendChild(requestExpectedPrice);
         infoCol.appendChild(isNegotiable);
+        infoCol.appendChild(transactionPrice);
         infoCol.appendChild(datePosted);
         infoCol.appendChild(dueDate);
         infoCol.appendChild(requestStatus);
@@ -381,6 +389,7 @@ function setRequestsApplicationData(array){
     requestCategory= document.getElementsByClassName('requestCategory');
     requestDescription= document.getElementsByClassName('requestDescription');
     requestExpectedPrice= document.getElementsByClassName('requestExpectedPrice');
+    transactionPrice = document.getElementsByClassName('transactionPrice');
     isNegotiable= document.getElementsByClassName('isNegotiable');
     datePosted= document.getElementsByClassName('datePosted');
     dueDate= document.getElementsByClassName('dueDate');
@@ -413,6 +422,21 @@ function setRequestsApplicationData(array){
         acceptButton[i].setAttribute('onclick','acceptRequestApplication('+dataArray[i]['transactionID']+",'accepted',"+dataArray[i]['requestID']+")");
         cancelButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'cancelled')");
 
+        transactionPrice[i].innerHTML="<b> Transaction price: </b> Php "+ dataArray[i]['price'];
+
+        // create update transaction price button
+        if(dataArray[i]['isNegotiable'] === "Negotiable"){
+            var updatePriceButton = document.createElement('button');
+            updatePriceButton.setAttribute('onclick','negotiatePrice('+dataArray[i]['transactionID']+')');
+            updatePriceButton.innerText ="Update Price";
+            buttonsCol[i].appendChild(updatePriceButton);
+            isNegotiable[i].style.color="green";
+            isNegotiable[i].style.fontWeight = "bolder";
+        } else{
+            isNegotiable[i].style.color="red";
+            isNegotiable[i].style.fontWeight = "bolder";
+        }
+
     }
     
 
@@ -433,6 +457,9 @@ function updateRequestApplication(transactionID,update){
            
             var dataArray = this.response;
             console.log(dataArray);
+            
+            userID = sessionStorage.getItem('myID');
+            getRequestApplications(userID);
  
             
 
@@ -463,6 +490,8 @@ function acceptRequestApplication(transactionID,update,requestID){
             var dataArray = this.response;
             console.log(dataArray);
  
+            userID = sessionStorage.getItem('myID');
+            getRequestApplications(userID);
             
 
         }else{
@@ -500,6 +529,7 @@ function getCancelledRequests(userID){
                 div.style.textAlign = "center";
                 div.appendChild(h2);
                 console.log(dataArray);
+                
 
             } else {
                 
@@ -719,6 +749,7 @@ function createNoButtonServiceOrderElements(number){
         price= document.createElement('p');
         rate= document.createElement('p');
         transactionInfoCol = document.createElement('td');
+        additionalNotes = document.createElement('p');
 
         // about the service 
         serviceID= document.createElement('p');
@@ -750,6 +781,7 @@ function createNoButtonServiceOrderElements(number){
         ResponderName.setAttribute('class','ResponderName');
         price.setAttribute('class','price');
         rate.setAttribute('class','rate');
+        additionalNotes.setAttribute('class','additionalNotes');
 
         // about the service 
         serviceID.setAttribute('class','serviceID');
@@ -783,6 +815,7 @@ function createNoButtonServiceOrderElements(number){
         transactionInfoCol.appendChild(transactionEndDate);
         transactionInfoCol.appendChild(transactionStatus);
         transactionInfoCol.appendChild(rate);
+        transactionInfoCol.appendChild(additionalNotes);
         transactionInfoCol.appendChild(viewService);
 
         //buttonsCol.appendChild(AcceptButton);
@@ -830,6 +863,7 @@ function createCompletedServiceOrderElements(number){
         ResponderName = document.createElement('p');
         price= document.createElement('p');
         rate= document.createElement('p');
+        additionalNotes = document.createElement('p');
         transactionInfoCol = document.createElement('td');
 
         // about the service 
@@ -854,6 +888,7 @@ function createCompletedServiceOrderElements(number){
         serviceInfoRow.setAttribute('class','serviceInfoRow');
         serviceOrderContainer.setAttribute('class','serviceOrderContainer');
         serviceStatus.setAttribute('class','serviceStatus');
+        additionalNotes.setAttribute('class','additionalNotes');
         transactionInfoCol.setAttribute('class','transactionInfoCol');
 
         // about the transactions 
@@ -893,8 +928,10 @@ function createCompletedServiceOrderElements(number){
         transactionInfoCol.appendChild(transactionStartDate);
         transactionInfoCol.appendChild(transactionEndDate);
         transactionInfoCol.appendChild(transactionStatus);
+        transactionInfoCol.appendChild(additionalNotes);
         transactionInfoCol.appendChild(rate);
         transactionInfoCol.appendChild(viewService);
+       
 
         buttonsCol.appendChild(paymentbutton);
        // buttonsCol.appendChild(br);
@@ -1121,6 +1158,7 @@ function setNoButtonServiceOrdersData(array){
             //cancelButton= document.getElementsByClassName('cancelButton');
             //AcceptButton= document.getElementsByClassName('AcceptButton');
             viewService = document.getElementsByClassName('viewService');
+            additionalNotes = document.getElementsByClassName('additionalNotes');
 
     
             // about the service 
@@ -1143,6 +1181,7 @@ function setNoButtonServiceOrdersData(array){
                 viewService[i].setAttribute('onclick','callService('+i+')');
                 //cancelButton[i].innerText = dataArray[i][''];
                 //AcceptButton[i].innerText = dataArray[i][''];
+                additionalNotes[i].innerHTML = "<b>Additional Notes: </b>"+dataArray[i]['additionalNotes'];
     
         
                 // about the service 
@@ -1290,6 +1329,7 @@ function setCompletedServiceOrdersData(array){
             transactionStartDate= document.getElementsByClassName('transactionStartDate');
             transactionEndDate= document.getElementsByClassName('transactionEndDate');
             transactionStatus= document.getElementsByClassName('transactionStatus');
+            additionalNotes = document.getElementsByClassName('additionalNotes');
     
             buttonsCol= document.getElementsByClassName('buttonsCol');
             //cancelButton= document.getElementsByClassName('cancelButton');
@@ -1318,6 +1358,7 @@ function setCompletedServiceOrdersData(array){
                 //cancelButton[i].innerText = dataArray[i][''];
                 //AcceptButton[i].innerText = dataArray[i][''];
     
+                additionalNotes[i].innerHTML = "<b> Additional Notes: </b>"+dataArray[i]['additionalNotes']
         
                 // about the service 
                 serviceID[i].innerHTML = "<b> Service ID: </b>"+ dataArray[i]['serviceID'];
@@ -1611,4 +1652,45 @@ function showServiceFeedbackForm(serviceID,userID,transactionID){
 function closeFeedbackForm(){
     document.getElementById('requestFeedBackFormBackground').style.display="none";
     document.getElementById('serviceFeedBackFormBackground').style.display="none";
+    document.getElementById('updatePriceFormBackground').style.display = "none";
 }
+
+// show update price for negotiations
+
+function negotiatePrice(transactionID){
+    transactionID = transactionID;
+    var transactionIDInput = document.getElementById('transactionIDInput');
+    transactionIDInput.value = transactionID;
+
+    var updatePriceFormBackground= document.getElementById('updatePriceFormBackground');
+    updatePriceFormBackground.style.display="block";
+}
+
+// update price 
+function savePrice(){
+    var transactionID = document.getElementById('transactionIDInput').value;
+    var updatePrice = document.getElementById('updatePrice').value;
+    var query = "transactionID=" + transactionID+"&updatePrice="+updatePrice;
+    console.log(query);
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open("POST", "Backend/UpdateTransactionPrice.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onload = function() {
+        if (this.readyState === 4 || this.status === 200){ 
+           
+            var dataArray = this.response;
+            console.log(dataArray);
+            closeFeedbackForm();
+            
+            userID = sessionStorage.getItem('myID');
+            getRequestApplications(userID);
+
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send(query);
+    
+}// end of function

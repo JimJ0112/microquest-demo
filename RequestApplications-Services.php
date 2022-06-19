@@ -26,7 +26,7 @@ session_start();
     <link rel="stylesheet" href="style.css">
 
     <script src="Scripts/RequestApplications-Services.js"> </script>
-    <title> My Services </title>
+    <title> Requestor Transactions </title>
 </head>
 
 <body>
@@ -34,16 +34,7 @@ session_start();
 <?php
         if(isset($_SESSION["userType"])){
             $usertype = $_SESSION["userType"];
-
-            /*
-            if($usertype === "Responder"){
-                require("Includes/Responder_Navbar.inc.php");
-            }else if($usertype === "Requestor"){
-                require("Includes/Requestor_Navbar.inc.php");
-            }
-            */
-
-            
+       
             if($usertype === "Requestor"){
 
                 require("Includes/requestorNav.inc.php");
@@ -63,6 +54,39 @@ session_start();
             echo"<script> sessionStorage.setItem('myID',$userID)</script>";
         }
     ?>
+
+<div id="updatePriceFormBackground"> 
+    <div id="closeButton" onclick="closeFeedbackForm()"> X </div>
+        <br/> <br/>
+        <br/> <br/>
+        <br/> <br/>
+        <br/> <br/>
+        
+        <form id="transactionUpdatePriceForm"  action="Backend/UpdateTransactionPrice.php" method="POST"> 
+            <input type="hidden" name="transactionID" id="transactionIDInput"/>
+
+
+            <center>
+            <label> Update Price </label><br/> <br/>
+            Php <input type="number" name="updatePrice" id="updatePrice" required> <br/> <br/>
+            <input type="button" value="Save" onclick="savePrice()"/>
+            </center>
+        </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div id="requestFeedBackFormBackground"> 
 <div id="closeButton" onclick="closeFeedbackForm()"> X </div>
@@ -88,8 +112,6 @@ session_start();
 </div>
 
 
-
-
 <div id="serviceFeedBackFormBackground"> 
 <div id="closeButton" onclick="closeFeedbackForm()"> X </div>
         <br/> <br/>
@@ -112,6 +134,7 @@ session_start();
     </form>
 
 </div>
+
 
 
 

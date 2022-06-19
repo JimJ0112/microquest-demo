@@ -1489,3 +1489,20 @@ padding: 0;
     height: 100%;
     overflow: scroll;
 }
+
+/* for negotiations */
+#updatePriceFormBackground{
+    width:100%;
+    height: 100%;
+    position: absolute;
+    backdrop-filter: blur(2px);
+    display: none;
+  
+}
+
+#transactionUpdatePriceForm{
+    background-color: maroon;
+    width: 500px;
+    height: 300px;
+    margin: auto;
+}

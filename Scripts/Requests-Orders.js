@@ -101,9 +101,10 @@ function createServiceOrderElements(number){
         // about the transactions 
         transactionID= document.createElement('p');
         requestorID= document.createElement('p');
-        RequestorName = document.createElement('p');
+        RequestorName = document.createElement('a');
         price= document.createElement('p');
         rate= document.createElement('p');
+        additionalNotes = document.createElement('p');
         transactionInfoCol = document.createElement('td');
 
         // about the service 
@@ -136,6 +137,7 @@ function createServiceOrderElements(number){
         RequestorName.setAttribute('class','RequestorName');
         price.setAttribute('class','price');
         rate.setAttribute('class','rate');
+        additionalNotes .setAttribute('class','additionalNotes');
 
         // about the service 
         serviceID.setAttribute('class','serviceID');
@@ -164,6 +166,7 @@ function createServiceOrderElements(number){
         transactionInfoCol.appendChild(RequestorName);
         transactionInfoCol.appendChild(price);
         transactionInfoCol.appendChild(rate);
+        transactionInfoCol.appendChild(additionalNotes);
 
         transactionInfoCol.appendChild(transactionStartDate);
         transactionInfoCol.appendChild(transactionEndDate);
@@ -214,6 +217,7 @@ function setServiceOrdersData(array){
             RequestorName= document.getElementsByClassName('RequestorName');
             price= document.getElementsByClassName('price');
             rate= document.getElementsByClassName('rate');
+            additionalNotes= document.getElementsByClassName('additionalNotes');
 
             transactionStartDate= document.getElementsByClassName('transactionStartDate');
             transactionEndDate= document.getElementsByClassName('transactionEndDate');
@@ -234,18 +238,20 @@ function setServiceOrdersData(array){
             for(var i=0; i<number;i++){
                 transactionID[i].innerHTML = "<b>Transaction ID: </b>"+ dataArray[i]['transactionID'];
                 requestorID[i].innerHTML = "<b>Requestor ID: </b>"+ dataArray[i]['requestorID'];
-                RequestorName[i].innerHTML = "<b>Requestor Name: </b>"+ dataArray[i]['RequestorName'];
+                RequestorName[i].innerHTML = "<b style='color:black;'>Requestor Name: </b>"+ dataArray[i]['RequestorName'];
                 price[i].innerHTML = "<b>Price: </b> Php "+ dataArray[i]['price'];
                 rate[i].innerHTML = "<b>Responder Rate: </b> Php "+ dataArray[i]['rate'];
+                additionalNotes[i].innerHTML = "<b> Additional notes: </b>"+dataArray[i]['additionalNotes']
     
                 transactionStartDate[i].innerHTML = "<b>Order Date: </b>"+ dataArray[i]['transactionStartDate'];
-                transactionEndDate[i].innerHTML = "<b>Order Due Date: </b>"+ dataArray[i]['transactionEndDate'];
+                transactionEndDate[i].innerHTML = "<b>Order Due Date: </b>"+ dataArray[i]['dueDate'];
                 transactionStatus[i].innerHTML = "<b>Order Status: </b>"+ dataArray[i]['transactionStatus'];
         
                 viewService[i].setAttribute('onclick','callService('+i+')');
                 //cancelButton[i].innerText = dataArray[i][''];
                 //AcceptButton[i].innerText = dataArray[i][''];
-    
+                RequestorName[i].href= "Public_Profile.php?userID="+dataArray[i]['requestorID']+"&userType=Requestor";
+                
         
                 // about the service 
                 serviceID[i].innerHTML = "<b> Service ID: </b>"+ dataArray[i]['serviceID'];
@@ -292,7 +298,7 @@ function createAppliedRequestsElements(number){
         var requestContainer = document.createElement('div');
 
 
-        RequestorName = document.createElement('p');
+        RequestorName = document.createElement('a');
         requestTitle = document.createElement('p');
         requestCategory = document.createElement('p');
         requestDescription= document.createElement('p');
@@ -395,7 +401,7 @@ function setRequestsApplicationData(array){
 
     for(var i=0; i<number;i++){
 
-        RequestorName[i].innerHTML = "<b> Requestor Name: </b>"+dataArray[i]['RequestorName'];
+        RequestorName[i].innerHTML = "<b style='color:black;'> Requestor Name: </b>"+dataArray[i]['RequestorName'];
         requestTitle[i].innerHTML = "<b> Title: </b>"+dataArray[i]['requestTitle'];
         requestCategory[i].innerHTML = "<b> Category:  </b>"+dataArray[i]['requestCategory'];
         requestDescription[i].innerHTML = "<b> Description: </b>"+dataArray[i]['requestDescription'];
@@ -405,6 +411,8 @@ function setRequestsApplicationData(array){
         dueDate[i].innerHTML = "<b> Due Date: </b>"+dataArray[i]['dueDate'];
         requestStatus[i].innerHTML = "<b> Request Status:  </b>"+dataArray[i]['requestStatus'];
     
+        RequestorName[i].href= "Public_Profile.php?userID="+dataArray[i]['requestorID']+"&userType=Requestor";
+
         transactionStartDate[i].innerHTML = "<b>Application Date: </b>"+dataArray[i]['transactionStartDate'];
         transactionStatus[i].innerHTML = "<b>Application Status: </b>"+dataArray[i]['transactionStatus'];
         cancelButton[i].setAttribute('onclick','cancelRequestApplication('+dataArray[i]['transactionID']+",'cancelled',"+dataArray[i]['requestID']+")");
@@ -443,7 +451,7 @@ function setAcceptedRequestsApplicationData(array){
 
     for(var i=0; i<number;i++){
 
-        RequestorName[i].innerHTML = "<b> Requestor Name: </b>"+dataArray[i]['RequestorName'];
+        RequestorName[i].innerHTML = "<b style='color:black;'> Requestor Name: </b>"+dataArray[i]['RequestorName'];
         requestTitle[i].innerHTML = "<b> Title: </b>"+dataArray[i]['requestTitle'];
         requestCategory[i].innerHTML = "<b> Category:  </b>"+dataArray[i]['requestCategory'];
         requestDescription[i].innerHTML = "<b> Description: </b>"+dataArray[i]['requestDescription'];
@@ -453,6 +461,8 @@ function setAcceptedRequestsApplicationData(array){
         dueDate[i].innerHTML = "<b> Due Date: </b>"+dataArray[i]['dueDate'];
         requestStatus[i].innerHTML = "<b> Request Status:  </b>"+dataArray[i]['requestStatus'];
     
+       RequestorName[i].href= "Public_Profile.php?userID="+dataArray[i]['requestorID']+"&userType=Requestor";
+
         transactionStartDate[i].innerHTML = "<b>Application Date: </b>"+dataArray[i]['transactionStartDate'];
         transactionStatus[i].innerHTML = "<b>Application Status: </b>"+dataArray[i]['transactionStatus'];
         cancelButton[i].setAttribute('onclick','cancelRequestApplication('+dataArray[i]['transactionID']+",'cancelled',"+dataArray[i]['requestID']+")");
@@ -831,9 +841,10 @@ function createNoButtonServiceOrderElements(number){
         // about the transactions 
         transactionID= document.createElement('p');
         requestorID= document.createElement('p');
-        RequestorName = document.createElement('p');
+        RequestorName = document.createElement('a');
         price= document.createElement('p');
         rate= document.createElement('p');
+        additionalNotes = document.createElement('p');
         transactionInfoCol = document.createElement('td');
 
         // about the service 
@@ -866,6 +877,7 @@ function createNoButtonServiceOrderElements(number){
         RequestorName.setAttribute('class','RequestorName');
         price.setAttribute('class','price');
         rate.setAttribute('class','rate');
+        additionalNotes.setAttribute('class','additionalNotes');
 
         // about the service 
         serviceID.setAttribute('class','serviceID');
@@ -894,6 +906,7 @@ function createNoButtonServiceOrderElements(number){
         transactionInfoCol.appendChild(RequestorName);
         transactionInfoCol.appendChild(price);
         transactionInfoCol.appendChild(rate);
+        transactionInfoCol.appendChild(additionalNotes);
 
         transactionInfoCol.appendChild(transactionStartDate);
         transactionInfoCol.appendChild(transactionEndDate);
@@ -943,7 +956,7 @@ function createCompletedServiceOrderElements(number){
         // about the transactions 
         transactionID= document.createElement('p');
         requestorID= document.createElement('p');
-        RequestorName = document.createElement('p');
+        RequestorName = document.createElement('a');
         price= document.createElement('p');
         rate= document.createElement('p');
         transactionInfoCol = document.createElement('td');
@@ -953,6 +966,7 @@ function createCompletedServiceOrderElements(number){
         serviceCategory= document.createElement('p');
         servicePosition= document.createElement('p');
         serviceStatus = document.createElement('p');
+        additionalNotes = document.createElement('p');
 
         transactionStartDate= document.createElement('p');
         transactionEndDate= document.createElement('p');
@@ -978,6 +992,7 @@ function createCompletedServiceOrderElements(number){
         RequestorName.setAttribute('class','RequestorName');
         price.setAttribute('class','price');
         rate.setAttribute('class','rate');
+        additionalNotes.setAttribute('class','additionalNotes');
 
         // about the service 
         serviceID.setAttribute('class','serviceID');
@@ -1006,6 +1021,7 @@ function createCompletedServiceOrderElements(number){
         transactionInfoCol.appendChild(RequestorName);
         transactionInfoCol.appendChild(price);
         transactionInfoCol.appendChild(rate);
+        transactionInfoCol.appendChild(additionalNotes);
 
         transactionInfoCol.appendChild(transactionStartDate);
         transactionInfoCol.appendChild(transactionEndDate);
@@ -1054,7 +1070,7 @@ function createNoButtonAppliedRequestsElements(number){
         var requestContainer = document.createElement('div');
 
 
-        RequestorName = document.createElement('p');
+        RequestorName = document.createElement('a');
         requestTitle = document.createElement('p');
         requestCategory = document.createElement('p');
         requestDescription= document.createElement('p');
@@ -1141,7 +1157,7 @@ function createCompletedAppliedRequestsElements(number){
         var requestContainer = document.createElement('div');
 
 
-        RequestorName = document.createElement('p');
+        RequestorName = document.createElement('a');
         requestTitle = document.createElement('p');
         requestCategory = document.createElement('p');
         requestDescription= document.createElement('p');
@@ -1238,7 +1254,7 @@ function setNoButtonServiceOrdersData(array){
             //cancelButton= document.getElementsByClassName('cancelButton');
             //AcceptButton= document.getElementsByClassName('AcceptButton');
             viewService = document.getElementsByClassName('viewService');
-
+            additionalNotes = document.getElementsByClassName('additionalNotes');
     
             // about the service 
             serviceID= document.getElementsByClassName('serviceID');
@@ -1248,8 +1264,8 @@ function setNoButtonServiceOrdersData(array){
 
             for(var i=0; i<number;i++){
                 transactionID[i].innerHTML = "<b>Transaction ID: </b>"+ dataArray[i]['transactionID'];
-                requestorID[i].innerHTML = "<b>Requestor ID: </b>"+ dataArray[i]['requestorID'];
-                RequestorName[i].innerHTML = "<b>Requestor Name: </b>"+ dataArray[i]['RequestorName'];
+                requestorID[i].innerHTML = "<b style='color:black;'>Requestor ID: </b>"+ dataArray[i]['requestorID'];
+                RequestorName[i].innerHTML = "<b style='color:black;'>Requestor Name: </b>"+ dataArray[i]['RequestorName'];
                 price[i].innerHTML = "<b>Price: </b> Php "+ dataArray[i]['price'];
                 rate[i].innerHTML = "<b>Responder Rate: </b> Php "+ dataArray[i]['rate'];
     
@@ -1257,10 +1273,11 @@ function setNoButtonServiceOrdersData(array){
                 transactionEndDate[i].innerHTML = "<b>Order Due Date: </b>"+ dataArray[i]['transactionEndDate'];
                 transactionStatus[i].innerHTML = "<b>Order Status: </b>"+ dataArray[i]['transactionStatus'];
         
+                additionalNotes[i].innerHTML = "<b>Additional Notes: </b>"+dataArray[i]['additionalNotes'];
                 viewService[i].setAttribute('onclick','callService('+i+')');
                 //cancelButton[i].innerText = dataArray[i][''];
                 //AcceptButton[i].innerText = dataArray[i][''];
-    
+                RequestorName[i].href= "Public_Profile.php?userID="+dataArray[i]['requestorID']+"&userType=Requestor";
         
                 // about the service 
                 serviceID[i].innerHTML = "<b> Service ID: </b>"+ dataArray[i]['serviceID'];
@@ -1306,12 +1323,13 @@ function setCompletedServiceOrdersData(array){
             serviceCategory= document.getElementsByClassName('serviceCategory');
             servicePosition= document.getElementsByClassName('servicePosition');
             serviceStatus = document.getElementsByClassName('serviceStatus');
+            additionalNotes = document.getElementsByClassName('additionalNotes');
             
 
             for(var i=0; i<number;i++){
                 transactionID[i].innerHTML = "<b>Transaction ID: </b>"+ dataArray[i]['transactionID'];
                 requestorID[i].innerHTML = "<b>Requestor ID: </b>"+ dataArray[i]['requestorID'];
-                RequestorName[i].innerHTML = "<b>Requestor Name: </b>"+ dataArray[i]['RequestorName'];
+                RequestorName[i].innerHTML = "<b style='color:black;'>Requestor Name: </b>"+ dataArray[i]['RequestorName'];
                 price[i].innerHTML = "<b>Price: </b> Php "+ dataArray[i]['price'];
                 rate[i].innerHTML = "<b>Responder Rate: </b> Php "+ dataArray[i]['rate'];
     
@@ -1323,6 +1341,8 @@ function setCompletedServiceOrdersData(array){
                 //cancelButton[i].innerText = dataArray[i][''];
                 //AcceptButton[i].innerText = dataArray[i][''];
     
+                additionalNotes[i].innerHTML = "<b>Additional Notes: </b>"+dataArray[i]['additionalNotes'];
+                RequestorName[i].href= "Public_Profile.php?userID="+dataArray[i]['requestorID']+"&userType=Requestor";
         
                 // about the service 
                 serviceID[i].innerHTML = "<b> Service ID: </b>"+ dataArray[i]['serviceID'];
@@ -1383,7 +1403,7 @@ function setNoButtonRequestsApplicationData(array){
 
     for(var i=0; i<number;i++){
 
-        RequestorName[i].innerHTML = "<b> Requestor Name: </b>"+dataArray[i]['RequestorName'];
+        RequestorName[i].innerHTML = "<b style='color:black;'> Requestor Name: </b>"+dataArray[i]['RequestorName'];
         requestTitle[i].innerHTML = "<b> Title: </b>"+dataArray[i]['requestTitle'];
         requestCategory[i].innerHTML = "<b> Category:  </b>"+dataArray[i]['requestCategory'];
         requestDescription[i].innerHTML = "<b> Description: </b>"+dataArray[i]['requestDescription'];
@@ -1397,6 +1417,8 @@ function setNoButtonRequestsApplicationData(array){
         transactionStatus[i].innerHTML = "<b>Application Status: </b>"+dataArray[i]['transactionStatus'];
        // cancelButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'cancelled')");
     
+       RequestorName[i].href= "Public_Profile.php?userID="+dataArray[i]['requestorID']+"&userType=Requestor";
+
     }
     
 
@@ -1429,7 +1451,7 @@ function setCompletedRequestsApplicationData(array){
 
     for(var i=0; i<number;i++){
 
-        RequestorName[i].innerHTML = "<b> Requestor Name: </b>"+dataArray[i]['RequestorName'];
+        RequestorName[i].innerHTML = "<b style='color:black;'> Requestor Name: </b>"+dataArray[i]['RequestorName'];
         requestTitle[i].innerHTML = "<b> Title: </b>"+dataArray[i]['requestTitle'];
         requestCategory[i].innerHTML = "<b> Category:  </b>"+dataArray[i]['requestCategory'];
         requestDescription[i].innerHTML = "<b> Description: </b>"+dataArray[i]['requestDescription'];
@@ -1443,6 +1465,10 @@ function setCompletedRequestsApplicationData(array){
         transactionStatus[i].innerHTML = "<b>Application Status: </b>"+dataArray[i]['transactionStatus'];
        // cancelButton[i].setAttribute('onclick','updateRequestApplication('+dataArray[i]['transactionID']+",'cancelled')");
     
+       RequestorName[i].href= "Public_Profile.php?userID="+dataArray[i]['requestorID']+"&userType=Requestor";
+
+
+
        if(dataArray[i]['transactionStatus'] === "completed"){
         paidbutton[i].style.display = "none";
        }else if(dataArray[i]['transactionStatus'] === "paid"){
@@ -1479,7 +1505,7 @@ function createAcceptedRequestElements(number){
         var requestContainer = document.createElement('div');
 
 
-        RequestorName = document.createElement('p');
+        RequestorName = document.createElement('a');
         requestTitle = document.createElement('p');
         requestCategory = document.createElement('p');
         requestDescription= document.createElement('p');
@@ -1572,10 +1598,11 @@ function createAcceptedServiceOrderElements(number){
         // about the transactions 
         transactionID= document.createElement('p');
         requestorID= document.createElement('p');
-        RequestorName = document.createElement('p');
+        RequestorName = document.createElement('a');
         price= document.createElement('p');
         rate= document.createElement('p');
         transactionInfoCol = document.createElement('td');
+        additionalNotes = document.createElement('a');
 
         // about the service 
         serviceID= document.createElement('p');
@@ -1607,6 +1634,7 @@ function createAcceptedServiceOrderElements(number){
         RequestorName.setAttribute('class','RequestorName');
         price.setAttribute('class','price');
         rate.setAttribute('class','rate');
+        additionalNotes.setAttribute('class','additionalNotes');
 
         // about the service 
         serviceID.setAttribute('class','serviceID');
@@ -1635,6 +1663,7 @@ function createAcceptedServiceOrderElements(number){
         transactionInfoCol.appendChild(RequestorName);
         transactionInfoCol.appendChild(price);
         transactionInfoCol.appendChild(rate);
+        transactionInfoCol.appendChild(additionalNotes);
 
         transactionInfoCol.appendChild(transactionStartDate);
         transactionInfoCol.appendChild(transactionEndDate);
@@ -1692,6 +1721,7 @@ function setAcceptedServiceOrdersData(array){
             cancelButton= document.getElementsByClassName('cancelButton');
             completeButton= document.getElementsByClassName('completeButton');
             viewService = document.getElementsByClassName('viewService');
+            additionalNotes = document.getElementsByClassName('additionalNotes');
 
     
             // about the service 
@@ -1702,16 +1732,19 @@ function setAcceptedServiceOrdersData(array){
 
             for(var i=0; i<number;i++){
                 transactionID[i].innerHTML = "<b>Transaction ID: </b>"+ dataArray[i]['transactionID'];
-                requestorID[i].innerHTML = "<b>Requestor ID: </b>"+ dataArray[i]['requestorID'];
-                RequestorName[i].innerHTML = "<b>Requestor Name: </b>"+ dataArray[i]['RequestorName'];
+                requestorID[i].innerHTML = "<b style='color:black;'>Requestor ID: </b>"+ dataArray[i]['requestorID'];
+                RequestorName[i].innerHTML = "<b style='color:black;'>Requestor Name: </b>"+ dataArray[i]['RequestorName'];
                 price[i].innerHTML = "<b>Price: </b> Php "+ dataArray[i]['price'];
                 rate[i].innerHTML = "<b>Responder Rate: </b> Php "+ dataArray[i]['rate'];
     
                 transactionStartDate[i].innerHTML = "<b>Order Date: </b>"+ dataArray[i]['transactionStartDate'];
                 transactionEndDate[i].innerHTML = "<b>Order Due Date: </b>"+ dataArray[i]['transactionEndDate'];
                 transactionStatus[i].innerHTML = "<b>Order Status: </b>"+ dataArray[i]['transactionStatus'];
-        
+
+                RequestorName[i].href= "Public_Profile.php?userID="+dataArray[i]['requestorID']+"&userType=Requestor";
+
                 viewService[i].setAttribute('onclick','callService('+i+')');
+                additionalNotes[i].innerHTML = "<b>Additional Notes: </b>"+dataArray[i]['additionalNotes']
                 //cancelButton[i].innerText = dataArray[i][''];
                 //AcceptButton[i].innerText = dataArray[i][''];
     
