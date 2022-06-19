@@ -2214,7 +2214,7 @@ public function registerRequestTransaction($requestID,$responderID,$requestorID,
 
 
 // register request application
-public function registerServiceTransaction($formServiceID,$responderID,$requestorID,$servicePrice,$dueDate,$responderTimeSlots,$additionalNotes,$transactionStartDate){
+public function registerServiceTransaction($formServiceID,$responderID,$requestorID,$servicePrice,$dueDate,$responderTimeSlots,$additionalNotes,$transactionStartDate,$contract){
 
     $formServiceID= mysqli_real_escape_string($this->dbconnection, $formServiceID);
     $responderID = mysqli_real_escape_string($this->dbconnection, $responderID);
@@ -2224,6 +2224,7 @@ public function registerServiceTransaction($formServiceID,$responderID,$requesto
     $additionalNotes = mysqli_real_escape_string($this->dbconnection, $additionalNotes);
     $transactionStartDate = mysqli_real_escape_string($this->dbconnection, $transactionStartDate);
     $responderTimeSlots= mysqli_real_escape_string($this->dbconnection,$responderTimeSlots);
+    $contract = mysqli_real_escape_string($this->dbconnection,$contract);
     
     $transactionsStatus = "pending";
 
@@ -2236,7 +2237,7 @@ public function registerServiceTransaction($formServiceID,$responderID,$requesto
    //	transactionID	requestID	serviceID	requestorID	responderID	price	transactionStatus	transactionStartDate	transactionEndDate	
 
 
-    $query = "INSERT INTO $tablename VALUES(0,null,$formServiceID,$requestorID,$responderID,$servicePrice,'$transactionsStatus','$transactionStartDate',null,'$dueDate','$responderTimeSlots','$additionalNotes')";
+    $query = "INSERT INTO $tablename VALUES(0,null,$formServiceID,$requestorID,$responderID,$servicePrice,'$transactionsStatus','$transactionStartDate',null,'$dueDate','$responderTimeSlots','$additionalNotes','$contract')";
 
     $result = mysqli_query($this->dbconnection, $query);
  

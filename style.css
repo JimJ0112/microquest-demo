@@ -1506,3 +1506,26 @@ padding: 0;
     height: 300px;
     margin: auto;
 }
+
+/* */
+#contractBackGround{
+    width:100%;
+    height: 100%;
+    position: absolute;
+    backdrop-filter: blur(2px);
+    display: none;
+    z-index: 10;
+
+}
+
+#contractDiv{
+    background-color: rgb(245, 235, 235);
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    z-index: 10;
+    padding: 10px;
+    outline: auto;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+}

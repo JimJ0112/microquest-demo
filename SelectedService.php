@@ -46,6 +46,15 @@ session_start();
 
 
 
+<div id="contractBackGround"> 
+    <div id="closeButton" onclick="hideContract()"> X </div>
+        <br/> <br/>
+        <br/> <br/>
+    <div id="contractDiv"> 
+
+    </div>
+
+</div>
 
 <center>
     <div id="AvailServiceFormContainer"> 
@@ -57,7 +66,7 @@ session_start();
             <h3> Confirm Transaction </h3> <br/><br/><br/>
 
             <input type="hidden" name="formServiceID" id="formServiceID"/>
-            <input type="hidden" name="requestorID" value="<?php echo $_SESSION["userID"] ?>"/>
+            <input type="hidden" name="requestorID" id="formRequestorID" value="<?php echo $_SESSION["userID"] ?> "/>
       
                 <label> Category </label> <br/>
                 <input type="text" name="category" id="Category" readonly> <br/> 
@@ -108,8 +117,9 @@ session_start();
 
                 <label> Additional Notes </label> <br/>
 
-                <textarea name="additionalNotes"></textarea> <br/><br/>
-                <a href="#" target="_blank">Terms and Conditions </a> <br/> <br/>
+                <textarea name="additionalNotes" id="additionalNotes" onkeypress="generateContract()"></textarea> <br/><br/>
+                <a href="#" onclick="showContract()">Terms and Conditions </a> <br/> <br/>
+                <input type="hidden" name="contract" id="contractInput"/>
                 <input type="checkBox" required/>
                 <label> I agree to the terms and conditions </label>
                 <br/> <br/>

@@ -518,6 +518,10 @@ function selectResponder(serviceID,responderID,rate){
     divServicePrice =document.getElementById("servicePrice");
     divServiceID = document.getElementById('formServiceID');
 
+    getUser(responderID);
+    var myID = sessionStorage.getItem('myID');
+    getMyInfo(myID);
+
     divResponderID.value = responderID;
     divServicePrice.value = rate;
     divServiceID.value = serviceID;
@@ -525,6 +529,9 @@ function selectResponder(serviceID,responderID,rate){
     availableTimeSlots();
     var form = document.getElementById('AvailServiceFormContainer'); 
     form.style.display = "block";
+
+    generateContract();
+    //console.log(responderInfoArray);
 
 
 }
@@ -599,6 +606,7 @@ function availableTimeSlots(){
             }
 
      
+            generateContract();
         }else{
             console.log(err);
         }      
@@ -673,4 +681,123 @@ for(var i = 0; i<8; i++){
 
 }
 
+function generateContract(){
 
+
+    formServiceID = document.getElementById('formServiceID').value;
+    formRequestorID= document.getElementById('formRequestorID').value;
+    Category= document.getElementById('Category').value;
+    Position= document.getElementById('Position').value;
+    responderID= document.getElementById('responderID').value;
+    servicePrice= document.getElementById('servicePrice').value;
+    dueDate= document.getElementById('dueDate').value;
+    responderTimeSlots= document.getElementById('responderTimeSlots').value;
+    additionalNotes= document.getElementById('additionalNotes').value;
+    contractInput = document.getElementById('contractInput');
+
+    responderInfoArray = sessionStorage.getItem('responderInfoArray'); 
+    responderInfoArray = JSON.parse(responderInfoArray);
+    console.log(responderInfoArray);
+
+    myInfoArray = sessionStorage.getItem('myInfoArray'); 
+    myInfoArray = JSON.parse(myInfoArray);
+    
+    console.log(responderInfoArray);
+
+    //var contract = "I,"+ myInfoArray[0]['lastName'] + ","+ myInfoArray[0]['firstName']+" "
+    var contract = "This Freelance Contract, is entered into by and between: \n" + myInfoArray[0]['lastName']+" "+ myInfoArray[0]['firstName']+
+    " from "+myInfoArray[0]['street']+" , "+myInfoArray[0]['baranggay']+" , "+ myInfoArray[0]['municipality']+ ", Bataan and "+ responderInfoArray[0]['lastName']+" "+ responderInfoArray[0]['firstName']+
+    " from "+responderInfoArray[0]['street']+" , "+myInfoArray[0]['baranggay']+" , "+ responderInfoArray[0]['municipality']+ ", Bataan \n" + "WHEREAS, "+myInfoArray[0]['firstName']+" has a need for "+ Category + ", "+ Position + "."
+    + "\n NOW THEREFORE, the parties hereby agree as follows: \n Service Price: Php "+servicePrice+" \n Deadline: "+ dueDate + " \n Time: "+ responderTimeSlots+ " \n Additional Notes: " + additionalNotes; 
+
+    contractInput.value = contract;
+
+    console.log(contract);
+    document.getElementById('contractDiv').innerText = contract;
+
+
+}
+
+function showContract(){
+    contractBackGround = document.getElementById('contractBackGround');
+    contractBackGround.style.display = "block";
+    contractDiv = document.getElementById('contractDiv');
+    contractDiv.style.display = "block";
+}
+
+function hideContract(){
+    contractBackGround = document.getElementById('contractBackGround');
+    contractBackGround.style.display = "none";
+    contractDiv = document.getElementById('contractDiv');
+    contractDiv.style.display = "none";
+}
+
+
+// for getting user info
+function getUser(ID,userType){
+   
+    var userID = ID;
+    var userType = userType;
+    var query = "userID=" + userID +"&userType=" + userType;
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open("POST", "Backend/Get_publicProfile.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onload = function() {
+        if (this.readyState === 4 || this.status === 200){ 
+           
+  
+
+            var dataArray = this.response;
+
+
+
+                //dataArray = JSON.parse(dataArray);
+               // console.log(dataArray);
+                sessionStorage.setItem('responderInfoArray',dataArray);
+
+
+     
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send(query);
+    
+}// end of function
+
+
+// for getting user info
+function getMyInfo(ID,userType){
+   
+    var userID = ID;
+    var userType = userType;
+    var query = "userID=" + userID +"&userType=" + userType;
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open("POST", "Backend/Get_publicProfile.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.onload = function() {
+        if (this.readyState === 4 || this.status === 200){ 
+           
+  
+
+            var dataArray = this.response;
+
+
+
+                //dataArray = JSON.parse(dataArray);
+               // console.log(dataArray);
+                sessionStorage.setItem('myInfoArray',dataArray);
+
+
+     
+        }else{
+            console.log(err);
+        }      
+    };
+    
+    xmlhttp.send(query);
+    
+}// end of function

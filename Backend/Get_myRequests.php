@@ -11,9 +11,11 @@ $condition = $_POST['userID'];
 //$condition = 14;
 $categories = $DBHandler->getMyRequests($tablename,$column,$condition);
 
-
+if($categories === "failed to fetch"){
+    echo $categories;
+}else{
     echo json_encode($categories);
- 
+}
 
    
     //echo json_last_error_msg();

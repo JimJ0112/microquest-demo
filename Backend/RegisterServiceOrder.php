@@ -25,9 +25,13 @@ $requestorID = $_POST['requestorID'];
 
 $responderTimeSlots = $_POST['responderTimeSlots'];
 
-$result = $DBHandler->registerServiceTransaction($formServiceID,$responderID,$requestorID,$servicePrice,$dueDate,$responderTimeSlots,$additionalNotes,$transactionStartDate);
-echo $result;
+$contract = $_POST['contract'];
 
-header("location:../RequestApplications-Services.php");
+echo $contract;
+
+$result = $DBHandler->registerServiceTransaction($formServiceID,$responderID,$requestorID,$servicePrice,$dueDate,$responderTimeSlots,$additionalNotes,$transactionStartDate,$contract);
+//echo $result;
+
+//header("location:../RequestApplications-Services.php");
 
 
